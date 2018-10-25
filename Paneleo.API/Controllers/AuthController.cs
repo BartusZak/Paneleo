@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Paneleo.API.Data;
+using Paneleo.API.Dtos;
 using Paneleo.API.Models;
 
 namespace Paneleo.API.Controllers
@@ -17,20 +18,20 @@ namespace Paneleo.API.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register(string username, string password)
+        public async Task<IActionResult> Register(UserForRegisterDto userForRegisterDto)
         {
 
-            username = username.ToLower();
+            userForRegisterDto.Username = userForRegisterDto.Username.ToLower();
 
-            if (await _repo.UserExists(username))
+            if (await _repo.UserExists(userForRegisterDto.Username))
                 return BadRequest("Użytkownik już istnieje.");
 
             var userToCreate = new User
             {
-                Username = username
+                Username = userForRegisterDto.Username
             };
 
-            var createdUser = await _repo.RegisterAsync(userToCreate, password);
+            var createdUser = await _repo.RegisterAsync(userToCreate, userForRegisterDto.Password);
             return StatusCode(201);
 
         }
