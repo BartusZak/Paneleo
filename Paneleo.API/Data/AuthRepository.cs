@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using Paneleo.API.Models;
 
 namespace Paneleo.API.Data
@@ -14,9 +15,29 @@ namespace Paneleo.API.Data
 
         public DataContext Context { get; }
 
-        public Task<User> Login(string username, string password)
+        public async Task<User> Login(string username, string password)
         {
-            throw new System.NotImplementedException();
+            var user = await _context.Users.FirstOrDefaultAsync(x => x.Username == username);
+            if (user == null)
+                return null;
+
+            if (!VerifyPasswordHash(password, user.PaswordHash, user.PaswordSalt))
+                return null;
+
+            return user;
+        }
+
+        private bool VerifyPasswordHash(string password, byte[] paswordHash, byte[] paswordSalt)
+        {
+            using (var hmac = new System.Security.Cryptography.HMACSHA512(paswordSalt))
+            {
+                var computedHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+                for (int i = 0; i < computedHash.Length; i++)
+                {
+                    if (computedHash[i] != paswordHash[i]) return false;
+                }
+                return true;
+            }
         }
 
         public async Task<User> RegisterAsync(User user, string password)
@@ -34,7 +55,6 @@ namespace Paneleo.API.Data
 
         private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
         {
-
             using (var hmac = new System.Security.Cryptography.HMACSHA512())
             {
                 passwordSalt = hmac.Key;
@@ -42,9 +62,12 @@ namespace Paneleo.API.Data
             }
         }
 
-        public Task<bool> UserExists(string username)
+        public async Task<bool> UserExists(string username)
         {
-            throw new System.NotImplementedException();
+            if (await _context.Users.AnyAsync(x => x.Username == username))
+                return true;
+
+            return false;
         }
     }
 }
