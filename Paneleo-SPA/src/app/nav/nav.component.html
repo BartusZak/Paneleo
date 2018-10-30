@@ -1,6 +1,6 @@
 <!-- <nav class="navbar navbar-dark bg-primary flex-md-nowrap shadow"> -->
 <nav class="navbar navbar-dark sticky-top bg-primary flex-md-nowrap p-0">
-  <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Paneleo</a>
+  <a class="navbar-brand col-sm-3 col-md-2 mr-0">Paneleo</a>
   <div *ngIf="loggedIn()" class="dropdown px-2" dropdown>
     <a class="dropdown-toggle text-light" dropdownToggle>
       Witaj {{authService.decodedToken?.unique_name | titlecase}}
