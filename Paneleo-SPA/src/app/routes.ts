@@ -7,14 +7,17 @@ import { HomeComponent } from './home/home.component';
 import { AuthGuard } from './_guards/auth.guard';
 
 export const appRoutes: Routes = [
+  { path: '', component: HomeComponent },
   {
-    path: 'dashboard',
-    component: DashboardComponent,
-    canActivate: [AuthGuard]
+    path: '',
+    runGuardsAndResolvers: 'always',
+    canActivate: [AuthGuard],
+    children: [
+      { path: 'dashboard', component: DashboardComponent },
+      { path: 'orders', component: OrdersComponent },
+      { path: 'products', component: ProductsComponent },
+      { path: 'user-list', component: UsersListComponent }
+    ]
   },
-  { path: 'orders', component: OrdersComponent },
-  { path: 'products', component: ProductsComponent },
-  { path: 'user-list', component: UsersListComponent },
-  { path: 'home', component: HomeComponent },
-  { path: '**', redirectTo: 'dashboard', pathMatch: 'full' }
+  { path: '**', redirectTo: '', pathMatch: 'full' }
 ];
