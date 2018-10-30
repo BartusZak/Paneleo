@@ -17,26 +17,34 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { OrdersComponent } from './orders/orders.component';
 import { ProductsComponent } from './products/products.component';
 import { appRoutes } from './routes';
+import { LeftMenuComponent } from './left-menu/left-menu.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    NavComponent,
-    HomeComponent,
-    RegisterComponent,
-    UsersListComponent,
-    DashboardComponent,
-    OrdersComponent,
-    ProductsComponent
-  ],
-  imports: [
-    BrowserModule,
-    HttpClientModule,
-    FormsModule,
-    BsDropdownModule.forRoot(),
-    RouterModule.forRoot(appRoutes)
-  ],
-  providers: [AuthService, ErrorInterceptorProvider, AlertifyService],
-  bootstrap: [AppComponent]
+   declarations: [
+      AppComponent,
+      NavComponent,
+      HomeComponent,
+      RegisterComponent,
+      UsersListComponent,
+      DashboardComponent,
+      OrdersComponent,
+      ProductsComponent,
+      LeftMenuComponent
+   ],
+   imports: [
+      BrowserModule,
+      HttpClientModule,
+      FormsModule,
+      BsDropdownModule.forRoot(),
+      RouterModule.forRoot(appRoutes)
+   ],
+   providers: [
+      AuthService,
+      ErrorInterceptorProvider,
+      AlertifyService
+   ],
+   bootstrap: [
+      AppComponent
+   ]
 })
 export class AppModule {}
