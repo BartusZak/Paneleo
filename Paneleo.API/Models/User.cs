@@ -1,3 +1,5 @@
+using System;
+
 namespace Paneleo.API.Models
 {
     public class User
@@ -6,5 +8,9 @@ namespace Paneleo.API.Models
         public string Username { get; set; }
         public byte[] PaswordHash { get; set; }
         public byte[] PaswordSalt { get; set; }
+        public DateTime LastActive { get; set; }
+        public string KnownAs { get; set; }
+        public string Name { get; set; }
+        public string Forname { get; set; }
     }
 }
