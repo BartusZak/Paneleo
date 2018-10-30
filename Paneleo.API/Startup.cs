@@ -24,6 +24,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using AutoMapper;
 
 namespace Paneleo.API
 {
@@ -46,6 +47,7 @@ namespace Paneleo.API
                     opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
                 });
             services.AddCors();
+            services.AddAutoMapper();
             services.AddTransient<Seed>();
             services.AddScoped<IAuthRepository, AuthRepository>();
             services.AddScoped<IPaneleoRepository, PaneleoRepository>();
