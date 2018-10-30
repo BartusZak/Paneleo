@@ -18,33 +18,33 @@ import { OrdersComponent } from './orders/orders.component';
 import { ProductsComponent } from './products/products.component';
 import { appRoutes } from './routes';
 import { LeftMenuComponent } from './left-menu/left-menu.component';
+import { AuthGuard } from './_guards/auth.guard';
 
 @NgModule({
-   declarations: [
-      AppComponent,
-      NavComponent,
-      HomeComponent,
-      RegisterComponent,
-      UsersListComponent,
-      DashboardComponent,
-      OrdersComponent,
-      ProductsComponent,
-      LeftMenuComponent
-   ],
-   imports: [
-      BrowserModule,
-      HttpClientModule,
-      FormsModule,
-      BsDropdownModule.forRoot(),
-      RouterModule.forRoot(appRoutes)
-   ],
-   providers: [
-      AuthService,
-      ErrorInterceptorProvider,
-      AlertifyService
-   ],
-   bootstrap: [
-      AppComponent
-   ]
+  declarations: [
+    AppComponent,
+    NavComponent,
+    HomeComponent,
+    RegisterComponent,
+    UsersListComponent,
+    DashboardComponent,
+    OrdersComponent,
+    ProductsComponent,
+    LeftMenuComponent
+  ],
+  imports: [
+    BrowserModule,
+    HttpClientModule,
+    FormsModule,
+    BsDropdownModule.forRoot(),
+    RouterModule.forRoot(appRoutes)
+  ],
+  providers: [
+    AuthService,
+    ErrorInterceptorProvider,
+    AlertifyService,
+    AuthGuard
+  ],
+  bootstrap: [AppComponent]
 })
 export class AppModule {}
