@@ -19,6 +19,7 @@ import { ProductsComponent } from './products/products.component';
 import { appRoutes } from './routes';
 import { LeftMenuComponent } from './left-menu/left-menu.component';
 import { AuthGuard } from './_guards/auth.guard';
+import { UserService } from './_services/user.service';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { AuthGuard } from './_guards/auth.guard';
     AuthService,
     ErrorInterceptorProvider,
     AlertifyService,
-    AuthGuard
+    AuthGuard,
+    UserService
   ],
   bootstrap: [AppComponent]
 })
