@@ -1,3 +1,38 @@
-<p>
-  {{user.knownAs}}
-</p>
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-sm">
+      <div class="alert alert-info">
+        <p class="mb-0">
+          <strong>
+            Uwaga!
+          </strong>
+          Wprowadziłeś zmiany - zapisz je!
+        </p>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          <form>
+            <label for="nazwa">Znany jako</label>
+            <input type="text" class="form-control" name="nazwa" [(ngModel)]="user.knownAs" />
+
+            <label for="noweHaslo">Nowe hasło</label>
+            <input type="password" class="form-control" name="noweHaslo" [(ngModel)]="user.newPassword" />
+
+            <label for="powtorzNoweHaslo">Powtórz nowe hasło</label>
+            <input type="password" class="form-control" name="powtorzNoweHaslo" [(ngModel)]="user.newRepeatedPassword" />
+
+          </form>
+
+        </div>
+        <div class="card-footer">
+          <div class="btn-group d-flex">
+            <button class="btn btn-success btn-block">Zapisz zmiany</button>
+          </div>
+
+          <div class="btn-group d-flex mt-3"></div>
+          <button class="btn btn-danger btn-block">Usuń konto</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
