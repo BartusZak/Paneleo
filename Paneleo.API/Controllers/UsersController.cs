@@ -45,6 +45,9 @@ namespace Paneleo.API.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateUser(int id, UserForUpdateDto userForUpdateDto)
         {
+            if (userForUpdateDto.Password != userForUpdateDto.RepeatedPassword)
+                throw new Exception($"Hasla nie sa identyczne!");
+
             if (id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
                 return Unauthorized();
 
@@ -55,7 +58,7 @@ namespace Paneleo.API.Controllers
             if (await _repo.SaveAll())
                 return NoContent();
 
-            throw new Exception($"Edycja użytkownika {id} nie powiodła się");
+            throw new Exception($"Edycja uzytkownika {id} nie powiodla sie");
         }
     }
 }
