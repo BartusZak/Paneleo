@@ -23,6 +23,8 @@ import { AuthGuard } from './_guards/auth.guard';
 import { UserService } from './_services/user.service';
 import { UserCardComponent } from './users/user-card/user-card.component';
 import { UsersListResolver } from './_resolvers/users-list-resolver';
+import { UserEditComponent } from './users/user-edit/user-edit.component';
+import { UserEditResolver } from './_resolvers/users-edit-resolver';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -39,7 +41,8 @@ export function tokenGetter() {
     OrdersComponent,
     ProductsComponent,
     LeftMenuComponent,
-    UserCardComponent
+    UserCardComponent,
+    UserEditComponent
   ],
   imports: [
     BrowserModule,
@@ -61,7 +64,8 @@ export function tokenGetter() {
     AlertifyService,
     AuthGuard,
     UserService,
-    UsersListResolver
+    UsersListResolver,
+    UserEditResolver
   ],
   bootstrap: [AppComponent]
 })

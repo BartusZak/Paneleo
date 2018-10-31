@@ -6,6 +6,8 @@ import { ProductsComponent } from './products/products.component';
 import { HomeComponent } from './home/home.component';
 import { AuthGuard } from './_guards/auth.guard';
 import { UsersListResolver } from './_resolvers/users-list-resolver';
+import { UserEditComponent } from './users/user-edit/user-edit.component';
+import { UserEditResolver } from './_resolvers/users-edit-resolver';
 
 export const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -21,6 +23,11 @@ export const appRoutes: Routes = [
         path: 'users',
         component: UsersListComponent,
         resolve: { users: UsersListResolver }
+      },
+      {
+        path: 'user/edit',
+        component: UserEditComponent,
+        resolve: { user: UserEditResolver }
       }
     ]
   },
