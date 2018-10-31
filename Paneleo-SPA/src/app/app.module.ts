@@ -12,7 +12,7 @@ import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
 import { ErrorInterceptorProvider } from './_services/error.interceptor';
 import { AlertifyService } from './_services/alertify.service';
-import { UsersListComponent } from './users-list/users-list.component';
+import { UsersListComponent } from './users/users-list/users-list.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { OrdersComponent } from './orders/orders.component';
 import { ProductsComponent } from './products/products.component';
@@ -20,6 +20,7 @@ import { appRoutes } from './routes';
 import { LeftMenuComponent } from './left-menu/left-menu.component';
 import { AuthGuard } from './_guards/auth.guard';
 import { UserService } from './_services/user.service';
+import { UserCardComponent } from './users/user-card/user-card.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { UserService } from './_services/user.service';
     DashboardComponent,
     OrdersComponent,
     ProductsComponent,
-    LeftMenuComponent
+    LeftMenuComponent,
+    UserCardComponent
   ],
   imports: [
     BrowserModule,
