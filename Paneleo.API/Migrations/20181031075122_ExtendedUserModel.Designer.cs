@@ -9,8 +9,8 @@ using Paneleo.API.Data;
 namespace Paneleo.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20181030103529_ExtendedUserClass")]
-    partial class ExtendedUserClass
+    [Migration("20181031075122_ExtendedUserModel")]
+    partial class ExtendedUserModel
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,7 +23,7 @@ namespace Paneleo.API.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Forname");
+                    b.Property<string>("Forename");
 
                     b.Property<string>("KnownAs");
 

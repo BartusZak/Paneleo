@@ -4,5 +4,5 @@ export interface User {
   knownAs: string;
   lastActive: Date;
   name: string;
-  forname: string;
+  forename: string;
 }

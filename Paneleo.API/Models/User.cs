@@ -11,6 +11,6 @@ namespace Paneleo.API.Models
         public DateTime LastActive { get; set; }
         public string KnownAs { get; set; }
         public string Name { get; set; }
-        public string Forname { get; set; }
+        public string Forename { get; set; }
     }
 }

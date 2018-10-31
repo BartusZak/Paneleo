@@ -3,12 +3,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Paneleo.API.Migrations
 {
-    public partial class ExtendedUserClass : Migration
+    public partial class ExtendedUserModel : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<string>(
-                name: "Forname",
+                name: "Forename",
                 table: "Users",
                 nullable: true);
 
@@ -32,7 +32,7 @@ namespace Paneleo.API.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "Forname",
+                name: "Forename",
                 table: "Users");
 
             migrationBuilder.DropColumn(

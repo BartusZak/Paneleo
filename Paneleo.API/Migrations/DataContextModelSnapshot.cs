@@ -21,7 +21,7 @@ namespace Paneleo.API.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Forname");
+                    b.Property<string>("Forename");
 
                     b.Property<string>("KnownAs");
 
