@@ -5,6 +5,7 @@ import { OrdersComponent } from './orders/orders.component';
 import { ProductsComponent } from './products/products.component';
 import { HomeComponent } from './home/home.component';
 import { AuthGuard } from './_guards/auth.guard';
+import { UsersListResolver } from './_resolvers/users-list-resolver';
 
 export const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -16,7 +17,11 @@ export const appRoutes: Routes = [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'orders', component: OrdersComponent },
       { path: 'products', component: ProductsComponent },
-      { path: 'user-list', component: UsersListComponent }
+      {
+        path: 'users',
+        component: UsersListComponent,
+        resolve: { users: UsersListResolver }
+      }
     ]
   },
   { path: '**', redirectTo: '', pathMatch: 'full' }

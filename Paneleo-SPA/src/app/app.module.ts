@@ -22,6 +22,7 @@ import { LeftMenuComponent } from './left-menu/left-menu.component';
 import { AuthGuard } from './_guards/auth.guard';
 import { UserService } from './_services/user.service';
 import { UserCardComponent } from './users/user-card/user-card.component';
+import { UsersListResolver } from './_resolvers/users-list-resolver';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -59,7 +60,8 @@ export function tokenGetter() {
     ErrorInterceptorProvider,
     AlertifyService,
     AuthGuard,
-    UserService
+    UserService,
+    UsersListResolver
   ],
   bootstrap: [AppComponent]
 })
