@@ -7,10 +7,12 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Paneleo.API.Data;
 using Paneleo.API.Dtos;
+using Paneleo.API.Helpers;
 using Paneleo.API.Models;
 
 namespace Paneleo.API.Controllers
 {
+    [ServiceFilter(typeof(LogUserActivity))]
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
