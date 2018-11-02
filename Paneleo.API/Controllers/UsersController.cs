@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Paneleo.API.Data;
 using Paneleo.API.Dtos;
+using Paneleo.API.Models;
 
 namespace Paneleo.API.Controllers
 {
@@ -45,20 +46,51 @@ namespace Paneleo.API.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateUser(int id, UserForUpdateDto userForUpdateDto)
         {
-            if (userForUpdateDto.Password != userForUpdateDto.RepeatedPassword)
-                throw new Exception($"Hasla nie sa identyczne!");
+            byte[] passwordHash, passwordSalt;
+            User user = new User();
 
             if (id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
                 return Unauthorized();
 
+            if (userForUpdateDto.Password != null && userForUpdateDto.RepeatedPassword != null && userForUpdateDto.Password != userForUpdateDto.RepeatedPassword)
+                throw new Exception($"Hasla nie sa identyczne!");
+
             var userFromRepo = await _repo.GetUser(id);
 
-            _mapper.Map(userForUpdateDto, userFromRepo);
+            user = userFromRepo;
+
+            if (userForUpdateDto.Password != null && userForUpdateDto.RepeatedPassword != null)
+            {
+                CreatePasswordHash(userForUpdateDto.Password, out passwordHash, out passwordSalt);
+
+                user.PaswordSalt = passwordSalt;
+                user.PaswordHash = passwordHash;
+            }
+
+            if (!string.IsNullOrEmpty(userForUpdateDto.knownAs) && userForUpdateDto.knownAs != user.KnownAs)
+                user.KnownAs = userForUpdateDto.knownAs;
+
+            if (!string.IsNullOrEmpty(userForUpdateDto.Name) && userForUpdateDto.Name != user.Name)
+                user.Name = userForUpdateDto.Name;
+
+            if (!string.IsNullOrEmpty(userForUpdateDto.Forename) && userForUpdateDto.Forename != user.Forename)
+                user.Forename = userForUpdateDto.Forename;
+
+            _mapper.Map(user, userFromRepo);
 
             if (await _repo.SaveAll())
                 return NoContent();
 
-            throw new Exception($"Edycja uzytkownika {id} nie powiodla sie");
+            throw new Exception($"Edycja uzytkownika {userFromRepo.Username} nie powiodla sie");
+        }
+        private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
+        {
+            using (var hmac = new System.Security.Cryptography.HMACSHA512())
+            {
+                passwordSalt = hmac.Key;
+                passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+            }
         }
     }
+
 }
