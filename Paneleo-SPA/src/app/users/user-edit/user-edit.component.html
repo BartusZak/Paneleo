@@ -17,8 +17,8 @@
           <form #editForm="ngForm" id="editForm" (ngSubmit)="updateUser()">
             <div class="row">
               <div class="col-sm-6 col-md-4">
-                <label for="nick">Wyświetlany nick</label>
-                <input type="text" class="form-control" name="nick" [(ngModel)]="user.knownAs" />
+                <label for="knownAs">Wyświetlany nick</label>
+                <input type="text" class="form-control" name="knownAs" [(ngModel)]="user.knownAs" />
               </div>
             </div>
 
@@ -34,12 +34,12 @@
             </div>
             <div class="row">
               <div class="col-sm-6 col-md-4">
-                <label for="noweHaslo">Nowe hasło</label>
-                <input type="password" class="form-control" name="noweHaslo" [(ngModel)]="user.password" />
+                <label for="password">Nowe hasło</label>
+                <input type="password" class="form-control" name="password" [(ngModel)]="user.password" />
               </div>
               <div class="col-sm-6 col-md-4">
-                <label for="powtorzNoweHaslo">Powtórz nowe hasło</label>
-                <input type="password" class="form-control" name="powtorzNoweHaslo" [(ngModel)]="user.repeatedPassword" />
+                <label for="repeatedPassword">Powtórz nowe hasło</label>
+                <input type="password" class="form-control" name="repeatedPassword" [(ngModel)]="user.repeatedPassword" />
               </div>
             </div>
           </form>

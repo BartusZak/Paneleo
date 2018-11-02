@@ -7,6 +7,6 @@
       <i class="fa fa-user"></i>
       {{user.knownAs}}, {{user.name}} {{user.forename}}
     </h6>
-    <p class="card-text text-muted text-center">{{user.lastActive | date : 'dd-MM-yyyy'}}</p>
+    <p class="card-text text-muted text-center">{{user.lastActive | amLocale:'pl' | amTimeAgo}}</p>
   </div>
 </div>
