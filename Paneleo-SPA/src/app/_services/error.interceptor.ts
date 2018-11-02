@@ -32,7 +32,7 @@ export class ErrorInterceptor implements ErrorInterceptor {
           if (serverError && typeof serverError === 'object') {
             for (const key in serverError) {
               if (serverError[key]) {
-                modalStateErrors += serverError[key] + '\n';
+                modalStateErrors += serverError[key] + '\n<br/>';
               }
             }
           }

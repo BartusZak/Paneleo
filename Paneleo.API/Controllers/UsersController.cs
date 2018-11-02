@@ -40,7 +40,9 @@ namespace Paneleo.API.Controllers
         {
             var user = await _repo.GetUser(id);
 
-            return Ok(user);
+            var userToReturn = _mapper.Map<UserForDetailsDto>(user);
+
+            return Ok(userToReturn);
         }
 
         [HttpPut("{id}")]
@@ -67,8 +69,8 @@ namespace Paneleo.API.Controllers
                 user.PaswordHash = passwordHash;
             }
 
-            if (!string.IsNullOrEmpty(userForUpdateDto.knownAs) && userForUpdateDto.knownAs != user.KnownAs)
-                user.KnownAs = userForUpdateDto.knownAs;
+            if (!string.IsNullOrEmpty(userForUpdateDto.KnownAs) && userForUpdateDto.KnownAs != user.KnownAs)
+                user.KnownAs = userForUpdateDto.KnownAs;
 
             if (!string.IsNullOrEmpty(userForUpdateDto.Name) && userForUpdateDto.Name != user.Name)
                 user.Name = userForUpdateDto.Name;

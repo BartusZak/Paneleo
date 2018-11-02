@@ -10,6 +10,7 @@ namespace Paneleo.API.Helpers
         {
             CreateMap<User, UserForListDto>();
             CreateMap<UserForUpdateDto, User>();
+            CreateMap<User, UserForDetailsDto>();
         }
 
     }

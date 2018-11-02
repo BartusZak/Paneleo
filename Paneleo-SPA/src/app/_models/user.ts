@@ -5,4 +5,6 @@ export interface User {
   lastActive: Date;
   name: string;
   forename: string;
+  password: string;
+  repeatedPassword: string;
 }

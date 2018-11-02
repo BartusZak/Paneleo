@@ -5,7 +5,7 @@ namespace Paneleo.API.Dtos
     public class UserForUpdateDto
     {
         [Display(Name = "Nick")]
-        public string knownAs { get; set; }
+        public string KnownAs { get; set; }
 
         [Display(Name = "Imię")]
         public string Name { get; set; }
@@ -13,14 +13,12 @@ namespace Paneleo.API.Dtos
         [Display(Name = "Nazwisko")]
         public string Forename { get; set; }
 
-        [StringLength(18, ErrorMessage = "{0} musi mieć przynajmniej {2} znaków.", MinimumLength = 6)]
-        [RegularExpression(@"^((?=.*[a-z])(?=.*[A-Z])(?=.*\d)).+$")]
+        [StringLength(18, ErrorMessage = "{0} musi mieć od {2} do {1} znaków.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Hasło")]
         public string Password { get; set; }
 
-        [StringLength(18, ErrorMessage = "{0} musi mieć przynajmniej {2} znaków.", MinimumLength = 6)]
-        [RegularExpression(@"^((?=.*[a-z])(?=.*[A-Z])(?=.*\d)).+$")]
+        [StringLength(18, ErrorMessage = "{0} musi mieć od {2} do {1} znaków.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Powtórzone hasło")]
         public string RepeatedPassword { get; set; }
