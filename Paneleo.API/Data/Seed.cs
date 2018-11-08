@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Newtonsoft.Json;
 using Paneleo.API.Models;
 
@@ -15,22 +16,26 @@ namespace Paneleo.API.Data
 
         public void SeedUsers()
         {
-            var userData = System.IO.File.ReadAllText("Data/UserSeedData.json");
-            var users = JsonConvert.DeserializeObject<List<User>>(userData);
-            foreach (var user in users)
+            if (!_context.Users.Any())
             {
-                byte[] passwordHash, passwordSalt;
-                CreatePasswordHash("Bartek123", out passwordHash, out passwordSalt);
+                var userData = System.IO.File.ReadAllText("Data/UserSeedData.json");
+                var users = JsonConvert.DeserializeObject<List<User>>(userData);
+                foreach (var user in users)
+                {
+                    byte[] passwordHash, passwordSalt;
+                    CreatePasswordHash("Bartek123", out passwordHash, out passwordSalt);
 
-                user.PaswordHash = passwordHash;
-                user.PaswordSalt = passwordSalt;
-                user.Username = user.Username.ToLower();
+                    user.PaswordHash = passwordHash;
+                    user.PaswordSalt = passwordSalt;
+                    user.Username = user.Username.ToLower();
 
-                user.LastActive = DateTime.Now;
+                    user.LastActive = DateTime.Now;
 
-                _context.Users.Add(user);
+                    _context.Users.Add(user);
+                }
+                _context.SaveChanges();
             }
-            _context.SaveChanges();
+
         }
 
         private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)

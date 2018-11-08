@@ -93,7 +93,7 @@ namespace Paneleo.API
                 // app.UseHsts();
             }
             // app.UseHttpsRedirection();
-            // seeder.SeedUsers();
+            seeder.SeedUsers();
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             app.UseAuthentication();
             app.UseDefaultFiles();

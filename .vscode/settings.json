@@ -1,0 +1,30 @@
+{
+  "deploy": {
+    "packages": [
+      {
+        "name": "Version 1.0",
+        "description": "Paneleo App Version 1.0",
+        "files": ["Paneleo.API/bin/Debug/netcoreapp2.1/publish/**"]
+      }
+    ],
+    "targets": [
+      {
+        "type": "sftp",
+        "name": "Linux",
+        "description": "Remote Linux Server",
+        "dir": "/var/paneleoapp",
+        "mappings": [
+          {
+            "source": "/Paneleo.API/bin/Debug/netcoreapp2.1/publish",
+            "target": "/"
+          }
+        ],
+        "host": "....",
+        "port": 22,
+        "user": "root",
+        "password": "....",
+        "checkBeforeDeploy": true
+      }
+    ]
+  }
+}
