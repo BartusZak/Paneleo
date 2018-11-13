@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-import { BsDropdownModule } from 'ngx-bootstrap';
+import { BsDropdownModule, PaginationModule } from 'ngx-bootstrap';
 import { RouterModule } from '@angular/router';
 import { JwtModule } from '@auth0/angular-jwt';
 import { MomentModule } from 'ngx-moment';
@@ -27,6 +27,8 @@ import { UsersListResolver } from './_resolvers/users-list-resolver';
 import { UserEditComponent } from './users/user-edit/user-edit.component';
 import { UserEditResolver } from './_resolvers/users-edit-resolver';
 import { TitleService } from './_services/title.service';
+import { StatsComponent } from './dashboard/stats/stats.component';
+import { BoxComponent } from './dashboard/stats/box/box.component';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -40,6 +42,8 @@ export function tokenGetter() {
     RegisterComponent,
     UsersListComponent,
     DashboardComponent,
+    StatsComponent,
+    BoxComponent,
     OrdersComponent,
     ProductsComponent,
     LeftMenuComponent,
@@ -51,6 +55,7 @@ export function tokenGetter() {
     HttpClientModule,
     FormsModule,
     BsDropdownModule.forRoot(),
+    PaginationModule.forRoot(),
     RouterModule.forRoot(appRoutes),
     JwtModule.forRoot({
       config: {
