@@ -26,6 +26,7 @@ import { UserCardComponent } from './users/user-card/user-card.component';
 import { UsersListResolver } from './_resolvers/users-list-resolver';
 import { UserEditComponent } from './users/user-edit/user-edit.component';
 import { UserEditResolver } from './_resolvers/users-edit-resolver';
+import { TitleService } from './_services/title.service';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -62,6 +63,7 @@ export function tokenGetter() {
   ],
   providers: [
     AuthService,
+    TitleService,
     ErrorInterceptorProvider,
     AlertifyService,
     AuthGuard,

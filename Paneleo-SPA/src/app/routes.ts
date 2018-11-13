@@ -16,17 +16,31 @@ export const appRoutes: Routes = [
     runGuardsAndResolvers: 'always',
     canActivate: [AuthGuard],
     children: [
-      { path: 'dashboard', component: DashboardComponent },
-      { path: 'orders', component: OrdersComponent },
-      { path: 'products', component: ProductsComponent },
+      {
+        path: 'dashboard',
+        component: DashboardComponent,
+        data: { title: 'dashboard' }
+      },
+      {
+        path: 'orders',
+        component: OrdersComponent,
+        data: [{ title: 'orders' }]
+      },
+      {
+        path: 'products',
+        component: ProductsComponent,
+        data: { title: 'orders' }
+      },
       {
         path: 'users',
         component: UsersListComponent,
+        data: { title: 'users' },
         resolve: { users: UsersListResolver }
       },
       {
         path: 'user/edit',
         component: UserEditComponent,
+        data: { title: 'user/edit' },
         resolve: { user: UserEditResolver }
       }
     ]

@@ -19,10 +19,10 @@
             "target": "/"
           }
         ],
-        "host": "....",
+        "host": "51.38.130.76",
         "port": 22,
         "user": "root",
-        "password": "....",
+        "password": "UGoViFB1",
         "checkBeforeDeploy": true
       }
     ]

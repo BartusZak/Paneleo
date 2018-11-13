@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { TitleService } from '../_services/title.service';
+
+import { Order } from '../_models/order';
 
 @Component({
   selector: 'app-orders',
@@ -6,10 +9,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./orders.component.css']
 })
 export class OrdersComponent implements OnInit {
+  constructor(private titleService: TitleService) {}
 
-  constructor() { }
+  orders: Order[] = [new Order(1, 'test')];
 
   ngOnInit() {
+    this.titleService.setTitle('Zamówienia');
   }
 
+  hasOrders(): boolean {
+    return this.orders && this.orders.length !== 0;
+  }
+
+  // ngOnDestroy() {
+  //   this.titleService.setTitle('');
+  // }
 }

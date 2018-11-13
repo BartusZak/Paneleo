@@ -1,3 +1,82 @@
-<p>
-  orders works!
-</p>
+<div class="py-3">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-3">
+        <div class="select"><input type="text" class="form-control" /></div>
+      </div>
+      <div class="col-md-3">
+        <button
+          type="button"
+          class="btn btn-primary float-right"
+          [routerLink]="['/projects/projects-list/add']"
+        >
+          Dodaj
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="py-0">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div *ngIf="!hasOrders()" class="alert alert-warning" role="alert">
+          NotFound
+        </div>
+        <div *ngIf="hasOrders()" class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr class="text-center">
+                <th class="thead text-left">Nazwa</th>
+                <th class="thead text-left">Opis</th>
+                <th class="thead"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let order of orders">
+                <td
+                  class="name m-auto noselect text-left"
+                  title="{{ order.id }}"
+                >
+                  {{ order.id }}
+                </td>
+                <td
+                  class="name m-auto noselect text-left"
+                  title="{{ order.note }}"
+                >
+                  {{ order.note }}
+                </td>
+                <td class="tbody nowrap text-right">
+                  <button
+                    [routerLink]="[
+                      '/projects/projects-list/project-edit/' + order.id
+                    ]"
+                    class="btn btn-outline-success btn-sm"
+                  >
+                    aaaa
+                  </button>
+                  <button
+                    [routerLink]="[
+                      '/projects/projects-list/project-details/' + order.id
+                    ]"
+                    class="btn btn-outline-primary btn-sm ml-2"
+                  >
+                    bbb
+                  </button>
+                  <!--
+                    <button
+                      (click)="openArchiveModal(project)"
+                      class="btn btn-outline-warning btn-sm ml-2"
+                    >
+                      ccc
+                    </button>
+                  -->
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
