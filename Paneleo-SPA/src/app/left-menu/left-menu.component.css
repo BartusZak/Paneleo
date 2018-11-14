@@ -35,3 +35,7 @@
   height: 16px;
   vertical-align: text-bottom;
 }
+
+a {
+  text-decoration: none;
+}

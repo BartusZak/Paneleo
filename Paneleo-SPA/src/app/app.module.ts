@@ -29,6 +29,9 @@ import { UserEditResolver } from './_resolvers/users-edit-resolver';
 import { TitleService } from './_services/title.service';
 import { StatsComponent } from './dashboard/stats/stats.component';
 import { BoxComponent } from './dashboard/stats/box/box.component';
+import { LastAddedClientsComponent } from './dashboard/last-added-clients/last-added-clients.component';
+import { LastAddedOrdersComponent } from './dashboard/last-added-orders/last-added-orders.component';
+import { LastAddedProductsComponent } from './dashboard/last-added-products/last-added-products.component';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -48,7 +51,10 @@ export function tokenGetter() {
     ProductsComponent,
     LeftMenuComponent,
     UserCardComponent,
-    UserEditComponent
+    UserEditComponent,
+    LastAddedClientsComponent,
+    LastAddedOrdersComponent,
+    LastAddedProductsComponent
   ],
   imports: [
     BrowserModule,
