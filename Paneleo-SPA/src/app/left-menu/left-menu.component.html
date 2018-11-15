@@ -145,8 +145,11 @@
           </svg>
           Zamówienia
         </a>
-        <a class="d-flex align-items-center text-muted" href="#">
-          <i class="fa fa-plus-circle"></i>
+        <a
+          class="d-flex align-items-center text-muted"
+          [routerLink]="['/orders/add']"
+        >
+          <i title="Dodaj zamówienie" class="fa fa-plus-circle"></i>
         </a>
       </li>
       <!--

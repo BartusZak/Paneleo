@@ -1,0 +1,256 @@
+<div class="row">
+  <div class="col-sm-5 col-sm-offset-1 ">
+    <div class="form-group d-flex">
+      <label for="order-number" class="h6 control-label col-5 m-0 flex-centered"
+        >Zamówienie nr</label
+      >
+
+      <div class="input-group col-7">
+        <input
+          type="text"
+          name="number"
+          id="order-number"
+          value="1"
+          maxlength="63"
+          class="form-control"
+          autocomplete="on"
+        />
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-5">
+    <div class="form-group d-flex">
+      <label for="order-date" class="control-label col-5 m-0 flex-centered"
+        >Data wystawienia</label
+      >
+
+      <div class="input-group col-7">
+        <input
+          type="text"
+          name="date"
+          id="order-date"
+          value="10-10-2018"
+          maxlength="63"
+          class="form-control"
+          autocomplete="on"
+        />
+      </div>
+    </div>
+    <div class="form-group d-flex">
+      <label for="order-pleace" class="control-label col-5 m-0 flex-centered"
+        >Miejsce wystawienia</label
+      >
+
+      <div class="input-group col-7">
+        <input
+          type="text"
+          name="text"
+          id="order-pleace"
+          value="Giżycko"
+          maxlength="63"
+          class="form-control"
+          autocomplete="on"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ------------------------------------------------------------ -->
+
+<div class="row bg-primary pt-3">
+  <div class="col-sm-6 col-lg-5 col-lg-offset-1">
+    <div class="row">
+      <div class="col-12"><h3>Zamawiający</h3></div>
+    </div>
+
+    <div class="form-group d-flex">
+      <label
+        for="order-client-name"
+        class="control-label col-4 m-0 flex-centered"
+        >Nazwa/ Firma</label
+      >
+      <div class="input-group col-8">
+        <input
+          type="text"
+          name="text"
+          id="order-client-name"
+          value="Jan Nowak"
+          maxlength="63"
+          class="form-control"
+        />
+      </div>
+    </div>
+
+    <div class="form-group d-flex">
+      <label
+        for="order-client-nip"
+        class="control-label col-4 m-0 flex-centered"
+        >NIP</label
+      >
+      <div class="input-group col-8">
+        <input
+          type="text"
+          name="text"
+          id="order-client-nip"
+          value="8451373322"
+          maxlength="63"
+          class="form-control"
+        />
+      </div>
+    </div>
+
+    <div class="form-group d-flex">
+      <label
+        for="order-client-adres"
+        class="control-label col-4 m-0 flex-centered"
+        >Adres</label
+      >
+      <div class="input-group col-8">
+        <input
+          type="text"
+          name="text"
+          id="order-client-adres"
+          value="ul. Kowala 1 23-234 Grudziądz"
+          maxlength="63"
+          class="form-control"
+        />
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-6 col-lg-6">
+    <div class="row">
+      <div class="col-6"><h3>Dostawca</h3></div>
+    </div>
+
+    <div class="form-group d-flex">
+      <label
+        for="order-owner-name"
+        class="control-label col-4 m-0 flex-centered"
+        >Nazwa/ Firma</label
+      >
+      <div class="input-group col-8">
+        <input
+          type="text"
+          name="order-owner-name"
+          id="order-owner-name"
+          value="F.H.U Paneleo Leszek Płoszyński"
+          maxlength="255"
+          class="form-control"
+        />
+      </div>
+    </div>
+
+    <div class="form-group d-flex">
+      <label for="order-owner-nip" class="control-label col-4 m-0 flex-centered"
+        >NIP</label
+      >
+      <div class="input-group col-8">
+        <input
+          type="text"
+          name="text"
+          id="order-owner-nip"
+          value="8451373322"
+          maxlength="63"
+          class="form-control"
+        />
+      </div>
+    </div>
+
+    <div class="form-group d-flex">
+      <label
+        for="order-owner-adres"
+        class="control-label col-4 m-0 flex-centered"
+        >Adres</label
+      >
+      <div class="input-group col-8">
+        <input
+          type="text"
+          name="text"
+          id="order-owner-adres"
+          value="ul. Obwodowa 6 11-500 Giżycko"
+          maxlength="63"
+          class="form-control"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ------------------------------------------------------------- -->
+
+<div class="row mt-4">
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th></th>
+          <th class="align-middle">lp.</th>
+          <th class="align-middle">Nazwa towaru</th>
+          <th class="align-middle">Ilość</th>
+          <th class="align-middle">Jm</th>
+          <th class="align-middle">Cena netto</th>
+          <th class="align-middle">VAT</th>
+          <th class="align-middle">Kwota netto</th>
+          <th class="align-middle">Kwota VAT</th>
+          <th class="align-middle">Kwota brutto</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="align-middle">
+            <a href="#" title="Usuń" class="fa fa-trash"></a><br />
+            <a href="#" title="Zapisz" class="fa fa-floppy-o"></a>
+          </td>
+          <td class="align-middle">1.</td>
+          <td class="align-middle"><input class="form-control" /></td>
+          <td class="align-middle"><input class="form-control" /></td>
+          <td class="align-middle">
+            <select class="form-control">
+              <option value="31">karton</option>
+              <option value="4">mb</option>
+              <option value="5">m²</option
+              ><option value="20">m³</option
+              ><option value="6">opakowanie</option
+              ><option value="33">puszka</option
+              ><option value="37">rolka</option
+              ><option value="34">skrzynka</option
+              ><option value="1" selected="selected">sztuka</option>
+            </select>
+          </td>
+          <td class="align-middle"><input class="form-control" /></td>
+          <td class="align-middle">
+            <select class="form-control"
+              ><option value="1">Bez VAT</option
+              ><option value="2">ZW</option
+              ><option value="3">0%</option>
+              <option value="4" selected="selected">23%</option>
+            </select>
+          </td>
+          <td class="align-middle">0.00</td>
+          <td class="align-middle">0.00</td>
+          <td class="align-middle">0.00</td>
+        </tr>
+      </tbody>
+      <tfoot></tfoot>
+    </table>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-12">
+    <a href="#" title="Dodaj nową pozycję do zamówienia"
+      ><i class="fa fa-plus-circle mr-3"></i>Dodaj nową pozycję do zamówienia</a
+    >
+  </div>
+</div>
+
+<!-- --------------------------------------------------------------- -->
+
+<div class="col-sm-12 text-right fixed-bottom">
+  <button class="btn btn-sm btn-primary mb-3" title="Zapisz zamówienie">
+    <i class="fa fa-floppy-o"></i> Zapisz zamówienie
+  </button>
+</div>

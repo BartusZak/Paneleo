@@ -126,6 +126,7 @@ namespace Paneleo.API
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             app.UseAuthentication();
             app.UseDefaultFiles();
+            app.UsePathBase("/paneleo");
             app.UseStaticFiles();
             app.UseMvc(routes => routes.MapSpaFallbackRoute(
                 name: "spa-fallback",

@@ -8,6 +8,7 @@ import { AuthGuard } from './_guards/auth.guard';
 import { UsersListResolver } from './_resolvers/users-list-resolver';
 import { UserEditComponent } from './users/user-edit/user-edit.component';
 import { UserEditResolver } from './_resolvers/users-edit-resolver';
+import { AddOrderComponent } from './orders/add-order/add-order.component';
 
 export const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -25,6 +26,12 @@ export const appRoutes: Routes = [
         path: 'orders',
         component: OrdersComponent,
         data: [{ title: 'orders' }]
+      },
+      {
+        path: 'orders/add',
+        component: AddOrderComponent,
+        data: { title: 'orders/add' }
+        // resolve: { user: UserEditResolver }
       },
       {
         path: 'products',

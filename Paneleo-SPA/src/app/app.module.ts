@@ -32,6 +32,7 @@ import { BoxComponent } from './dashboard/stats/box/box.component';
 import { LastAddedClientsComponent } from './dashboard/last-added-clients/last-added-clients.component';
 import { LastAddedOrdersComponent } from './dashboard/last-added-orders/last-added-orders.component';
 import { LastAddedProductsComponent } from './dashboard/last-added-products/last-added-products.component';
+import { AddOrderComponent } from './orders/add-order/add-order.component';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -48,6 +49,7 @@ export function tokenGetter() {
     StatsComponent,
     BoxComponent,
     OrdersComponent,
+    AddOrderComponent,
     ProductsComponent,
     LeftMenuComponent,
     UserCardComponent,
