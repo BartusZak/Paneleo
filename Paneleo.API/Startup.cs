@@ -25,6 +25,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using AutoMapper;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace Paneleo.API
 {
@@ -94,6 +95,11 @@ namespace Paneleo.API
             }
             );
             services.AddScoped<LogUserActivity>();
+
+            services.AddSwaggerGen(c =>
+  {
+      c.SwaggerDoc("v1", new Info { Title = "Paneleo API", Version = "v1" });
+  });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -101,6 +107,11 @@ namespace Paneleo.API
         {
             if (env.IsDevelopment())
             {
+                app.UseSwagger();
+                app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Paneleo");
+    });
                 app.UseDeveloperExceptionPage();
             }
             else
