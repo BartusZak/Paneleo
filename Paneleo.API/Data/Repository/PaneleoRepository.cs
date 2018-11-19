@@ -2,14 +2,15 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Paneleo.API.Models;
+using Paneleo.API.Repository.DatabaseContext;
 
 namespace Paneleo.API.Data
 {
     public class PaneleoRepository : IPaneleoRepository
     {
-        private readonly DataContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public PaneleoRepository(DataContext context)
+        public PaneleoRepository(ApplicationDbContext context)
         {
             this._context = context;
 

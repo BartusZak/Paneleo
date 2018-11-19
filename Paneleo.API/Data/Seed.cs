@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
 using Paneleo.API.Models;
+using Paneleo.API.Repository.DatabaseContext;
 
 namespace Paneleo.API.Data
 {
     public class Seed
     {
-        private readonly DataContext _context;
-        public Seed(DataContext context)
+        private readonly ApplicationDbContext _context;
+        public Seed(ApplicationDbContext context)
         {
             this._context = context;
         }

@@ -2,18 +2,19 @@ using System;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Paneleo.API.Models;
+using Paneleo.API.Repository.DatabaseContext;
 
 namespace Paneleo.API.Data
 {
     public class AuthRepository : IAuthRepository
     {
-        private readonly DataContext _context;
-        public AuthRepository(DataContext context)
+        private readonly ApplicationDbContext _context;
+        public AuthRepository(ApplicationDbContext context)
         {
             this._context = context;
         }
 
-        public DataContext Context { get; }
+        public ApplicationDbContext Context { get; }
 
         public async Task<User> Login(string username, string password)
         {

@@ -26,6 +26,11 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using AutoMapper;
 using Swashbuckle.AspNetCore.Swagger;
+using Paneleo.API.Repository.Repository.Interfaces;
+using Paneleo.API.Repository.Repository;
+using Paneleo.API.Services.Interfaces;
+using Paneleo.API.Services;
+using Paneleo.API.Repository.DatabaseContext;
 
 namespace Paneleo.API
 {
@@ -41,7 +46,7 @@ namespace Paneleo.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<DataContext>(x => x.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<ApplicationDbContext>(x => x.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
                 .AddJsonOptions(opt =>
                 {
@@ -70,7 +75,9 @@ namespace Paneleo.API
 
         public void ConfigureDevelopmentServices(IServiceCollection services)
         {
-            services.AddDbContext<DataContext>(x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
+            // services.AddDbContext<ApplicationDbContext>(x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("./Data")));
+            services.AddDbContext<ApplicationDbContext>(x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
                 .AddJsonOptions(opt =>
                 {
@@ -78,9 +85,11 @@ namespace Paneleo.API
                 });
             services.AddCors();
             services.AddAutoMapper();
-            services.AddTransient<Seed>();
+            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped<IAuthRepository, AuthRepository>();
             services.AddScoped<IPaneleoRepository, PaneleoRepository>();
+            services.AddTransient<IPaneleoProductsService, PaneleoProductsService>();
+            services.AddTransient<Seed>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options =>
             {
@@ -97,9 +106,13 @@ namespace Paneleo.API
             services.AddScoped<LogUserActivity>();
 
             services.AddSwaggerGen(c =>
-  {
-      c.SwaggerDoc("v1", new Info { Title = "Paneleo API", Version = "v1" });
-  });
+            {
+                c.SwaggerDoc("v1", new Info { Title = "Paneleo API", Version = "v1" });
+                c.AddSecurityDefinition("Bearer", new ApiKeyScheme { In = "header", Description = "Please enter JWT with Bearer into field", Name = "Authorization", Type = "apiKey" });
+                c.AddSecurityRequirement(new Dictionary<string, IEnumerable<string>> {
+                { "Bearer", Enumerable.Empty<string>() },
+            });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
