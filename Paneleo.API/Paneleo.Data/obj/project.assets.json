@@ -3585,11 +3585,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\bploszynski\\Paneleo\\Paneleo.Data\\Paneleo.Data.csproj",
+      "projectUniqueName": "C:\\Users\\bploszynski\\Paneleo\\Paneleo.API\\Paneleo.Data\\Paneleo.Data.csproj",
       "projectName": "Paneleo.Data",
-      "projectPath": "C:\\Users\\bploszynski\\Paneleo\\Paneleo.Data\\Paneleo.Data.csproj",
+      "projectPath": "C:\\Users\\bploszynski\\Paneleo\\Paneleo.API\\Paneleo.Data\\Paneleo.Data.csproj",
       "packagesPath": "C:\\Users\\bploszynski\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\bploszynski\\Paneleo\\Paneleo.Data\\obj\\",
+      "outputPath": "C:\\Users\\bploszynski\\Paneleo\\Paneleo.API\\Paneleo.Data\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -3608,8 +3608,8 @@
       "frameworks": {
         "netcoreapp2.1": {
           "projectReferences": {
-            "C:\\Users\\bploszynski\\Paneleo\\Paneleo.Models\\Paneleo.Models.csproj": {
-              "projectPath": "C:\\Users\\bploszynski\\Paneleo\\Paneleo.Models\\Paneleo.Models.csproj"
+            "C:\\Users\\bploszynski\\Paneleo\\Paneleo.API\\Paneleo.Models\\Paneleo.Models.csproj": {
+              "projectPath": "C:\\Users\\bploszynski\\Paneleo\\Paneleo.API\\Paneleo.Models\\Paneleo.Models.csproj"
             }
           }
         }

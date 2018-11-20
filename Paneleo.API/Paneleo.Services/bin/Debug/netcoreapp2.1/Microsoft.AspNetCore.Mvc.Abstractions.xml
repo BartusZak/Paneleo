@@ -137,7 +137,7 @@
              </summary>
              <remarks>
              The implementation of PropertyHelper will cache the property accessors per-type. This is
-             faster when the same type is used multiple times with ObjectToDictionary.
+             faster when the the same type is used multiple times with ObjectToDictionary.
              </remarks>
         </member>
         <member name="T:Microsoft.Extensions.Internal.ClosedGenericMatcher">
@@ -602,7 +602,7 @@
         </member>
         <member name="P:Microsoft.AspNetCore.Mvc.ActionConstraints.ActionSelectorCandidate.Action">
             <summary>
-            The <see cref="T:Microsoft.AspNetCore.Mvc.Abstractions.ActionDescriptor"/> representing a candidate for selection.
+            The <see cref="T:Microsoft.AspNetCore.Mvc.Abstractions.ActionDescriptor"/> representing a candiate for selection.
             </summary>
         </member>
         <member name="P:Microsoft.AspNetCore.Mvc.ActionConstraints.ActionSelectorCandidate.Constraints">
@@ -978,16 +978,6 @@
             Gets or sets the HTTP response status code.
             </summary>
         </member>
-        <member name="P:Microsoft.AspNetCore.Mvc.ApiExplorer.ApiResponseType.IsDefaultResponse">
-            <summary>
-            Gets or sets a value indicating whether the response type represents a default response.
-            </summary>
-            <remarks>
-            If an <see cref="T:Microsoft.AspNetCore.Mvc.ApiExplorer.ApiDescription"/> has a default response, then the <see cref="P:Microsoft.AspNetCore.Mvc.ApiExplorer.ApiResponseType.StatusCode"/> property should be ignored. This response
-            will be used when a more specific response format does not apply. The common use of a default response is to specify the format
-            for communicating error conditions.
-            </remarks>
-        </member>
         <member name="P:Microsoft.AspNetCore.Mvc.ApiExplorer.IApiDescriptionProvider.Order">
             <summary>
             Gets the order value for determining the order of execution of providers. Providers execute in
@@ -1183,46 +1173,6 @@
             Gets all applicable <see cref="T:Microsoft.AspNetCore.Mvc.Filters.IFilterMetadata"/> implementations.
             </summary>
         </member>
-        <member name="M:Microsoft.AspNetCore.Mvc.Filters.FilterContext.IsEffectivePolicy``1(``0)">
-            <summary>
-            Returns a value indicating whether the provided <see cref="T:Microsoft.AspNetCore.Mvc.Filters.IFilterMetadata"/> is the most effective
-            policy (most specific) applied to the action associated with the <see cref="T:Microsoft.AspNetCore.Mvc.Filters.FilterContext"/>.
-            </summary>
-            <typeparam name="TMetadata">The type of the filter policy.</typeparam>
-            <param name="policy">The filter policy instance.</param>
-            <returns>
-            <c>true</c> if the provided <see cref="T:Microsoft.AspNetCore.Mvc.Filters.IFilterMetadata"/> is the most effective policy, otherwise <c>false</c>.
-            </returns>
-            <remarks>
-            <para>
-            The <see cref="M:Microsoft.AspNetCore.Mvc.Filters.FilterContext.IsEffectivePolicy``1(``0)"/> method is used to implement a common convention
-            for filters that define an overriding behavior. When multiple filters may apply to the same 
-            cross-cutting concern, define a common interface for the filters (<typeparamref name="TMetadata"/>) and 
-            implement the filters such that all of the implementations call this method to determine if they should
-            take action.
-            </para>
-            <para>
-            For instance, a global filter might be overridden by placing a filter attribute on an action method.
-            The policy applied directly to the action method could be considered more specific.
-            </para>
-            <para>
-            This mechanism for overriding relies on the rules of order and scope that the filter system
-            provides to control ordering of filters. It is up to the implementor of filters to implement this 
-            protocol cooperatively. The filter system has no innate notion of overrides, this is a recommended
-            convention.
-            </para>
-            </remarks>
-        </member>
-        <member name="M:Microsoft.AspNetCore.Mvc.Filters.FilterContext.FindEffectivePolicy``1">
-            <summary>
-            Returns the most effective (most specific) policy of type <typeparamref name="TMetadata"/> applied to 
-            the action associated with the <see cref="T:Microsoft.AspNetCore.Mvc.Filters.FilterContext"/>.
-            </summary>
-            <typeparam name="TMetadata">The type of the filter policy.</typeparam>
-            <returns>The implementation of <typeparamref name="TMetadata"/> applied to the action associated with
-            the <see cref="T:Microsoft.AspNetCore.Mvc.Filters.FilterContext"/>
-            </returns>
-        </member>
         <member name="T:Microsoft.AspNetCore.Mvc.Filters.FilterDescriptor">
              <summary>
              Descriptor for an <see cref="T:Microsoft.AspNetCore.Mvc.Filters.IFilterMetadata"/>.
@@ -1237,7 +1187,7 @@
              with a higher value of Scope execute later in the pipeline. See <c>Microsoft.AspNetCore.Mvc.FilterScope</c>
              for commonly used scopes.
             
-             For <see cref="T:Microsoft.AspNetCore.Mvc.Filters.IExceptionFilter"/> implementations, the filter runs only after an exception has occurred,
+             For <see cref="T:Microsoft.AspNetCore.Mvc.Filters.IExceptionFilter"/> implementions, the filter runs only after an exception has occurred,
              and so the observed order of execution will be opposite that of other filters.
              </remarks>
         </member>
@@ -1347,23 +1297,6 @@
             </summary>
             <param name="context">The <see cref="T:Microsoft.AspNetCore.Mvc.Filters.ActionExecutedContext"/>.</param>
         </member>
-        <member name="T:Microsoft.AspNetCore.Mvc.Filters.IAlwaysRunResultFilter">
-            <summary>
-            A filter that surrounds execution of all action results.
-            </summary>
-            <remarks>
-            <para>
-            The <see cref="T:Microsoft.AspNetCore.Mvc.Filters.IAlwaysRunResultFilter"/> interface declares an <see cref="T:Microsoft.AspNetCore.Mvc.Filters.IResultFilter"/> implementation
-            that should run for all action results. <seealso cref="T:Microsoft.AspNetCore.Mvc.Filters.IAsyncAlwaysRunResultFilter"/>.
-            </para>
-            <para>
-            <see cref="T:Microsoft.AspNetCore.Mvc.Filters.IResultFilter"/> and <see cref="T:Microsoft.AspNetCore.Mvc.Filters.IAsyncResultFilter"/> instances are not executed in cases where
-            an authorization filter or resource filter short-circuits the request to prevent execution of the action.
-            <see cref="T:Microsoft.AspNetCore.Mvc.Filters.IResultFilter"/> and <see cref="T:Microsoft.AspNetCore.Mvc.Filters.IAsyncResultFilter"/> implementations
-            are also not executed in cases where an exception filter handles an exception by producing an action result.
-            </para>
-            </remarks>
-        </member>
         <member name="T:Microsoft.AspNetCore.Mvc.Filters.IAsyncActionFilter">
             <summary>
             A filter that asynchronously surrounds execution of the action, after model binding is complete.
@@ -1378,23 +1311,6 @@
             The <see cref="T:Microsoft.AspNetCore.Mvc.Filters.ActionExecutionDelegate"/>. Invoked to execute the next action filter or the action itself.
             </param>
             <returns>A <see cref="T:System.Threading.Tasks.Task"/> that on completion indicates the filter has executed.</returns>
-        </member>
-        <member name="T:Microsoft.AspNetCore.Mvc.Filters.IAsyncAlwaysRunResultFilter">
-            <summary>
-            A filter that asynchronously surrounds execution of all action results.
-            </summary>
-            <remarks>
-            <para>
-            The <see cref="T:Microsoft.AspNetCore.Mvc.Filters.IAsyncAlwaysRunResultFilter"/> interface declares an <see cref="T:Microsoft.AspNetCore.Mvc.Filters.IAsyncResultFilter"/> implementation
-            that should run for all action results. <seealso cref="T:Microsoft.AspNetCore.Mvc.Filters.IAsyncAlwaysRunResultFilter"/>.
-            </para>
-            <para>
-            <see cref="T:Microsoft.AspNetCore.Mvc.Filters.IResultFilter"/> and <see cref="T:Microsoft.AspNetCore.Mvc.Filters.IAsyncResultFilter"/> instances are not executed in cases where
-            an authorization filter or resource filter short-circuits the request to prevent execution of the action.
-            <see cref="T:Microsoft.AspNetCore.Mvc.Filters.IResultFilter"/> and <see cref="T:Microsoft.AspNetCore.Mvc.Filters.IAsyncResultFilter"/> implementations
-            are also not executed in cases where an exception filter handles an exception by producing an action result.
-            </para>
-            </remarks>
         </member>
         <member name="T:Microsoft.AspNetCore.Mvc.Filters.IAsyncAuthorizationFilter">
             <summary>
@@ -1443,24 +1359,8 @@
         </member>
         <member name="T:Microsoft.AspNetCore.Mvc.Filters.IAsyncResultFilter">
             <summary>
-            A filter that asynchronously surrounds execution of action results successfully returned from an action.
+            A filter that asynchronously surrounds execution of the action result.
             </summary>
-            <remarks>
-            <para>
-            <see cref="T:Microsoft.AspNetCore.Mvc.Filters.IResultFilter"/> and <see cref="T:Microsoft.AspNetCore.Mvc.Filters.IAsyncResultFilter"/> implementations are executed around the action
-            result only when the action method (or action filters) complete successfully.
-            </para>
-            <para>
-            <see cref="T:Microsoft.AspNetCore.Mvc.Filters.IResultFilter"/> and <see cref="T:Microsoft.AspNetCore.Mvc.Filters.IAsyncResultFilter"/> instances are not executed in cases where
-            an authorization filter or resource filter short-circuits the request to prevent execution of the action.
-            <see cref="T:Microsoft.AspNetCore.Mvc.Filters.IResultFilter"/>. <see cref="T:Microsoft.AspNetCore.Mvc.Filters.IResultFilter"/> and <see cref="T:Microsoft.AspNetCore.Mvc.Filters.IAsyncResultFilter"/> implementations
-            are also not executed in cases where an exception filter handles an exception by producing an action result.
-            </para>
-            <para>
-            To create a result filter that surrounds the execution of all action results, implement
-            either the <see cref="T:Microsoft.AspNetCore.Mvc.Filters.IAlwaysRunResultFilter"/> or the <see cref="T:Microsoft.AspNetCore.Mvc.Filters.IAsyncAlwaysRunResultFilter"/> interface.
-            </para>
-            </remarks>
         </member>
         <member name="M:Microsoft.AspNetCore.Mvc.Filters.IAsyncResultFilter.OnResultExecutionAsync(Microsoft.AspNetCore.Mvc.Filters.ResultExecutingContext,Microsoft.AspNetCore.Mvc.Filters.ResultExecutionDelegate)">
             <summary>
@@ -1621,24 +1521,8 @@
         </member>
         <member name="T:Microsoft.AspNetCore.Mvc.Filters.IResultFilter">
             <summary>
-            A filter that surrounds execution of action results successfully returned from an action.
+            A filter that surrounds execution of the action result.
             </summary>
-            <remarks>
-            <para>
-            <see cref="T:Microsoft.AspNetCore.Mvc.Filters.IResultFilter"/> and <see cref="T:Microsoft.AspNetCore.Mvc.Filters.IAsyncResultFilter"/> implementations are executed around the action
-            result only when the action method (or action filters) complete successfully.
-            </para>
-            <para>
-            <see cref="T:Microsoft.AspNetCore.Mvc.Filters.IResultFilter"/> and <see cref="T:Microsoft.AspNetCore.Mvc.Filters.IAsyncResultFilter"/> instances are not executed in cases where
-            an authorization filter or resource filter short-circuits the request to prevent execution of the action.
-            <see cref="T:Microsoft.AspNetCore.Mvc.Filters.IResultFilter"/>. <see cref="T:Microsoft.AspNetCore.Mvc.Filters.IResultFilter"/> and <see cref="T:Microsoft.AspNetCore.Mvc.Filters.IAsyncResultFilter"/> implementations
-            are also not executed in cases where an exception filter handles an exception by producing an action result.
-            </para>
-            <para>
-            To create a result filter that surrounds the execution of all action results, implement
-            either the <see cref="T:Microsoft.AspNetCore.Mvc.Filters.IAlwaysRunResultFilter"/> or the <see cref="T:Microsoft.AspNetCore.Mvc.Filters.IAsyncAlwaysRunResultFilter"/> interface.
-            </para>
-            </remarks>
         </member>
         <member name="M:Microsoft.AspNetCore.Mvc.Filters.IResultFilter.OnResultExecuting(Microsoft.AspNetCore.Mvc.Filters.ResultExecutingContext)">
             <summary>
@@ -1667,7 +1551,7 @@
         <member name="P:Microsoft.AspNetCore.Mvc.Filters.ResourceExecutedContext.Canceled">
             <summary>
             Gets or sets a value which indicates whether or not execution was canceled by a resource filter.
-            If true, then a resource filter short-circuited execution by setting
+            If true, then a resource filter short-circuted execution by setting
             <see cref="P:Microsoft.AspNetCore.Mvc.Filters.ResourceExecutingContext.Result"/>.
             </summary>
         </member>
@@ -1900,19 +1784,6 @@
             <param name="context">The <see cref="T:Microsoft.AspNetCore.Mvc.Formatters.InputFormatterContext"/>.</param>
             <returns>A <see cref="T:System.Threading.Tasks.Task"/> that on completion deserializes the request body.</returns>
         </member>
-        <member name="T:Microsoft.AspNetCore.Mvc.Formatters.IInputFormatterExceptionPolicy">
-            <summary>
-            A policy which <see cref="T:Microsoft.AspNetCore.Mvc.Formatters.IInputFormatter"/>s can implement to indicate if they want the body model binder
-            to handle all exceptions. By default, all default <see cref="T:Microsoft.AspNetCore.Mvc.Formatters.IInputFormatter"/>s implement this interface and
-            have a default value of <see cref="F:Microsoft.AspNetCore.Mvc.Formatters.InputFormatterExceptionPolicy.MalformedInputExceptions"/>.
-            </summary>
-        </member>
-        <member name="P:Microsoft.AspNetCore.Mvc.Formatters.IInputFormatterExceptionPolicy.ExceptionPolicy">
-            <summary>
-            Gets the flag to indicate if the body model binder should handle all exceptions. If an exception is handled,
-            the body model binder converts the exception into model state errors, else the exception is allowed to propagate.
-            </summary>
-        </member>
         <member name="T:Microsoft.AspNetCore.Mvc.Formatters.InputFormatterContext">
             <summary>
             A context object used by an input formatter for deserializing the request body into an object.
@@ -1994,55 +1865,6 @@
         <member name="P:Microsoft.AspNetCore.Mvc.Formatters.InputFormatterContext.ReaderFactory">
             <summary>
             Gets a delegate which can create a <see cref="T:System.IO.TextReader"/> for the request body.
-            </summary>
-        </member>
-        <member name="T:Microsoft.AspNetCore.Mvc.Formatters.InputFormatterException">
-            <summary>
-            Exception thrown by <see cref="T:Microsoft.AspNetCore.Mvc.Formatters.IInputFormatter"/> when the input is not in an expected format.
-            </summary>
-        </member>
-        <member name="T:Microsoft.AspNetCore.Mvc.Formatters.InputFormatterExceptionPolicy">
-            <summary>
-            Defines the set of policies that determine how the model binding system interprets exceptions
-            thrown by an <see cref="T:Microsoft.AspNetCore.Mvc.Formatters.IInputFormatter"/>. Applications should set 
-            <c>MvcOptions.InputFormatterExceptionPolicy</c> to configure this setting.
-            </summary>
-            <remarks>
-            <para>
-            An <see cref="T:Microsoft.AspNetCore.Mvc.Formatters.IInputFormatter"/> could throw an exception for several reasons, including:
-            <list type="bullet">
-            <item><description>malformed input</description></item>
-            <item><description>client disconnect or other I/O problem</description></item>
-            <item><description>
-            application configuration problems such as <see cref="T:System.TypeLoadException"/>
-            </description></item>
-            </list>
-            </para>
-            <para>
-            The policy associated with <see cref="F:Microsoft.AspNetCore.Mvc.Formatters.InputFormatterExceptionPolicy.AllExceptions"/> treats
-            all such categories of problems as model state errors, and usually will be reported to the client as
-            an HTTP 400. This was the only policy supported by model binding in ASP.NET Core MVC 1.0, 1.1, and 2.0
-            and is still the default for historical reasons. 
-            </para>
-            <para>
-            The policy associated with <see cref="F:Microsoft.AspNetCore.Mvc.Formatters.InputFormatterExceptionPolicy.MalformedInputExceptions"/>
-            treats only <see cref="T:Microsoft.AspNetCore.Mvc.Formatters.InputFormatterException"/> and its subclasses as model state errors. This means that
-            exceptions that are not related to the content of the HTTP request (such as a disconnect) will be rethrown,
-            which by default would cause an HTTP 500 response, unless there is exception-handling middleware enabled.
-            </para>
-            </remarks>
-        </member>
-        <member name="F:Microsoft.AspNetCore.Mvc.Formatters.InputFormatterExceptionPolicy.AllExceptions">
-            <summary>
-            This value indicates that all exceptions thrown by an <see cref="T:Microsoft.AspNetCore.Mvc.Formatters.IInputFormatter"/> will be treated
-            as model state errors.
-            </summary>
-        </member>
-        <member name="F:Microsoft.AspNetCore.Mvc.Formatters.InputFormatterExceptionPolicy.MalformedInputExceptions">
-            <summary>
-            This value indicates that only <see cref="T:Microsoft.AspNetCore.Mvc.Formatters.InputFormatterException"/> and subclasses will be treated
-            as model state errors. All other exceptions types will be rethrown and can be handled by a higher
-            level exception handler, such as exception-handling middleware.
             </summary>
         </member>
         <member name="T:Microsoft.AspNetCore.Mvc.Formatters.InputFormatterResult">
@@ -2375,34 +2197,10 @@
         <member name="M:Microsoft.AspNetCore.Mvc.ModelBinding.BindingInfo.GetBindingInfo(System.Collections.Generic.IEnumerable{System.Object})">
             <summary>
             Constructs a new instance of <see cref="T:Microsoft.AspNetCore.Mvc.ModelBinding.BindingInfo"/> from the given <paramref name="attributes"/>.
-            <para>
-            This overload does not account for <see cref="T:Microsoft.AspNetCore.Mvc.ModelBinding.BindingInfo"/> specified via <see cref="T:Microsoft.AspNetCore.Mvc.ModelBinding.ModelMetadata"/>. Consider using
-            <see cref="M:Microsoft.AspNetCore.Mvc.ModelBinding.BindingInfo.GetBindingInfo(System.Collections.Generic.IEnumerable{System.Object},Microsoft.AspNetCore.Mvc.ModelBinding.ModelMetadata)"/> overload, or <see cref="M:Microsoft.AspNetCore.Mvc.ModelBinding.BindingInfo.TryApplyBindingInfo(Microsoft.AspNetCore.Mvc.ModelBinding.ModelMetadata)"/>
-            on the result of this method to get a more accurate <see cref="T:Microsoft.AspNetCore.Mvc.ModelBinding.BindingInfo"/> instance.
-            </para>
             </summary>
             <param name="attributes">A collection of attributes which are used to construct <see cref="T:Microsoft.AspNetCore.Mvc.ModelBinding.BindingInfo"/>
             </param>
             <returns>A new instance of <see cref="T:Microsoft.AspNetCore.Mvc.ModelBinding.BindingInfo"/>.</returns>
-        </member>
-        <member name="M:Microsoft.AspNetCore.Mvc.ModelBinding.BindingInfo.GetBindingInfo(System.Collections.Generic.IEnumerable{System.Object},Microsoft.AspNetCore.Mvc.ModelBinding.ModelMetadata)">
-            <summary>
-            Constructs a new instance of <see cref="T:Microsoft.AspNetCore.Mvc.ModelBinding.BindingInfo"/> from the given <paramref name="attributes"/> and <paramref name="modelMetadata"/>.
-            </summary>
-            <param name="attributes">A collection of attributes which are used to construct <see cref="T:Microsoft.AspNetCore.Mvc.ModelBinding.BindingInfo"/>.</param>
-            <param name="modelMetadata">The <see cref="T:Microsoft.AspNetCore.Mvc.ModelBinding.ModelMetadata"/>.</param>
-            <returns>A new instance of <see cref="T:Microsoft.AspNetCore.Mvc.ModelBinding.BindingInfo"/> if any binding metadata was discovered; otherwise or <see langword="null"/>.</returns>
-        </member>
-        <member name="M:Microsoft.AspNetCore.Mvc.ModelBinding.BindingInfo.TryApplyBindingInfo(Microsoft.AspNetCore.Mvc.ModelBinding.ModelMetadata)">
-            <summary>
-            Applies binding metadata from the specified <paramref name="modelMetadata"/>.
-            <para>
-            Uses values from <paramref name="modelMetadata"/> if no value is already available.
-            </para>
-            </summary>
-            <param name="modelMetadata">The <see cref="T:Microsoft.AspNetCore.Mvc.ModelBinding.ModelMetadata"/>.</param>
-            <returns><see langword="true"/> if any binding metadata from <paramref name="modelMetadata"/> was applied;
-            <see langword="false"/> otherwise.</returns>
         </member>
         <member name="T:Microsoft.AspNetCore.Mvc.ModelBinding.BindingSource">
             <summary>
@@ -2457,7 +2255,7 @@
         </member>
         <member name="F:Microsoft.AspNetCore.Mvc.ModelBinding.BindingSource.FormFile">
             <summary>
-            A <see cref="T:Microsoft.AspNetCore.Mvc.ModelBinding.BindingSource"/> for <see cref="T:Microsoft.AspNetCore.Http.IFormFile"/>, <see cref="T:Microsoft.AspNetCore.Http.IFormCollection"/>, and <see cref="T:Microsoft.AspNetCore.Http.IFormFileCollection"/>.
+            A <see cref="T:Microsoft.AspNetCore.Mvc.ModelBinding.BindingSource"/> for <see cref="T:Microsoft.AspNetCore.Http.IFormFile"/> and <see cref="T:Microsoft.AspNetCore.Http.IFormCollection"/>.
             </summary>
         </member>
         <member name="M:Microsoft.AspNetCore.Mvc.ModelBinding.BindingSource.#ctor(System.String,System.String,System.Boolean,System.Boolean)">
@@ -2544,7 +2342,7 @@
         </member>
         <member name="T:Microsoft.AspNetCore.Mvc.ModelBinding.CompositeBindingSource">
             <summary>
-            A <see cref="P:Microsoft.AspNetCore.Mvc.ModelBinding.CompositeBindingSource.BindingSources"/> which can represent multiple value-provider data sources.
+            A <see cref="P:Microsoft.AspNetCore.Mvc.ModelBinding.CompositeBindingSource.BindingSources"/> which can repesent multiple value-provider data sources.
             </summary>
         </member>
         <member name="M:Microsoft.AspNetCore.Mvc.ModelBinding.CompositeBindingSource.Create(System.Collections.Generic.IEnumerable{Microsoft.AspNetCore.Mvc.ModelBinding.BindingSource},System.String)">
@@ -2608,7 +2406,7 @@
         </member>
         <member name="T:Microsoft.AspNetCore.Mvc.ModelBinding.IBindingSourceMetadata">
             <summary>
-            Metadata which specifies the data source for model binding.
+            Metadata which specificies the data source for model binding.
             </summary>
         </member>
         <member name="P:Microsoft.AspNetCore.Mvc.ModelBinding.IBindingSourceMetadata.BindingSource">
@@ -2832,7 +2630,7 @@
         </member>
         <member name="P:Microsoft.AspNetCore.Mvc.ModelBinding.Metadata.ModelMetadataIdentity.ContainerType">
             <summary>
-            Gets the <see cref="T:System.Type"/> defining the model property represented by the current
+            Gets the <see cref="T:System.Type"/> defining the model property respresented by the current
             instance, or <c>null</c> if the current instance does not represent a property.
             </summary>
         </member>
@@ -2850,12 +2648,6 @@
             <summary>
             Gets the name of the current instance if it represents a parameter or property, or <c>null</c> if
             the current instance represents a type.
-            </summary>
-        </member>
-        <member name="P:Microsoft.AspNetCore.Mvc.ModelBinding.Metadata.ModelMetadataIdentity.ParameterInfo">
-            <summary>
-            Gets a descriptor for the parameter, or <c>null</c> if this instance
-            does not represent a parameter.
             </summary>
         </member>
         <member name="M:Microsoft.AspNetCore.Mvc.ModelBinding.Metadata.ModelMetadataIdentity.Equals(Microsoft.AspNetCore.Mvc.ModelBinding.Metadata.ModelMetadataIdentity)">
@@ -2882,11 +2674,6 @@
             Used for <see cref="T:Microsoft.AspNetCore.Mvc.ModelBinding.ModelMetadata"/> for a property.
             </summary>
         </member>
-        <member name="F:Microsoft.AspNetCore.Mvc.ModelBinding.Metadata.ModelMetadataKind.Parameter">
-            <summary>
-            Used for <see cref="T:Microsoft.AspNetCore.Mvc.ModelBinding.ModelMetadata"/> for a parameter.
-            </summary>
-        </member>
         <member name="T:Microsoft.AspNetCore.Mvc.ModelBinding.ModelBinderProviderContext">
             <summary>
             A context object for <see cref="M:Microsoft.AspNetCore.Mvc.ModelBinding.IModelBinderProvider.GetBinder(Microsoft.AspNetCore.Mvc.ModelBinding.ModelBinderProviderContext)"/>.
@@ -2897,16 +2684,6 @@
             Creates an <see cref="T:Microsoft.AspNetCore.Mvc.ModelBinding.IModelBinder"/> for the given <paramref name="metadata"/>.
             </summary>
             <param name="metadata">The <see cref="T:Microsoft.AspNetCore.Mvc.ModelBinding.ModelMetadata"/> for the model.</param>
-            <returns>An <see cref="T:Microsoft.AspNetCore.Mvc.ModelBinding.IModelBinder"/>.</returns>
-        </member>
-        <member name="M:Microsoft.AspNetCore.Mvc.ModelBinding.ModelBinderProviderContext.CreateBinder(Microsoft.AspNetCore.Mvc.ModelBinding.ModelMetadata,Microsoft.AspNetCore.Mvc.ModelBinding.BindingInfo)">
-            <summary>
-            Creates an <see cref="T:Microsoft.AspNetCore.Mvc.ModelBinding.IModelBinder"/> for the given <paramref name="metadata"/>
-            and <paramref name="bindingInfo"/>.
-            </summary>
-            <param name="metadata">The <see cref="T:Microsoft.AspNetCore.Mvc.ModelBinding.ModelMetadata"/> for the model.</param>
-            <param name="bindingInfo">The <see cref="P:Microsoft.AspNetCore.Mvc.ModelBinding.ModelBinderProviderContext.BindingInfo"/> that should be used
-            for creating the binder.</param>
             <returns>An <see cref="T:Microsoft.AspNetCore.Mvc.ModelBinding.IModelBinder"/>.</returns>
         </member>
         <member name="P:Microsoft.AspNetCore.Mvc.ModelBinding.ModelBinderProviderContext.BindingInfo">
@@ -2922,11 +2699,6 @@
         <member name="P:Microsoft.AspNetCore.Mvc.ModelBinding.ModelBinderProviderContext.MetadataProvider">
             <summary>
             Gets the <see cref="T:Microsoft.AspNetCore.Mvc.ModelBinding.IModelMetadataProvider"/>.
-            </summary>
-        </member>
-        <member name="P:Microsoft.AspNetCore.Mvc.ModelBinding.ModelBinderProviderContext.Services">
-            <summary>
-            Gets the <see cref="T:System.IServiceProvider"/>.
             </summary>
         </member>
         <member name="T:Microsoft.AspNetCore.Mvc.ModelBinding.ModelBindingContext">
@@ -2991,7 +2763,7 @@
         </member>
         <member name="P:Microsoft.AspNetCore.Mvc.ModelBinding.ModelBindingContext.ModelState">
             <summary>
-            Gets or sets the <see cref="T:Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary"/> used to capture <see cref="T:Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateEntry"/> values
+            Gets or sets the <see cref="T:Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary"/> used to capture <see cref="P:Microsoft.AspNetCore.Mvc.ModelBinding.ModelBindingContext.ModelState"/> values
             for properties in the object graph of the model when binding.
             </summary>
             <remarks>
@@ -3040,29 +2812,21 @@
         </member>
         <member name="M:Microsoft.AspNetCore.Mvc.ModelBinding.ModelBindingContext.EnterNestedScope(Microsoft.AspNetCore.Mvc.ModelBinding.ModelMetadata,System.String,System.String,System.Object)">
             <summary>
-            Pushes a layer of state onto this context. Model binders will call this as part of recursion when binding
-            properties or collection items.
+            Pushes a layer of state onto this context. Model binders will call this as part of recursion when binding properties
+            or collection items.
             </summary>
-            <param name="modelMetadata">
-            <see cref="T:Microsoft.AspNetCore.Mvc.ModelBinding.ModelMetadata"/> to assign to the <see cref="P:Microsoft.AspNetCore.Mvc.ModelBinding.ModelBindingContext.ModelMetadata"/> property.
-            </param>
+            <param name="modelMetadata"><see cref="T:Microsoft.AspNetCore.Mvc.ModelBinding.ModelMetadata"/> to assign to the <see cref="P:Microsoft.AspNetCore.Mvc.ModelBinding.ModelBindingContext.ModelMetadata"/> property.</param>
             <param name="fieldName">Name to assign to the <see cref="P:Microsoft.AspNetCore.Mvc.ModelBinding.ModelBindingContext.FieldName"/> property.</param>
             <param name="modelName">Name to assign to the <see cref="P:Microsoft.AspNetCore.Mvc.ModelBinding.ModelBindingContext.ModelName"/> property.</param>
             <param name="model">Instance to assign to the <see cref="P:Microsoft.AspNetCore.Mvc.ModelBinding.ModelBindingContext.Model"/> property.</param>
-            <returns>
-            A <see cref="T:Microsoft.AspNetCore.Mvc.ModelBinding.ModelBindingContext.NestedScope"/> scope object which should be used in a <c>using</c> statement where
-            <see cref="M:Microsoft.AspNetCore.Mvc.ModelBinding.ModelBindingContext.EnterNestedScope(Microsoft.AspNetCore.Mvc.ModelBinding.ModelMetadata,System.String,System.String,System.Object)"/> is called.
-            </returns>
+            <returns>A <see cref="T:Microsoft.AspNetCore.Mvc.ModelBinding.ModelBindingContext.NestedScope"/> scope object which should be used in a using statement where PushContext is called.</returns>
         </member>
         <member name="M:Microsoft.AspNetCore.Mvc.ModelBinding.ModelBindingContext.EnterNestedScope">
             <summary>
-            Pushes a layer of state onto this context. Model binders will call this as part of recursion when binding
-            properties or collection items.
+            Pushes a layer of state onto this context. Model binders will call this as part of recursion when binding properties
+            or collection items.
             </summary>
-            <returns>
-            A <see cref="T:Microsoft.AspNetCore.Mvc.ModelBinding.ModelBindingContext.NestedScope"/> scope object which should be used in a <c>using</c> statement where
-            <see cref="M:Microsoft.AspNetCore.Mvc.ModelBinding.ModelBindingContext.EnterNestedScope"/> is called.
-            </returns>
+            <returns>A <see cref="T:Microsoft.AspNetCore.Mvc.ModelBinding.ModelBindingContext.NestedScope"/> scope object which should be used in a using statement where PushContext is called.</returns>        
         </member>
         <member name="M:Microsoft.AspNetCore.Mvc.ModelBinding.ModelBindingContext.ExitNestedScope">
             <summary>
@@ -3072,7 +2836,7 @@
         <member name="T:Microsoft.AspNetCore.Mvc.ModelBinding.ModelBindingContext.NestedScope">
             <summary>
             Return value of <see cref="M:EnterNestedScope"/>. Should be disposed
-            by caller when child binding context state should be popped off of
+            by caller when child binding context state should be popped off of 
             the <see cref="T:Microsoft.AspNetCore.Mvc.ModelBinding.ModelBindingContext"/>.
             </summary>
         </member>
@@ -3167,13 +2931,12 @@
         </member>
         <member name="P:Microsoft.AspNetCore.Mvc.ModelBinding.ModelMetadata.ContainerType">
             <summary>
-            Gets the type containing the property if this metadata is for a property; <see langword="null"/> otherwise.
+            Gets the container type of this metadata if it represents a property, otherwise <c>null</c>.
             </summary>
         </member>
         <member name="P:Microsoft.AspNetCore.Mvc.ModelBinding.ModelMetadata.ContainerMetadata">
             <summary>
-            Gets the metadata for <see cref="P:Microsoft.AspNetCore.Mvc.ModelBinding.ModelMetadata.ContainerType"/> if this metadata is for a property;
-            <see langword="null"/> otherwise.
+            Gets the metadata of the container type that the current instance is part of.
             </summary>
         </member>
         <member name="P:Microsoft.AspNetCore.Mvc.ModelBinding.ModelMetadata.MetadataKind">
@@ -3186,20 +2949,9 @@
             Gets the model type represented by the current instance.
             </summary>
         </member>
-        <member name="P:Microsoft.AspNetCore.Mvc.ModelBinding.ModelMetadata.Name">
-            <summary>
-            Gets the name of the parameter or property if this metadata is for a parameter or property;
-            <see langword="null"/> otherwise i.e. if this is the metadata for a type.
-            </summary>
-        </member>
-        <member name="P:Microsoft.AspNetCore.Mvc.ModelBinding.ModelMetadata.ParameterName">
-            <summary>
-            Gets the name of the parameter if this metadata is for a parameter; <see langword="null"/> otherwise.
-            </summary>
-        </member>
         <member name="P:Microsoft.AspNetCore.Mvc.ModelBinding.ModelMetadata.PropertyName">
             <summary>
-            Gets the name of the property if this metadata is for a property; <see langword="null"/> otherwise.
+            Gets the property name represented by the current instance.
             </summary>
         </member>
         <member name="P:Microsoft.AspNetCore.Mvc.ModelBinding.ModelMetadata.Identity">
@@ -3460,10 +3212,10 @@
         </member>
         <member name="P:Microsoft.AspNetCore.Mvc.ModelBinding.ModelMetadata.IsComplexType">
             <summary>
-            Gets a value indicating whether <see cref="P:Microsoft.AspNetCore.Mvc.ModelBinding.ModelMetadata.ModelType"/> is a complex type.
+            Gets a value indicating whether <see cref="P:Microsoft.AspNetCore.Mvc.ModelBinding.ModelMetadata.ModelType"/> is a simple type.
             </summary>
             <remarks>
-            A complex type is defined as a <see cref="T:System.Type"/> which has a
+            A simple type is defined as a <see cref="T:System.Type"/> which has a
             <see cref="T:System.ComponentModel.TypeConverter"/> that can convert from <see cref="T:System.String"/>.
             </remarks>
         </member>
@@ -3519,7 +3271,7 @@
             </summary>
             <remarks>
             <see cref="M:Microsoft.AspNetCore.Mvc.ModelBinding.ModelMetadata.GetDisplayName"/> will return the first of the following expressions which has a
-            non-<see langword="null"/> value: <see cref="P:Microsoft.AspNetCore.Mvc.ModelBinding.ModelMetadata.DisplayName"/>, <see cref="P:Microsoft.AspNetCore.Mvc.ModelBinding.ModelMetadata.Name"/>, or <c>ModelType.Name</c>.
+            non-<c>null</c> value: <c>DisplayName</c>, <c>PropertyName</c>, <c>ModelType.Name</c>.
             </remarks>
             <returns>The display name.</returns>
         </member>
@@ -3537,32 +3289,6 @@
         </member>
         <member name="M:Microsoft.AspNetCore.Mvc.ModelBinding.ModelMetadata.GetMetadataForProperties(System.Type)">
             <inheritdoc />
-        </member>
-        <member name="T:Microsoft.AspNetCore.Mvc.ModelBinding.ModelMetadataProvider">
-            <summary>
-            A provider that can supply instances of <see cref="T:Microsoft.AspNetCore.Mvc.ModelBinding.ModelMetadata"/>.
-            </summary>
-        </member>
-        <member name="M:Microsoft.AspNetCore.Mvc.ModelBinding.ModelMetadataProvider.GetMetadataForProperties(System.Type)">
-            <summary>
-            Supplies metadata describing the properties of a <see cref="T:System.Type"/>.
-            </summary>
-            <param name="modelType">The <see cref="T:System.Type"/>.</param>
-            <returns>A set of <see cref="T:Microsoft.AspNetCore.Mvc.ModelBinding.ModelMetadata"/> instances describing properties of the <see cref="T:System.Type"/>.</returns>
-        </member>
-        <member name="M:Microsoft.AspNetCore.Mvc.ModelBinding.ModelMetadataProvider.GetMetadataForType(System.Type)">
-            <summary>
-            Supplies metadata describing a <see cref="T:System.Type"/>.
-            </summary>
-            <param name="modelType">The <see cref="T:System.Type"/>.</param>
-            <returns>A <see cref="T:Microsoft.AspNetCore.Mvc.ModelBinding.ModelMetadata"/> instance describing the <see cref="T:System.Type"/>.</returns>
-        </member>
-        <member name="M:Microsoft.AspNetCore.Mvc.ModelBinding.ModelMetadataProvider.GetMetadataForParameter(System.Reflection.ParameterInfo)">
-            <summary>
-            Supplies metadata describing a parameter.
-            </summary>
-            <param name="parameter">The <see cref="T:System.Reflection.ParameterInfo"/>.</param>
-            <returns>A <see cref="T:Microsoft.AspNetCore.Mvc.ModelBinding.ModelMetadata"/> instance describing the <paramref name="parameter"/>.</returns>
         </member>
         <member name="T:Microsoft.AspNetCore.Mvc.ModelBinding.ModelPropertyCollection">
             <summary>
@@ -3684,48 +3410,23 @@
         <member name="P:Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary.Item(System.String)">
             <inheritdoc />
         </member>
-        <member name="M:Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary.TryAddModelException(System.String,System.Exception)">
-            <summary>
-            Adds the specified <paramref name="exception"/> to the <see cref="P:Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateEntry.Errors"/> instance
-            that is associated with the specified <paramref name="key"/>. If the maximum number of allowed
-            errors has already been recorded, ensures that a <see cref="T:Microsoft.AspNetCore.Mvc.ModelBinding.TooManyModelErrorsException"/> exception is
-            recorded instead.
-            </summary>
-            <remarks>
-            This method allows adding the <paramref name="exception"/> to the current <see cref="T:Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary"/>
-            when <see cref="T:Microsoft.AspNetCore.Mvc.ModelBinding.ModelMetadata"/> is not available or the exact <paramref name="exception"/>
-            must be maintained for later use (even if it is for example a <see cref="T:System.FormatException"/>).
-            Where <see cref="T:Microsoft.AspNetCore.Mvc.ModelBinding.ModelMetadata"/> is available, use <see cref="M:Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary.AddModelError(System.String,System.Exception,Microsoft.AspNetCore.Mvc.ModelBinding.ModelMetadata)"/> instead.
-            </remarks>
-            <param name="key">The key of the <see cref="T:Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateEntry"/> to add errors to.</param>
-            <param name="exception">The <see cref="T:System.Exception"/> to add.</param>
-            <returns>
-            <c>True</c> if the given error was added, <c>false</c> if the error was ignored.
-            See <see cref="P:Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary.MaxAllowedErrors"/>.
-            </returns>
-        </member>
         <member name="M:Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary.AddModelError(System.String,System.Exception,Microsoft.AspNetCore.Mvc.ModelBinding.ModelMetadata)">
             <summary>
             Adds the specified <paramref name="exception"/> to the <see cref="P:Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateEntry.Errors"/> instance
-            that is associated with the specified <paramref name="key"/>. If the maximum number of allowed
-            errors has already been recorded, ensures that a <see cref="T:Microsoft.AspNetCore.Mvc.ModelBinding.TooManyModelErrorsException"/> exception is
-            recorded instead.
+            that is associated with the specified <paramref name="key"/>.
             </summary>
             <param name="key">The key of the <see cref="T:Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateEntry"/> to add errors to.</param>
-            <param name="exception">The <see cref="T:System.Exception"/> to add. Some exception types will be replaced with
-            a descriptive error message.</param>
+            <param name="exception">The <see cref="T:System.Exception"/> to add.</param>
             <param name="metadata">The <see cref="T:Microsoft.AspNetCore.Mvc.ModelBinding.ModelMetadata"/> associated with the model.</param>
         </member>
         <member name="M:Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary.TryAddModelError(System.String,System.Exception,Microsoft.AspNetCore.Mvc.ModelBinding.ModelMetadata)">
             <summary>
             Attempts to add the specified <paramref name="exception"/> to the <see cref="P:Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateEntry.Errors"/>
             instance that is associated with the specified <paramref name="key"/>. If the maximum number of allowed
-            errors has already been recorded, ensures that a <see cref="T:Microsoft.AspNetCore.Mvc.ModelBinding.TooManyModelErrorsException"/> exception is
-            recorded instead.
+            errors has already been recorded, records a <see cref="T:Microsoft.AspNetCore.Mvc.ModelBinding.TooManyModelErrorsException"/> exception instead.
             </summary>
             <param name="key">The key of the <see cref="T:Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateEntry"/> to add errors to.</param>
-            <param name="exception">The <see cref="T:System.Exception"/> to add. Some exception types will be replaced with
-            a descriptive error message.</param>
+            <param name="exception">The <see cref="T:System.Exception"/> to add.</param>
             <param name="metadata">The <see cref="T:Microsoft.AspNetCore.Mvc.ModelBinding.ModelMetadata"/> associated with the model.</param>
             <returns>
             <c>True</c> if the given error was added, <c>false</c> if the error was ignored.
@@ -3735,9 +3436,7 @@
         <member name="M:Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary.AddModelError(System.String,System.String)">
             <summary>
             Adds the specified <paramref name="errorMessage"/> to the <see cref="P:Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateEntry.Errors"/> instance
-            that is associated with the specified <paramref name="key"/>. If the maximum number of allowed
-            errors has already been recorded, ensures that a <see cref="T:Microsoft.AspNetCore.Mvc.ModelBinding.TooManyModelErrorsException"/> exception is
-            recorded instead.
+            that is associated with the specified <paramref name="key"/>.
             </summary>
             <param name="key">The key of the <see cref="T:Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateEntry"/> to add errors to.</param>
             <param name="errorMessage">The error message to add.</param>
@@ -3746,8 +3445,7 @@
             <summary>
             Attempts to add the specified <paramref name="errorMessage"/> to the <see cref="P:Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateEntry.Errors"/>
             instance that is associated with the specified <paramref name="key"/>. If the maximum number of allowed
-            errors has already been recorded, ensures that a <see cref="T:Microsoft.AspNetCore.Mvc.ModelBinding.TooManyModelErrorsException"/> exception is
-            recorded instead.
+            errors has already been recorded, records a <see cref="T:Microsoft.AspNetCore.Mvc.ModelBinding.TooManyModelErrorsException"/> exception instead.
             </summary>
             <param name="key">The key of the <see cref="T:Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateEntry"/> to add errors to.</param>
             <param name="errorMessage">The error message to add.</param>
@@ -3887,26 +3585,17 @@
         </member>
         <member name="M:Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateEntry.GetModelStateForProperty(System.String)">
             <summary>
-            Gets the <see cref="T:Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateEntry"/> for a sub-property with the specified
-            <paramref name="propertyName"/>.
+            Gets the <see cref="T:Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateEntry"/> for a sub-property with the specified <paramref name="propertyName"/>.
             </summary>
             <param name="propertyName">The property name to lookup.</param>
-            <returns>
-            The <see cref="T:Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateEntry"/> if a sub-property was found; otherwise <see langword="null"/>.
-            </returns>
-            <remarks>
-            This method returns any existing entry, even those with <see cref="P:Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateEntry.IsContainerNode"/> with value
-            <see langword="true"/>.
-            </remarks>
+            <returns>The <see cref="T:Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateEntry"/> if a sub-property was found; otherwise <c>null</c>.</returns>
+            <remarks>This method returns any existing entry, even those with <see cref="P:Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateEntry.IsContainerNode"/> with value <c>true</c>..</remarks>
         </member>
         <member name="P:Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateEntry.Children">
             <summary>
             Gets the <see cref="T:Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateEntry"/> values for sub-properties.
             </summary>
-            <remarks>
-            This property returns all existing entries, even those with <see cref="P:Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateEntry.IsContainerNode"/> with value
-            <see langword="true"/>.
-            </remarks>
+            <remarks>This method returns all existing entries, even those with <see cref="P:Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateEntry.IsContainerNode"/> with value <c>true</c>.</remarks>
         </member>
         <member name="T:Microsoft.AspNetCore.Mvc.ModelBinding.TooManyModelErrorsException">
             <summary>

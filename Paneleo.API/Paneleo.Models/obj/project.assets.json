@@ -687,11 +687,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\bploszynski\\Paneleo\\Paneleo.Models\\Paneleo.Models.csproj",
+      "projectUniqueName": "C:\\Users\\bploszynski\\Paneleo\\Paneleo.API\\Paneleo.Models\\Paneleo.Models.csproj",
       "projectName": "Paneleo.Models",
-      "projectPath": "C:\\Users\\bploszynski\\Paneleo\\Paneleo.Models\\Paneleo.Models.csproj",
+      "projectPath": "C:\\Users\\bploszynski\\Paneleo\\Paneleo.API\\Paneleo.Models\\Paneleo.Models.csproj",
       "packagesPath": "C:\\Users\\bploszynski\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\bploszynski\\Paneleo\\Paneleo.Models\\obj\\",
+      "outputPath": "C:\\Users\\bploszynski\\Paneleo\\Paneleo.API\\Paneleo.Models\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

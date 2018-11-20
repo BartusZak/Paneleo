@@ -10,3 +10,15 @@ C:\Users\bploszynski\Paneleo\Paneleo.Data\obj\Debug\netcoreapp2.1\Paneleo.Data.A
 C:\Users\bploszynski\Paneleo\Paneleo.Data\obj\Debug\netcoreapp2.1\Paneleo.Data.csproj.CopyComplete
 C:\Users\bploszynski\Paneleo\Paneleo.Data\obj\Debug\netcoreapp2.1\Paneleo.Data.dll
 C:\Users\bploszynski\Paneleo\Paneleo.Data\obj\Debug\netcoreapp2.1\Paneleo.Data.pdb
+C:\Users\bploszynski\Paneleo\Paneleo.API\Paneleo.Data\bin\Debug\netcoreapp2.1\Paneleo.Data.deps.json
+C:\Users\bploszynski\Paneleo\Paneleo.API\Paneleo.Data\bin\Debug\netcoreapp2.1\Paneleo.Data.dll
+C:\Users\bploszynski\Paneleo\Paneleo.API\Paneleo.Data\bin\Debug\netcoreapp2.1\Paneleo.Data.pdb
+C:\Users\bploszynski\Paneleo\Paneleo.API\Paneleo.Data\bin\Debug\netcoreapp2.1\Paneleo.Models.dll
+C:\Users\bploszynski\Paneleo\Paneleo.API\Paneleo.Data\bin\Debug\netcoreapp2.1\Paneleo.Models.pdb
+C:\Users\bploszynski\Paneleo\Paneleo.API\Paneleo.Data\obj\Debug\netcoreapp2.1\Paneleo.Data.csprojAssemblyReference.cache
+C:\Users\bploszynski\Paneleo\Paneleo.API\Paneleo.Data\obj\Debug\netcoreapp2.1\Paneleo.Data.csproj.CoreCompileInputs.cache
+C:\Users\bploszynski\Paneleo\Paneleo.API\Paneleo.Data\obj\Debug\netcoreapp2.1\Paneleo.Data.AssemblyInfoInputs.cache
+C:\Users\bploszynski\Paneleo\Paneleo.API\Paneleo.Data\obj\Debug\netcoreapp2.1\Paneleo.Data.AssemblyInfo.cs
+C:\Users\bploszynski\Paneleo\Paneleo.API\Paneleo.Data\obj\Debug\netcoreapp2.1\Paneleo.Data.csproj.CopyComplete
+C:\Users\bploszynski\Paneleo\Paneleo.API\Paneleo.Data\obj\Debug\netcoreapp2.1\Paneleo.Data.dll
+C:\Users\bploszynski\Paneleo\Paneleo.API\Paneleo.Data\obj\Debug\netcoreapp2.1\Paneleo.Data.pdb
