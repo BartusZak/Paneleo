@@ -1,4 +1,4 @@
-namespace Paneleo.API.Controllers
+namespace Paneleo.API.Dtos
 {
     public class UserForLoginDto
     {

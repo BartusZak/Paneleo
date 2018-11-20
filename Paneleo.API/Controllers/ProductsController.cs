@@ -1,8 +1,9 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Paneleo.API.Helpers;
-using Paneleo.API.Services.Interfaces;
+using Paneleo.Models.BindingModel;
+using Paneleo.Services.Helpers;
+using Paneleo.Services.Interfaces;
 
 namespace Paneleo.API.Controllers
 {

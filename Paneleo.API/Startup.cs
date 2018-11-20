@@ -4,9 +4,6 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
-using Paneleo.API.Data;
-using Paneleo.API.Helpers;
-using Paneleo.API.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -25,12 +22,14 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using AutoMapper;
+using Paneleo.Data;
+using Paneleo.Data.DatabaseContext;
+using Paneleo.Data.Repository;
+using Paneleo.Data.Repository.Interfaces;
+using Paneleo.Services.Helpers;
+using Paneleo.Services.Interfaces;
+using Paneleo.Services.Services;
 using Swashbuckle.AspNetCore.Swagger;
-using Paneleo.API.Repository.Repository.Interfaces;
-using Paneleo.API.Repository.Repository;
-using Paneleo.API.Services.Interfaces;
-using Paneleo.API.Services;
-using Paneleo.API.Repository.DatabaseContext;
 
 namespace Paneleo.API
 {

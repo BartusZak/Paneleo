@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Paneleo.API.Data;
 using Paneleo.API.Dtos;
-using Paneleo.API.Helpers;
-using Paneleo.API.Models;
+using Paneleo.Data.Repository.Interfaces;
+using Paneleo.Models;
+using Paneleo.Services.Helpers;
 
 namespace Paneleo.API.Controllers
 {

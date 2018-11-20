@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using Paneleo.API.Data;
 using Paneleo.API.Dtos;
-using Paneleo.API.Models;
+using Paneleo.Data.Repository.Interfaces;
+using Paneleo.Models;
 
 namespace Paneleo.API.Controllers
 {
