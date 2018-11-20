@@ -5,6 +5,7 @@ import { BsDropdownModule, PaginationModule } from 'ngx-bootstrap';
 import { RouterModule } from '@angular/router';
 import { JwtModule } from '@auth0/angular-jwt';
 import { MomentModule } from 'ngx-moment';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
@@ -17,7 +18,6 @@ import { AlertifyService } from './_services/alertify.service';
 import { UsersListComponent } from './users/users-list/users-list.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { OrdersComponent } from './orders/orders.component';
-import { ProductsComponent } from './products/products.component';
 import { appRoutes } from './routes';
 import { LeftMenuComponent } from './left-menu/left-menu.component';
 import { AuthGuard } from './_guards/auth.guard';
@@ -33,6 +33,11 @@ import { LastAddedClientsComponent } from './dashboard/last-added-clients/last-a
 import { LastAddedOrdersComponent } from './dashboard/last-added-orders/last-added-orders.component';
 import { LastAddedProductsComponent } from './dashboard/last-added-products/last-added-products.component';
 import { AddOrderComponent } from './orders/add-order/add-order.component';
+import { GenericListComponent } from './_utilis/generic-list/generic-list.component';
+import { ProductListComponent } from './products/product-list/product-list.component';
+import { ProductAddComponent } from './products/product-add/product-add.component';
+import { ProductService } from './_services/Product/product.service';
+import { ProductListResolver } from './_resolvers/products/products-list-resolver';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -50,15 +55,18 @@ export function tokenGetter() {
     BoxComponent,
     OrdersComponent,
     AddOrderComponent,
-    ProductsComponent,
     LeftMenuComponent,
     UserCardComponent,
     UserEditComponent,
     LastAddedClientsComponent,
     LastAddedOrdersComponent,
-    LastAddedProductsComponent
+    LastAddedProductsComponent,
+    ProductListComponent,
+    ProductAddComponent,
+    GenericListComponent
   ],
   imports: [
+    NgxDatatableModule,
     BrowserModule,
     HttpClientModule,
     FormsModule,
@@ -82,7 +90,9 @@ export function tokenGetter() {
     AuthGuard,
     UserService,
     UsersListResolver,
-    UserEditResolver
+    UserEditResolver,
+    ProductService,
+    ProductListResolver
   ],
   bootstrap: [AppComponent]
 })

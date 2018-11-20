@@ -4,3 +4,6 @@
 @import '../node_modules/font-awesome/css/font-awesome.min.css';
 @import '../node_modules/alertifyjs/build/css/alertify.min.css';
 @import '../node_modules/alertifyjs/build/css/themes/bootstrap.min.css';
+@import '../node_modules/@swimlane/ngx-datatable/release/themes/material.css';
+@import '../node_modules/@swimlane/ngx-datatable/release/index.css';
+@import '../node_modules/@swimlane/ngx-datatable/assets/icons.css';

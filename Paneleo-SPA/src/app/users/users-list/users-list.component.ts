@@ -14,8 +14,8 @@ export class UsersListComponent implements OnInit {
   users: User[];
 
   constructor(
-    private userService: UserService,
-    private alertify: AlertifyService,
+    // private userService: UserService,
+    // private alertify: AlertifyService,
     private route: ActivatedRoute,
     private titleService: TitleService
   ) {}
