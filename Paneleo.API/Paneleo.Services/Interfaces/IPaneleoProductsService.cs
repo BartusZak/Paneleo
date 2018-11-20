@@ -9,5 +9,6 @@ namespace Paneleo.Services.Interfaces
         Task<Response<object>> AddAsync(AddProductBindingModel bindingModel);
         Task<Response<object>> UpdateAsync(UpdateProductBindingModel bindingModel);
         Task<Response<object>> DeleteAsync(int productId);
+        Task<ResponseList<ProductDetailedDto>> GetAllAsync();
     }
 }

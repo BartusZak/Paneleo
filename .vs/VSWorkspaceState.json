@@ -1,12 +1,7 @@
 {
   "ExpandedNodes": [
     "",
-    "\\Paneleo.API",
-    "\\Paneleo.Data",
-    "\\Paneleo.Data\\DatabaseContext",
-    "\\Paneleo.Data\\Repository",
-    "\\Paneleo.Services"
+    "\\Paneleo.API"
   ],
-  "SelectedNode": "\\Paneleo.Services\\Paneleo.Services.csproj",
   "PreviewInSolutionExplorer": false
 }

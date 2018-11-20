@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using Paneleo.Data.Repository.Interfaces;
@@ -75,6 +76,15 @@ namespace Paneleo.Services.Services
                 response.AddError(Key.Product, Error.ProductRemoveError);
                 return response;
             }
+            return response;
+        }
+
+        public async Task<ResponseList<ProductDetailedDto>> GetAllAsync()
+        {
+            var response = new ResponseList<ProductDetailedDto>();
+            var products = await _productRepository.GetAllAsync();
+            response.SuccessResult = _mapper.Map<IEnumerable<Product>, IEnumerable<ProductDetailedDto>>(products);
+
             return response;
         }
 

@@ -15,3 +15,4 @@ C:\Users\bploszynski\Paneleo\Paneleo.API\Paneleo.Models\obj\Debug\netcoreapp2.1\
 C:\Users\bploszynski\Paneleo\Paneleo.API\Paneleo.Models\obj\Debug\netcoreapp2.1\Paneleo.Models.AssemblyInfo.cs
 C:\Users\bploszynski\Paneleo\Paneleo.API\Paneleo.Models\obj\Debug\netcoreapp2.1\Paneleo.Models.dll
 C:\Users\bploszynski\Paneleo\Paneleo.API\Paneleo.Models\obj\Debug\netcoreapp2.1\Paneleo.Models.pdb
+C:\Users\bploszynski\Paneleo\Paneleo.API\Paneleo.Models\obj\Debug\netcoreapp2.1\Paneleo.Models.csprojAssemblyReference.cache
