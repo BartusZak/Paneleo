@@ -54,7 +54,7 @@ namespace Paneleo.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAllProducts()
         {
             var result = await _productService.GetAllAsync();
             if (result.ErrorOccurred)
