@@ -18,6 +18,7 @@ export class ErrorInterceptor implements ErrorInterceptor {
   ): Observable<HttpEvent<any>> {
     return next.handle(req).pipe(
       catchError(error => {
+        console.log(error, '<------------------');
         if (error instanceof HttpErrorResponse) {
           if (error.status === 401) {
             return throwError(error.statusText);
@@ -27,16 +28,38 @@ export class ErrorInterceptor implements ErrorInterceptor {
             console.error(applicationError);
             return throwError(applicationError);
           }
+
           const serverError = error.error;
+
+          let errorModel = '';
+
+          if (serverError.errorOccurred) {
+            for (const key in serverError.errors) {
+              if (serverError.errors[key]) {
+                errorModel += serverError.errors[key] + '\n<br/>';
+              }
+            }
+          }
+
           let modalStateErrors = '';
-          if (serverError && typeof serverError === 'object') {
+          if (
+            serverError &&
+            typeof serverError === 'object' &&
+            error.status !== 0
+          ) {
             for (const key in serverError) {
               if (serverError[key]) {
                 modalStateErrors += serverError[key] + '\n<br/>';
               }
             }
           }
-          return throwError(modalStateErrors || serverError || 'Server Error');
+
+          return throwError(
+            errorModel ||
+              modalStateErrors ||
+              // serverError ||
+              '<b>Błąd serwera!</b><br/>Skontaktuj się z administratorem.'
+          );
         }
       })
     );

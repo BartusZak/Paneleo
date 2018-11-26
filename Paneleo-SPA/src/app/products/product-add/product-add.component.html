@@ -14,7 +14,8 @@
     <div
       class="invalid-feedback"
       *ngIf="
-        addProductForm.get('name').hasError('required') &&
+        (addProductForm.get('name').hasError('required') ||
+          addProductForm.get('name').hasError('whitespace')) &&
         addProductForm.get('name').touched
       "
     >
@@ -56,6 +57,12 @@
   </div>
 
   <div class="form-group text-center">
-    <button class="btn btn-success" type="submit">Dodaj</button>
+    <button
+      class="btn btn-success"
+      [disabled]="!addProductForm.valid"
+      type="submit"
+    >
+      Dodaj
+    </button>
   </div>
 </form>

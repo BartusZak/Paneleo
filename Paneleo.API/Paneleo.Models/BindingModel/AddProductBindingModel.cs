@@ -4,7 +4,7 @@ namespace Paneleo.Models.BindingModel
 {
     public class AddProductBindingModel
     {
-        [Required]
+        [Required(ErrorMessage = "Nazwa jest wymagana!")]
         public string Name { get; set; }
         public int Quantity { get; set; }
 

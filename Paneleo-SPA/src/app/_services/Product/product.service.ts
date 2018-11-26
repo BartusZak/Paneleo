@@ -20,6 +20,10 @@ export class ProductService {
     return this.http.get<Product>(this.baseUrl + 'products/' + id);
   }
 
+  addProduct(product: Product) {
+    return this.http.post(this.baseUrl + 'products/', product);
+  }
+
   updateProduct(id: number, product: Product) {
     return this.http.put(this.baseUrl + 'products/' + id, product);
   }
