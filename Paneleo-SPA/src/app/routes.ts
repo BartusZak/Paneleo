@@ -10,6 +10,7 @@ import { UserEditResolver } from './_resolvers/users-edit-resolver';
 import { AddOrderComponent } from './orders/add-order/add-order.component';
 import { ProductListComponent } from './products/product-list/product-list.component';
 import { ProductListResolver } from './_resolvers/products/products-list-resolver';
+import { ProductAddComponent } from './products/product-add/product-add.component';
 
 export const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -39,6 +40,11 @@ export const appRoutes: Routes = [
         component: ProductListComponent,
         data: { title: 'orders' },
         resolve: { products: ProductListResolver }
+      },
+      {
+        path: 'products/add',
+        component: ProductAddComponent,
+        data: { title: 'orders' }
       },
       {
         path: 'users',

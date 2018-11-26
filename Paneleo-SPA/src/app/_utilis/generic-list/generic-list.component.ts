@@ -14,10 +14,10 @@ export class GenericListComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
-    this.extractColumnsFromObject();
-    console.log(this.list);
-    console.log(this.columns);
-    console.log(this.listProps);
+    // this.extractColumnsFromObject();
+    // console.log(this.list);
+    // console.log(this.columns);
+    // console.log(this.listProps);
   }
 
   extractColumnsFromObject() {

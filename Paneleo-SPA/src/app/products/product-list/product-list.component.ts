@@ -10,6 +10,8 @@ import { TitleService } from 'src/app/_services/title.service';
 })
 export class ProductListComponent implements OnInit {
   products: Product[];
+  totalPageCount: number;
+  currentPage: number;
   // productColumns: Array<string> = ['id', 'Nazwa', 'Ilość'];
   productColumns = [
     { prop: 'id', summaryFunc: () => null },
@@ -24,7 +26,9 @@ export class ProductListComponent implements OnInit {
   ngOnInit() {
     this.titleService.setTitle('Lista Produktów');
     this.route.data.subscribe(data => {
-      this.products = data['products'].successResult;
+      this.products = data['products'].successResult.results;
+      this.totalPageCount = data['products'].successResult.totalPageCount;
+      this.currentPage = data['products'].successResult.currentPage;
     });
   }
 }

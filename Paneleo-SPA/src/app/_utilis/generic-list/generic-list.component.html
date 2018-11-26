@@ -20,7 +20,12 @@
 -->
 
 <div>
-  <ngx-datatable class="dark" [rows]="list" [columns]="columns">
+  <ngx-datatable
+    class="dark"
+    [rows]="list"
+    [columns]="columns"
+    [messages]="{ emptyMessage: 'Brak wyników.' }"
+  >
     <!--
       <ng-container *ngFor="let column of listProps">
         <ng-template let-columne="columns" ngx-datatable-header-template>
