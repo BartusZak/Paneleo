@@ -1,0 +1,34 @@
+<!--
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col"></th>
+        <th scope="col">Data</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of list">
+        <th scope="row">{{ item[] }}</th>
+        <td>{{ item.name }}</td>
+        <td>{{ item.quantity }}</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+-->
+
+<div>
+  <ngx-datatable class="dark" [rows]="list" [columns]="columns">
+    <!--
+      <ng-container *ngFor="let column of listProps">
+        <ng-template let-columne="columns" ngx-datatable-header-template>
+          <span>{{ columne[0] }}</span>
+        </ng-template>
+        <ngx-datatable-column [name]="column" [flexGrow]="1">
+        </ngx-datatable-column>
+      </ng-container>
+    -->
+  </ngx-datatable>
+</div>

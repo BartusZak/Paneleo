@@ -1,0 +1,18 @@
+<form #registerForm="ngForm" (ngSubmit)="register()">
+  <h2 class="text-center text-primary">Załóż konto</h2>
+  <hr>
+
+  <div class="form-group">
+    <input class="form-control mr-sm-2" type="text" placeholder="Login" name="username" required [(ngModel)]="model.username">
+  </div>
+
+  <div class="form-group">
+    <input class="form-control mr-sm-2" type="password" name="password" placeholder="Hasło" required [(ngModel)]="model.password">
+  </div>
+
+  <div class="form-group text-center">
+    <button [disabled]="!registerForm.valid" class="btn btn-success my-2 my-sm-0" type="submit">Utwórz konto</button>
+    <button class="btn btn-default my-2 my-sm-0" type="button" (click)="cancel()">Anuluj</button>
+
+  </div>
+</form>

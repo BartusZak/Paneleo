@@ -1,0 +1,117 @@
+<div class="container-fluid">
+  <div class="table-responsive">
+    <form class="form-inline" novalidate>
+      <div class="form-group">
+        <label for="search">Szukaj</label>
+        <input
+          type="search"
+          class="form-control ml-1"
+          style="width: 200px"
+          id="search"
+          name="search"
+        />
+      </div>
+
+      <div class="form-group px-2">
+        <label for="minDate">Data Od</label>
+        <input
+          type="date"
+          class="form-control ml-1"
+          style="width: 70px"
+          id="minDate"
+          name="minDate"
+        />
+      </div>
+
+      <div class="form-group px-2">
+        <label for="maxDate">Data Do</label>
+        <input
+          type="date"
+          class="form-control ml-1"
+          style="width: 70px"
+          id="maxDate"
+          name="maxDate"
+        />
+      </div>
+
+      <button type="submit" class="btn btn-primary" style="margin-left:10px">
+        Filtruj
+      </button>
+      <button type="button" class="btn btn-info" style="margin-left:10px">
+        Usuń Filter
+      </button>
+    </form>
+    <br />
+
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">
+            Klient
+            <svg
+              class="feather feather-chevron-down sc-dnqmqq jxshSx"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+              data-darkreader-inline-fill=""
+              data-darkreader-inline-stroke=""
+              style="--darkreader-inline-fill:none; --darkreader-inline-stroke:currentColor;"
+            >
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </th>
+          <th scope="col">Data</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let order of orders">
+          <th scope="row">{{ order.id }}</th>
+          <td>{{ order.client }}</td>
+          <td>{{ order.dateOfIssue | date: 'fullDate' }}</td>
+          <td>
+            <svg
+              class="feather feather-download sc-dnqmqq jxshSx"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+              data-darkreader-inline-fill=""
+              data-darkreader-inline-stroke=""
+              style="--darkreader-inline-fill:none; --darkreader-inline-stroke:currentColor;"
+            >
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="d-flex justify-content-center">
+  <pagination
+    [boundaryLinks]="true"
+    [totalItems]="77"
+    previousText="&lsaquo;"
+    nextText="&rsaquo;"
+    firstText="&laquo;"
+    lastText="&raquo;"
+  >
+  </pagination>
+</div>

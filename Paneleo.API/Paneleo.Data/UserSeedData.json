@@ -1,0 +1,16 @@
+[
+  {
+    "Username": "bartuszak",
+    "Name": "Bartłomiej",
+    "Forename": "Płoszyński",
+    "Password": "Bartek123",
+    "KnownAs": "BartusZak"
+  },
+  {
+    "Username": "lploszynski",
+    "Name": "Leszek",
+    "Forename": "Płoszyński",
+    "Password": "Bartek123",
+    "KnownAs": "Leon"
+  }
+]
