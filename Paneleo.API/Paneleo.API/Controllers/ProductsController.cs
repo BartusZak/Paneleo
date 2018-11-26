@@ -54,9 +54,9 @@ namespace Paneleo.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll([FromQuery]SearchParamsBindingModel searchParams)
         {
-            var result = await _productService.GetAllAsync();
+            var result = await _productService.GetAllAsync(searchParams);
             if (result.ErrorOccurred)
             {
                 return BadRequest(result);

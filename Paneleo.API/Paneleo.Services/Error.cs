@@ -7,6 +7,7 @@ namespace Paneleo.Services
         public static string ProductUpdateError = "Wystąpil problem, podczas edycji produktu!";
         public static string ProductRemoveError = "Wystąpil problem, podczas usuwania produktu!";
         public static string ProductNotExist = "Taki produkt już istnieje!";
+        public static string PageLimit = "Ilość projektów na stronie nie może być równa 0";
 
     }
 }

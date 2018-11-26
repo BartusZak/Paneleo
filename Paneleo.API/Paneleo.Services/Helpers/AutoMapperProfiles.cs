@@ -17,7 +17,9 @@ namespace Paneleo.Services.Helpers
 
             CreateMap<AddProductBindingModel, Product>();
             CreateMap<UpdateProductBindingModel, Product>();
-            CreateMap<ProductDetailedDto, Product>();
+            CreateMap<ProductDetailedDto, Product>().ReverseMap();
+
+
 
 
         }

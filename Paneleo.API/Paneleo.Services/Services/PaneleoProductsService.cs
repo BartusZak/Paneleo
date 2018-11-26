@@ -1,6 +1,9 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using Paneleo.Data.Repository.Interfaces;
 using Paneleo.Models.BindingModel;
 using Paneleo.Models.Model;
@@ -79,11 +82,58 @@ namespace Paneleo.Services.Services
             return response;
         }
 
-        public async Task<ResponseList<ProductDetailedDto>> GetAllAsync()
+        public async Task<Response<SearchResults<ProductDetailedDto>>> GetAllAsync(SearchParamsBindingModel searchParams)
         {
-            var response = new ResponseList<ProductDetailedDto>();
-            var products = await _productRepository.GetAllAsync();
-            response.SuccessResult = _mapper.Map<IEnumerable<Product>, IEnumerable<ProductDetailedDto>>(products);
+            var response = new Response<SearchResults<ProductDetailedDto>>();
+
+            var searchParamsValidated = SearchParametersValidate(searchParams);
+
+            if (searchParamsValidated.ErrorOccurred)
+            {
+                response.Errors = searchParamsValidated.Errors;
+                return response;
+            }
+
+            response.SuccessResult = GetByParameters(searchParamsValidated.SuccessResult);
+
+            //if (searchResults.TotalPageCount == 0)
+            //{
+            //    response.AddError(Key.Product, Error.PageLimit);
+            //}
+
+
+            return response;
+        }
+
+        public SearchResults<ProductDetailedDto> GetByParameters(SearchParamsBindingModel searchParams)
+        {
+            var products = _productRepository.GetAllAsync();
+            var productsCount = (int)Math.Ceiling((decimal)products.Count() / searchParams.PageLimit);
+            products = products.Skip(searchParams.PageLimit * (searchParams.PageNumber - 1)).Take(searchParams.PageLimit);
+
+
+            return new SearchResults<ProductDetailedDto>()
+            {
+                Results = _mapper.Map<List<ProductDetailedDto>>(products),
+                CurrentPage = searchParams.PageNumber,
+                TotalPageCount = productsCount
+            };
+        }
+
+
+
+        private Response<SearchParamsBindingModel> SearchParametersValidate(SearchParamsBindingModel searchParams)
+        {
+            var response = new Response<SearchParamsBindingModel>();
+            if (searchParams.PageLimit == 0)
+            {
+                response.AddError(Key.Product, Error.PageLimit);
+            }
+
+            searchParams.PageNumber = Math.Abs(searchParams.PageNumber);
+            searchParams.PageLimit = Math.Abs(searchParams.PageLimit);
+
+            response.SuccessResult = searchParams;
 
             return response;
         }

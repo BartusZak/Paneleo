@@ -41,9 +41,9 @@ namespace Paneleo.Data.Repository
             return await query.FirstOrDefaultAsync(getBy);
         }
 
-        public async Task<IQueryable<T>> GetAllAsync(bool withTracking = true)
+        public IQueryable<T> GetAllAsync(bool withTracking = false, params Expression<Func<T, object>>[] includes)
         {
-            return await Task.Run(() => GetAll(withTracking));
+            return GetAll(withTracking, includes);
         }
 
         public async Task<IQueryable<T>> GetAllByAsync(Expression<Func<T, bool>> getBy, bool withTracking = true)
@@ -74,12 +74,16 @@ namespace Paneleo.Data.Repository
             _dbContext.Entry(entity).State = EntityState.Detached;
         }
 
-        private IQueryable<T> GetAll(bool withTracking = true)
+        public IQueryable<T> GetAll(bool withTracking = false, params Expression<Func<T, object>>[] includes)
         {
             IQueryable<T> query = _dbSet;
             if (!withTracking)
             {
                 query = query.AsNoTracking();
+            }
+            foreach (var include in includes)
+            {
+                query = query.Include(include);
             }
             return query;
         }
