@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import {
+  FormGroup,
+  FormControl,
+  Validators,
+  FormBuilder
+} from '@angular/forms';
+import { TitleService } from 'src/app/_services/title.service';
 
 @Component({
   selector: 'app-product-add',
@@ -8,15 +14,17 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 })
 export class ProductAddComponent implements OnInit {
   addProductForm: FormGroup;
-  constructor() {}
+  constructor(private titleService: TitleService, private fb: FormBuilder) {}
 
   ngOnInit() {
-    this.addProductForm = new FormGroup({
-      name: new FormControl('', [
-        Validators.required,
-        Validators.maxLength(40)
-      ]),
-      quantity: new FormControl(0, Validators.min(0))
+    this.titleService.setTitle('Dodawanie produktu');
+    this.createAddProductForm();
+  }
+
+  createAddProductForm() {
+    this.addProductForm = this.fb.group({
+      name: ['', [Validators.required, Validators.maxLength(40)]],
+      quantity: [0, Validators.min(0)]
     });
   }
 
