@@ -1,20 +1,58 @@
 <form [formGroup]="addProductForm" (ngSubmit)="addProduct()">
-  <div class="form-group">
+  <div class="form-group form-group-height">
     <input
       type="text"
+      [ngClass]="{
+        'is-invalid':
+          addProductForm.get('name').errors &&
+          addProductForm.get('name').touched
+      }"
       class="form-control"
       formControlName="name"
       placeholder="Nazwa"
     />
+    <div
+      class="invalid-feedback"
+      *ngIf="
+        addProductForm.get('name').hasError('required') &&
+        addProductForm.get('name').touched
+      "
+    >
+      Nazwa produktu nie może być pusta!
+    </div>
+    <div
+      class="invalid-feedback"
+      *ngIf="
+        addProductForm.get('name').hasError('maxlength') &&
+        addProductForm.get('name').touched
+      "
+    >
+      Nazwa produktu nie może dłuższa niż 40 znaków!
+    </div>
   </div>
 
-  <div class="form-group">
+  <div class="form-group form-group-height">
     <input
+      min="0"
       type="number"
+      [ngClass]="{
+        'is-invalid':
+          addProductForm.get('quantity').errors &&
+          addProductForm.get('quantity').touched
+      }"
       class="form-control"
       formControlName="quantity"
       placeholder="Ilość"
     />
+    <div
+      class="invalid-feedback"
+      *ngIf="
+        addProductForm.get('quantity').hasError('min') &&
+        addProductForm.get('quantity').touched
+      "
+    >
+      Ilośc nie może być liczbą ujemną!
+    </div>
   </div>
 
   <div class="form-group text-center">
