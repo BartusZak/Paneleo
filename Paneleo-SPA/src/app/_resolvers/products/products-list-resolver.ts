@@ -8,6 +8,9 @@ import { Product } from '../../_models/product';
 
 @Injectable()
 export class ProductListResolver implements Resolve<Product[]> {
+  pageNumber = 1;
+  pageLimit = 5;
+
   constructor(
     private productService: ProductService,
     private router: Router,
@@ -15,12 +18,14 @@ export class ProductListResolver implements Resolve<Product[]> {
   ) {}
 
   resolve(route: ActivatedRouteSnapshot): Observable<Product[]> {
-    return this.productService.getProducts().pipe(
-      catchError(error => {
-        this.alertify.error('Wystąpił problem z wczytaniem produktów!');
-        this.router.navigate(['/dashboard']);
-        return of(null);
-      })
-    );
+    return this.productService
+      .getProducts(this.pageLimit, this.pageNumber)
+      .pipe(
+        catchError(error => {
+          this.alertify.error('Wystąpił problem z wczytaniem produktów!');
+          this.router.navigate(['/dashboard']);
+          return of(null);
+        })
+      );
   }
 }

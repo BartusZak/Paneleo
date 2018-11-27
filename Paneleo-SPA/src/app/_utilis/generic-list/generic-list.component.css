@@ -1,0 +1,88 @@
+:host ::ng-deep .datatable-body-cell {
+  color: red;
+}
+
+:host ::ng-deep .ngx-datatable.material {
+  background: none;
+  box-shadow: none;
+  color: white;
+}
+
+:host ::ng-deep .ngx-datatable .datatable-body .datatable-row-wrapper {
+  padding-top: 2px;
+}
+
+:host ::ng-deep .ngx-datatable.material .datatable-footer .page-count {
+  color: white;
+}
+
+:host ::ng-deep .ngx-datatable .datatable-body .datatable-scroll {
+  min-height: 565px;
+}
+
+:host ::ng-deep .datatable-header-cell-wrapper,
+:host ::ng-deep .datatable-body-cell-label {
+  color: white;
+}
+
+:host ::ng-deep .ngx-datatable.material .datatable-header {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+:host ::ng-deep .ngx-datatable.material .datatable-footer {
+  border-top: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+:host
+  ::ng-deep
+  .ngx-datatable.material:not(.cell-selection)
+  .datatable-body-row:hover {
+  background-color: #007bff2e;
+}
+
+:host
+  ::ng-deep
+  .ngx-datatable.bootstrap:not(.cell-selection)
+  .datatable-body-row:hover,
+:host
+  ::ng-deep
+  .ngx-datatable.material:not(.cell-selection)
+  .datatable-body-row:hover
+  .datatable-row-group {
+  background: #007bff8a;
+}
+
+.ngx-datatable .datatable-footer .datatable-pager .pager li,
+:host ::ng-deep .ngx-datatable .datatable-footer .datatable-pager .pager li a {
+  color: white;
+}
+
+:host
+  ::ng-deep
+  .ngx-datatable
+  .datatable-footer
+  .datatable-pager
+  .pager
+  li.disabled
+  a {
+  color: #495057 !important;
+}
+
+:host ::ng-deep .progress-linear {
+  position: absolute !important;
+}
+
+:host ::ng-deep .progress-linear .container {
+  max-width: 100% !important;
+}
+
+:host
+  ::ng-deep
+  .ngx-datatable
+  .datatable-header
+  .datatable-header-cell
+  .sort-btn {
+  float: right;
+  font-size: x-large;
+  color: white;
+}

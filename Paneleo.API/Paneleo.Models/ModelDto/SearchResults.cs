@@ -12,6 +12,7 @@ namespace Paneleo.Models.ModelDto
 
         public int TotalPageCount { get; set; }
 
+        public int TotalItemsCount { get; set; }
  
     }
 }

@@ -1,6 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Product } from 'src/app/_models/product';
 import { GenericList } from 'src/app/_models/generic-list';
+import { ActivatedRoute } from '@angular/router';
+import { ProductService } from 'src/app/_services/Product/product.service';
+import { PaginatedResult } from 'src/app/_models/pagination';
 
 @Component({
   selector: 'app-generic-list',
@@ -8,21 +11,34 @@ import { GenericList } from 'src/app/_models/generic-list';
   styleUrls: ['./generic-list.component.css']
 })
 export class GenericListComponent implements OnInit {
-  @Input() list: Array<GenericList<any>>;
+  // @Input() data: Array<GenericList<any>>;
+  @Input() name: string;
   @Input() columns: Array<string>;
-  listProps: Array<string> = [];
-  constructor() {}
+  // listProps: Array<string> = [];
+  loading = true;
+  data: PaginatedResult<any>;
+  constructor(
+    private route: ActivatedRoute,
+    private productService: ProductService
+  ) {}
 
   ngOnInit() {
-    // this.extractColumnsFromObject();
-    // console.log(this.list);
-    // console.log(this.columns);
-    // console.log(this.listProps);
+    this.setPage({ limit: 10, offset: 0 });
+    // this.route.data.subscribe(data => {
+    //   this.data = data[this.name];
+    //   console.log(data[this.name]);
+    // });
   }
 
-  extractColumnsFromObject() {
-    return Object.keys(this.list[0]).forEach(key => {
-      this.listProps.push(key);
-    });
+  setPage(atrib) {
+    this.loading = true;
+    console.log(atrib);
+    this.productService
+      .getProducts(atrib.limit, ++atrib.offset)
+      .subscribe(pagedData => {
+        console.log(pagedData);
+        this.data = pagedData;
+        this.loading = false;
+      });
   }
 }

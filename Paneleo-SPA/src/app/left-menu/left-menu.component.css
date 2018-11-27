@@ -39,3 +39,7 @@
 a {
   text-decoration: none;
 }
+
+i.fa.fa-plus-circle:hover {
+  color: #1871f9;
+}

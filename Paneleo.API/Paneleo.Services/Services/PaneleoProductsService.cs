@@ -108,7 +108,8 @@ namespace Paneleo.Services.Services
         public SearchResults<ProductDetailedDto> GetByParameters(SearchParamsBindingModel searchParams)
         {
             var products = _productRepository.GetAllAsync();
-            var productsCount = (int)Math.Ceiling((decimal)products.Count() / searchParams.PageLimit);
+            var productsCount = products.Count();
+            var productsPageCount = (int)Math.Ceiling((decimal)products.Count() / searchParams.PageLimit);
             products = products.Skip(searchParams.PageLimit * (searchParams.PageNumber - 1)).Take(searchParams.PageLimit);
 
 
@@ -116,7 +117,8 @@ namespace Paneleo.Services.Services
             {
                 Results = _mapper.Map<List<ProductDetailedDto>>(products),
                 CurrentPage = searchParams.PageNumber,
-                TotalPageCount = productsCount
+                TotalPageCount = productsPageCount,
+                TotalItemsCount = productsCount
             };
         }
 

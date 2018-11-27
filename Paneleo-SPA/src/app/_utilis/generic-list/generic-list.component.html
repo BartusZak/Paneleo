@@ -1,39 +1,20 @@
-<!--
-  <table class="table table-hover">
-    <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col"></th>
-        <th scope="col">Data</th>
-        <th scope="col"></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let item of list">
-        <th scope="row">{{ item[] }}</th>
-        <td>{{ item.name }}</td>
-        <td>{{ item.quantity }}</td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
--->
-
-<div>
+<p *ngIf="!data">Ładowanie...</p>
+<div *ngIf="data">
   <ngx-datatable
-    class="dark"
-    [rows]="list"
+    class="material"
+    [rows]="data.results"
     [columns]="columns"
-    [messages]="{ emptyMessage: 'Brak wyników.' }"
+    [columnMode]="'force'"
+    [headerHeight]="50"
+    [footerHeight]="50"
+    [rowHeight]="'auto'"
+    [externalPaging]="true"
+    [count]="data.totalItemsCount"
+    [loadingIndicator]="loading"
+    [offset]="0"
+    [limit]="10"
+    (page)="setPage($event)"
+    [messages]="{ emptyMessage: 'Brak wyników.', totalMessage: 'wszystkich' }"
   >
-    <!--
-      <ng-container *ngFor="let column of listProps">
-        <ng-template let-columne="columns" ngx-datatable-header-template>
-          <span>{{ columne[0] }}</span>
-        </ng-template>
-        <ngx-datatable-column [name]="column" [flexGrow]="1">
-        </ngx-datatable-column>
-      </ng-container>
-    -->
   </ngx-datatable>
 </div>
