@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { ProductService } from '../../_services/Product/product.service';
-import { AlertifyService } from '../../_services/alertify.service';
+import { ProductService } from '../_services/Product/product.service';
+import { AlertifyService } from '../_services/alertify.service';
 import { Router, ActivatedRouteSnapshot, Resolve } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { Product } from '../../_models/product';
+import { Product } from '../_models/product';
 
 @Injectable()
 export class ProductListResolver implements Resolve<Product[]> {

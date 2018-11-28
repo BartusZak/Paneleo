@@ -102,7 +102,7 @@
       <li class="nav-item d-flex justify-content-between pr-4 text-muted">
         <a
           class="nav-link"
-          [routerLink]="['/clients']"
+          [routerLink]="['/contractors']"
           routerLinkActive="active"
         >
           <svg
@@ -124,7 +124,12 @@
           </svg>
           Kontrahenci
         </a>
-        <a class="d-flex align-items-center text-muted" href="#">
+        <a
+          class="d-flex align-items-center text-muted"
+          [routerLink]="['/contractors/add']"
+          routerLinkActive="active"
+          title="Dodaj Kontrahenta"
+        >
           <i class="fa fa-plus-circle"></i>
         </a>
       </li>

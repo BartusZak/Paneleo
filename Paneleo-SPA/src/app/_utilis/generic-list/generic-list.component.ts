@@ -4,6 +4,7 @@ import { GenericList } from 'src/app/_models/generic-list';
 import { ActivatedRoute } from '@angular/router';
 import { ProductService } from 'src/app/_services/Product/product.service';
 import { PaginatedResult } from 'src/app/_models/pagination';
+import { ContractorService } from 'src/app/_services/Contractor/contractor.service';
 
 @Component({
   selector: 'app-generic-list',
@@ -19,26 +20,34 @@ export class GenericListComponent implements OnInit {
   data: PaginatedResult<any>;
   constructor(
     private route: ActivatedRoute,
-    private productService: ProductService
+    private productService: ProductService,
+    private contractorService: ContractorService
   ) {}
 
   ngOnInit() {
     this.setPage({ limit: 10, offset: 0 });
     // this.route.data.subscribe(data => {
-    //   this.data = data[this.name];
-    //   console.log(data[this.name]);
+    //   // this.data = data[this.name];
+    //   console.log(data);
     // });
   }
 
   setPage(atrib) {
     this.loading = true;
-    console.log(atrib);
-    this.productService
-      .getProducts(atrib.limit, ++atrib.offset)
-      .subscribe(pagedData => {
-        console.log(pagedData);
-        this.data = pagedData;
-        this.loading = false;
-      });
+    if (this.name === '1') {
+      this.productService
+        .getProducts(atrib.limit, ++atrib.offset)
+        .subscribe(pagedData => {
+          this.data = pagedData;
+          this.loading = false;
+        });
+    } else {
+      this.contractorService
+        .getContractors(atrib.limit, ++atrib.offset)
+        .subscribe(pagedData => {
+          this.data = pagedData;
+          this.loading = false;
+        });
+    }
   }
 }

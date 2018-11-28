@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { TitleService } from '../_services/title.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,9 +6,7 @@ import { TitleService } from '../_services/title.service';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  constructor(private titleService: TitleService) {}
+  constructor() {}
 
-  ngOnInit() {
-    this.titleService.setTitle('Dashboard');
-  }
+  ngOnInit() {}
 }

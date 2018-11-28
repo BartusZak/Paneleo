@@ -1,5 +1,4 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { TitleService } from '../_services/title.service';
 
 import { Order } from '../_models/order';
 import { Pagination } from '../_models/pagination';
@@ -50,11 +49,9 @@ export class OrdersComponent implements OnInit {
   ];
   pagination: Pagination;
 
-  constructor(private titleService: TitleService) {}
+  constructor() {}
 
-  ngOnInit() {
-    this.titleService.setTitle('Zamówienia');
-  }
+  ngOnInit() {}
 
   hasOrders(): boolean {
     return this.orders && this.orders.length !== 0;

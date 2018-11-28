@@ -37,7 +37,10 @@ import { GenericListComponent } from './_utilis/generic-list/generic-list.compon
 import { ProductListComponent } from './products/product-list/product-list.component';
 import { ProductAddComponent } from './products/product-add/product-add.component';
 import { ProductService } from './_services/Product/product.service';
-import { ProductListResolver } from './_resolvers/products/products-list-resolver';
+import { ProductListResolver } from './_resolvers/products-list-resolver';
+import { ContractorAddComponent } from './contractors/contractor-add/contractor-add.component';
+import { ContractorListComponent } from './contractors/contractor-list/contractor-list.component';
+import { ContractorListResolver } from './_resolvers/contractors-list-resolver';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -63,7 +66,9 @@ export function tokenGetter() {
     LastAddedProductsComponent,
     ProductListComponent,
     ProductAddComponent,
-    GenericListComponent
+    GenericListComponent,
+    ContractorAddComponent,
+    ContractorListComponent
   ],
   imports: [
     NgxDatatableModule,
@@ -93,8 +98,13 @@ export function tokenGetter() {
     UsersListResolver,
     UserEditResolver,
     ProductService,
-    ProductListResolver
+    ProductListResolver,
+    ContractorListResolver
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule {
+  constructor(titleService: TitleService) {
+    titleService.init();
+  }
+}

@@ -3,7 +3,6 @@ import { User } from '../../_models/user';
 import { UserService } from '../../_services/user.service';
 import { AlertifyService } from '../../_services/alertify.service';
 import { ActivatedRoute } from '@angular/router';
-import { TitleService } from 'src/app/_services/title.service';
 
 @Component({
   selector: 'app-users-list',
@@ -16,12 +15,10 @@ export class UsersListComponent implements OnInit {
   constructor(
     // private userService: UserService,
     // private alertify: AlertifyService,
-    private route: ActivatedRoute,
-    private titleService: TitleService
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
-    this.titleService.setTitle('Lista Użytkowników');
     this.route.data.subscribe(data => {
       this.users = data['users'];
     });

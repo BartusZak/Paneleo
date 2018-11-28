@@ -5,7 +5,6 @@ import {
   Validators,
   FormBuilder
 } from '@angular/forms';
-import { TitleService } from 'src/app/_services/title.service';
 import { Product } from 'src/app/_models/product';
 import { ProductService } from 'src/app/_services/Product/product.service';
 import { AlertifyService } from 'src/app/_services/alertify.service';
@@ -19,14 +18,12 @@ export class ProductAddComponent implements OnInit {
   addProductForm: FormGroup;
   productToAdd: Product;
   constructor(
-    private titleService: TitleService,
     private productService: ProductService,
     private fb: FormBuilder,
     private alertify: AlertifyService
   ) {}
 
   ngOnInit() {
-    this.titleService.setTitle('Dodawanie produktu');
     this.createAddProductForm();
   }
 

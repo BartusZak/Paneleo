@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { TitleService } from 'src/app/_services/title.service';
 
 @Component({
   selector: 'app-add-order',
@@ -7,9 +6,7 @@ import { TitleService } from 'src/app/_services/title.service';
   styleUrls: ['./add-order.component.css']
 })
 export class AddOrderComponent implements OnInit {
-  constructor(private titleService: TitleService) {}
+  constructor() {}
 
-  ngOnInit() {
-    this.titleService.setTitle('Nowe zamówienie');
-  }
+  ngOnInit() {}
 }

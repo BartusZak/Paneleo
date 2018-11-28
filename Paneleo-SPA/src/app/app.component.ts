@@ -18,21 +18,20 @@ export class AppComponent implements OnInit {
   titleSubscription: Subscription;
   constructor(
     private authService: AuthService,
-    private titleService: TitleService,
     private router: Router,
-    private activatedRoute: ActivatedRoute
+    private route: ActivatedRoute
   ) {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
-        console.log(this.activatedRoute);
+        // console.log(this.route);
       }
     });
   }
 
   ngOnInit() {
-    this.titleSubscription = this.titleService.siteTitle.subscribe(t => {
-      this.title = t;
-    });
+    // this.titleSubscription = this.titleService.siteTitle.subscribe(t => {
+    //   this.title = t;
+    // });
     const token = localStorage.getItem('token');
     if (token) {
       this.authService.decodedToken = this.jwtHelper.decodeToken(token);
