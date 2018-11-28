@@ -19,6 +19,9 @@ namespace Paneleo.Services.Helpers
             CreateMap<UpdateProductBindingModel, Product>();
             CreateMap<ProductDetailedDto, Product>().ReverseMap();
 
+            CreateMap<AddContractorBindingModel, Contractor>();
+            CreateMap<UpdateContractorBindingModel, Contractor>();
+
 
 
 
