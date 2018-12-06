@@ -1,19 +1,20 @@
 import { Routes } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { UsersListComponent } from './users/users-list/users-list.component';
-import { OrdersComponent } from './orders/orders.component';
 import { HomeComponent } from './home/home.component';
 import { AuthGuard } from './_guards/auth.guard';
 import { UsersListResolver } from './_resolvers/users-list-resolver';
 import { UserEditComponent } from './users/user-edit/user-edit.component';
 import { UserEditResolver } from './_resolvers/users-edit-resolver';
-import { AddOrderComponent } from './orders/add-order/add-order.component';
 import { ProductListComponent } from './products/product-list/product-list.component';
 import { ProductListResolver } from './_resolvers/products-list-resolver';
 import { ProductAddComponent } from './products/product-add/product-add.component';
 import { ContractorListComponent } from './contractors/contractor-list/contractor-list.component';
 import { ContractorAddComponent } from './contractors/contractor-add/contractor-add.component';
 import { ContractorListResolver } from './_resolvers/contractors-list-resolver';
+import { OrderListComponent } from './orders/order-list/order-list.component';
+import { OrderAddComponent } from './orders/order-add/order-add.component';
+import { OrderListResolver } from './_resolvers/orders-list-resolver';
 
 export const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -29,12 +30,13 @@ export const appRoutes: Routes = [
       },
       {
         path: 'orders',
-        component: OrdersComponent,
-        data: [{ title: 'Zamówienia' }]
+        component: OrderListComponent,
+        data: [{ title: 'Zamówienia' }],
+        resolve: { list: OrderListResolver }
       },
       {
         path: 'orders/add',
-        component: AddOrderComponent,
+        component: OrderAddComponent,
         data: { title: 'Dodawanie zamówienia' }
         // resolve: { user: UserEditResolver }
       },

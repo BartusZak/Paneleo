@@ -18,19 +18,16 @@ export class ErrorInterceptor implements ErrorInterceptor {
   ): Observable<HttpEvent<any>> {
     return next.handle(req).pipe(
       catchError(error => {
-        console.log(error, '<------------------');
         if (error instanceof HttpErrorResponse) {
           if (error.status === 401) {
             return throwError(error.statusText);
           }
           const applicationError = error.headers.get('Application-Error');
           if (applicationError) {
-            console.error(applicationError);
             return throwError(applicationError);
           }
 
           const serverError = error.error;
-
           let errorModel = '';
 
           if (serverError.errorOccurred) {
@@ -45,7 +42,8 @@ export class ErrorInterceptor implements ErrorInterceptor {
           if (
             serverError &&
             typeof serverError === 'object' &&
-            error.status !== 0
+            error.status !== 0 &&
+            !serverError.error
           ) {
             for (const key in serverError) {
               if (serverError[key]) {

@@ -17,11 +17,10 @@ import { ErrorInterceptorProvider } from './_services/error.interceptor';
 import { AlertifyService } from './_services/alertify.service';
 import { UsersListComponent } from './users/users-list/users-list.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { OrdersComponent } from './orders/orders.component';
 import { appRoutes } from './routes';
 import { LeftMenuComponent } from './left-menu/left-menu.component';
 import { AuthGuard } from './_guards/auth.guard';
-import { UserService } from './_services/user.service';
+import { UserService } from './_services/User/user.service';
 import { UserCardComponent } from './users/user-card/user-card.component';
 import { UsersListResolver } from './_resolvers/users-list-resolver';
 import { UserEditComponent } from './users/user-edit/user-edit.component';
@@ -32,7 +31,6 @@ import { BoxComponent } from './dashboard/stats/box/box.component';
 import { LastAddedClientsComponent } from './dashboard/last-added-clients/last-added-clients.component';
 import { LastAddedOrdersComponent } from './dashboard/last-added-orders/last-added-orders.component';
 import { LastAddedProductsComponent } from './dashboard/last-added-products/last-added-products.component';
-import { AddOrderComponent } from './orders/add-order/add-order.component';
 import { ProductListComponent } from './products/product-list/product-list.component';
 import { ProductAddComponent } from './products/product-add/product-add.component';
 import { ProductService } from './_services/Product/product.service';
@@ -49,6 +47,9 @@ import { SelectComponent } from './_utilis/dynamic-form/select/select.component'
 import { ButtonComponent } from './_utilis/dynamic-form/button/button.component';
 import { InputComponent } from './_utilis/dynamic-form/input/input.component';
 import { GenericListComponent } from './_utilis/generic-list/generic-list.component';
+import { OrderListComponent } from './orders/order-list/order-list.component';
+import { OrderAddComponent } from './orders/order-add/order-add.component';
+import { OrderListResolver } from './_resolvers/orders-list-resolver';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -64,8 +65,8 @@ export function tokenGetter() {
     DashboardComponent,
     StatsComponent,
     BoxComponent,
-    OrdersComponent,
-    AddOrderComponent,
+    OrderListComponent,
+    OrderAddComponent,
     LeftMenuComponent,
     UserCardComponent,
     UserEditComponent,
@@ -115,7 +116,8 @@ export function tokenGetter() {
     UserEditResolver,
     ProductService,
     ProductListResolver,
-    ContractorListResolver
+    ContractorListResolver,
+    OrderListResolver
   ],
   bootstrap: [AppComponent],
   entryComponents: [

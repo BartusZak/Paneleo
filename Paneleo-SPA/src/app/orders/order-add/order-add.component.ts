@@ -3,39 +3,45 @@ import { DynamicFormComponent } from 'src/app/_utilis/dynamic-form/dynamic-form.
 import { FieldConfig } from 'src/app/_models/field.interface';
 import { Validators } from '@angular/forms';
 import { AlertifyService } from 'src/app/_services/alertify.service';
-import { ContractorService } from 'src/app/_services/Contractor/contractor.service';
+import { OrderService } from 'src/app/_services/Order/order.service';
 
 @Component({
-  selector: 'app-contractor-add',
-  templateUrl: './contractor-add.component.html',
-  styleUrls: ['./contractor-add.component.css']
+  selector: 'app-order-add',
+  templateUrl: './order-add.component.html',
+  styleUrls: ['./order-add.component.css']
 })
-export class ContractorAddComponent implements OnInit {
+export class OrderAddComponent implements OnInit {
   @ViewChild(DynamicFormComponent) form: DynamicFormComponent;
   regConfig: FieldConfig[] = [
     {
       type: 'input',
-      label: 'Nazwa Kontrahenta',
+      label: 'Kontrahent',
       inputType: 'text',
       name: 'name',
       validations: [
         {
           name: 'required',
           validator: Validators.required,
-          message: 'Nazwa Kontrahenta jest wymagana!'
+          message: 'Kontrahent jest wymagany!'
         }
       ]
     },
     {
       type: 'input',
-      label: 'NIP',
-      inputType: 'text',
-      name: 'nip',
+      label: 'Ilość',
+      inputType: 'number',
+      min: '0',
+      name: 'quantity',
       validations: [
         {
           name: 'required',
           validator: Validators.required,
-          message: 'NIP jest wymagany!'
+          message: 'Ilość jest wymagana!'
+        },
+        {
+          name: 'min',
+          validator: Validators.min(0),
+          message: 'Ilość musi być liczbą dodatnią!'
         }
       ]
     },
@@ -47,19 +53,18 @@ export class ContractorAddComponent implements OnInit {
 
   constructor(
     private alertify: AlertifyService,
-    private contractorService: ContractorService
+    private orderService: OrderService
   ) {}
 
   ngOnInit() {}
 
   submit(value: any) {
-    this.contractorService.addContractor(value).subscribe(
+    this.orderService.addOrder(value).subscribe(
       () => {
-        this.alertify.success('Dodano nowego Kontrahenta!');
+        this.alertify.success('Dodano nowe zamówienie!');
       },
       error => {
         this.alertify.error(error);
       }
     );
   }
-}

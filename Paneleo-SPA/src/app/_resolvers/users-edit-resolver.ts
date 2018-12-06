@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { UserService } from '../_services/user.service';
+import { UserService } from '../_services/User/user.service';
 import { AlertifyService } from '../_services/alertify.service';
 import { Router, ActivatedRouteSnapshot, Resolve } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { User } from '../_models/user';
 import { AuthService } from '../_services/auth.service';
+import { User } from '../_models/user';
 
 @Injectable()
 export class UserEditResolver implements Resolve<User> {
