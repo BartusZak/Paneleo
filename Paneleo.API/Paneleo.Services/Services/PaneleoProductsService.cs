@@ -96,12 +96,6 @@ namespace Paneleo.Services.Services
 
             response.SuccessResult = GetByParameters(searchParamsValidated.SuccessResult);
 
-            //if (searchResults.TotalPageCount == 0)
-            //{
-            //    response.AddError(Key.Product, Error.PageLimit);
-            //}
-
-
             return response;
         }
 
@@ -121,9 +115,6 @@ namespace Paneleo.Services.Services
                 TotalItemsCount = productsCount
             };
         }
-
-
-
         private Response<SearchParamsBindingModel> SearchParametersValidate(SearchParamsBindingModel searchParams)
         {
             var response = new Response<SearchParamsBindingModel>();

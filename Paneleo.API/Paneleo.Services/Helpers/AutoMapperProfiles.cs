@@ -22,6 +22,9 @@ namespace Paneleo.Services.Helpers
             CreateMap<AddContractorBindingModel, Contractor>();
             CreateMap<UpdateContractorBindingModel, Contractor>();
 
+            CreateMap<AddOrderBindingModel, Contractor>();
+            CreateMap<UpdateOrderBindingModel, Contractor>();
+
 
 
 

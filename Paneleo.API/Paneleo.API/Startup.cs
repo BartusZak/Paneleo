@@ -89,6 +89,7 @@ namespace Paneleo.API
             services.AddScoped<IPaneleoRepository, PaneleoRepository>();
             services.AddTransient<IPaneleoProductsService, PaneleoProductsService>();
             services.AddTransient<IPaneleoContractorsService, PaneleoContractorsService>();
+            services.AddTransient<IPaneleoOrdersService, PaneleoOrdersService>();
             services.AddTransient<Seed>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options =>

@@ -11,19 +11,19 @@ namespace Paneleo.API.Controllers
     [ApiController]
     [ServiceFilter(typeof(LogUserActivity))]
     [Authorize]
-    public class ContractorsController : ControllerBase
+    public class OrdersController : ControllerBase
     {
-        private readonly IPaneleoContractorsService _contractorService;
+        private readonly IPaneleoOrdersService _orderService;
 
-        public ContractorsController(IPaneleoContractorsService contractorService)
+        public OrdersController(IPaneleoOrdersService orderService)
         {
-            this._contractorService = contractorService;
+            this._orderService = orderService;
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddAsync(AddContractorBindingModel bindingModel)
+        public async Task<IActionResult> AddAsync(AddOrderBindingModel bindingModel)
         {
-            var result = await _contractorService.AddAsync(bindingModel);
+            var result = await _orderService.AddAsync(bindingModel);
             if (result.ErrorOccurred)
             {
                 return BadRequest(result);
@@ -34,7 +34,7 @@ namespace Paneleo.API.Controllers
         [HttpPut]
         public async Task<IActionResult> UpdateAsync(UpdateOrderBindingModel bindingModel)
         {
-            var result = await _contractorService.UpdateAsync(bindingModel);
+            var result = await _orderService.UpdateAsync(bindingModel);
             if (result.ErrorOccurred)
             {
                 return BadRequest(result);
@@ -42,10 +42,10 @@ namespace Paneleo.API.Controllers
             return Ok(result);
         }
 
-        [HttpDelete("{contractorId}")]
-        public async Task<IActionResult> DeleteAsync(int contractorId)
+        [HttpDelete("{orderId}")]
+        public async Task<IActionResult> DeleteAsync(int orderId)
         {
-            var result = await _contractorService.DeleteAsync(contractorId);
+            var result = await _orderService.DeleteAsync(orderId);
             if (result.ErrorOccurred)
             {
                 return BadRequest(result);
@@ -56,7 +56,7 @@ namespace Paneleo.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll([FromQuery]SearchParamsBindingModel searchParams)
         {
-            var result = await _contractorService.GetAllAsync(searchParams);
+            var result = await _orderService.GetAllAsync(searchParams);
             if (result.ErrorOccurred)
             {
                 return BadRequest(result);

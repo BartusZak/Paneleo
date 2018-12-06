@@ -14,5 +14,11 @@ namespace Paneleo.Services
         public static string ContractorUpdateError = "Wystąpil problem, podczas edycji kontahenta!";
         public static string ContractorRemoveError = "Wystąpil problem, podczas usuwania kontrahenta!";
         public static string ContractorNotExist = "Taki kontrahent nie istnieje!";
+
+        public static string OrderAlreadyExists = "Zamówienie o takiej nazwie już istnieje!";
+        public static string OrderAddError = "Wystąpil problem, podczas dodawania zamówienia!";
+        public static string OrderUpdateError = "Wystąpil problem, podczas edycji zamówienia!";
+        public static string OrderRemoveError = "Wystąpil problem, podczas usuwania zamówienia!";
+        public static string OrderNotExist = "Takie zmaówienie nie istnieje!";
     }
 }

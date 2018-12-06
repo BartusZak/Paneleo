@@ -41,7 +41,7 @@ namespace Paneleo.Services.Services
             return response;
         }
 
-        public async Task<Response<object>> UpdateAsync(UpdateContractorBindingModel bindingModel)
+        public async Task<Response<object>> UpdateAsync(UpdateOrderBindingModel bindingModel)
         {
             var response = await ValidateUpdateViewModel(bindingModel);
             if (response.ErrorOccurred)
@@ -151,7 +151,7 @@ namespace Paneleo.Services.Services
             return response;
         }
 
-        private async Task<Response<object>> ValidateUpdateViewModel(UpdateContractorBindingModel bindingModel)
+        private async Task<Response<object>> ValidateUpdateViewModel(UpdateOrderBindingModel bindingModel)
         {
             var response = new Response<object>();
             bool contractorExists = await _contractorRepository.ExistAsync(x => x.Id == bindingModel.Id);
