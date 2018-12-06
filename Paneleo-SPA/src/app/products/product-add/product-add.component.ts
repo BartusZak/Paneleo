@@ -1,13 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import {
-  FormGroup,
-  FormControl,
-  Validators,
-  FormBuilder
-} from '@angular/forms';
-import { Product } from 'src/app/_models/product';
-import { ProductService } from 'src/app/_services/Product/product.service';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { DynamicFormComponent } from 'src/app/_utilis/dynamic-form/dynamic-form.component';
+import { FieldConfig } from 'src/app/_models/field.interface';
+import { Validators } from '@angular/forms';
 import { AlertifyService } from 'src/app/_services/alertify.service';
+import { ProductService } from 'src/app/_services/Product/product.service';
 
 @Component({
   selector: 'app-product-add',
@@ -15,50 +11,61 @@ import { AlertifyService } from 'src/app/_services/alertify.service';
   styleUrls: ['./product-add.component.css']
 })
 export class ProductAddComponent implements OnInit {
-  addProductForm: FormGroup;
-  productToAdd: Product;
+  @ViewChild(DynamicFormComponent) form: DynamicFormComponent;
+  regConfig: FieldConfig[] = [
+    {
+      type: 'input',
+      label: 'Nazwa Produktu',
+      inputType: 'text',
+      name: 'name',
+      validations: [
+        {
+          name: 'required',
+          validator: Validators.required,
+          message: 'Nazwa Produktu jest wymagana!'
+        }
+      ]
+    },
+    {
+      type: 'input',
+      label: 'Ilość',
+      inputType: 'number',
+      min: '0',
+      name: 'quantity',
+      validations: [
+        {
+          name: 'required',
+          validator: Validators.required,
+          message: 'Ilość jest wymagana!'
+        },
+        {
+          name: 'min',
+          validator: Validators.min(0),
+          message: 'Ilość musi być liczbą dodatnią!'
+        }
+      ]
+    },
+    {
+      type: 'button',
+      label: 'Dodaj'
+    }
+  ];
+
   constructor(
-    private productService: ProductService,
-    private fb: FormBuilder,
-    private alertify: AlertifyService
+    private alertify: AlertifyService,
+    private productService: ProductService
   ) {}
 
-  ngOnInit() {
-    this.createAddProductForm();
-  }
+  ngOnInit() {}
 
-  createAddProductForm() {
-    this.addProductForm = this.fb.group({
-      name: [
-        '',
-        [
-          Validators.required,
-          Validators.maxLength(40),
-          this.noWhitespaceValidator
-        ]
-      ],
-      quantity: [0, Validators.min(0)]
-    });
-  }
-
-  public noWhitespaceValidator(control: FormControl) {
-    const isWhitespace = (control.value || '').trim().length === 0;
-    const isValid = !isWhitespace;
-    return isValid ? null : { whitespace: true };
-  }
-
-  addProduct() {
-    if (this.addProductForm.valid) {
-      this.productToAdd = Object.assign({}, this.addProductForm.value);
-      this.productService.addProduct(this.productToAdd).subscribe(
-        () => {
-          this.alertify.success('Dodano nowy produkt!');
-        },
-        error => {
-          this.alertify.error(error);
-        }
-      );
-    }
-    console.log(this.addProductForm);
+  submit(value: any) {
+    this.productService.addProduct(value).subscribe(
+      () => {
+        this.alertify.success('Dodano nowy produkt!');
+      },
+      error => {
+        this.alertify.error(error);
+      }
+    );
   }
 }

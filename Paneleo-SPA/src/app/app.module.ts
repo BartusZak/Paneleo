@@ -33,7 +33,6 @@ import { LastAddedClientsComponent } from './dashboard/last-added-clients/last-a
 import { LastAddedOrdersComponent } from './dashboard/last-added-orders/last-added-orders.component';
 import { LastAddedProductsComponent } from './dashboard/last-added-products/last-added-products.component';
 import { AddOrderComponent } from './orders/add-order/add-order.component';
-import { GenericListComponent } from './_utilis/generic-list/generic-list.component';
 import { ProductListComponent } from './products/product-list/product-list.component';
 import { ProductAddComponent } from './products/product-add/product-add.component';
 import { ProductService } from './_services/Product/product.service';
@@ -41,6 +40,15 @@ import { ProductListResolver } from './_resolvers/products-list-resolver';
 import { ContractorAddComponent } from './contractors/contractor-add/contractor-add.component';
 import { ContractorListComponent } from './contractors/contractor-list/contractor-list.component';
 import { ContractorListResolver } from './_resolvers/contractors-list-resolver';
+import { DynamicFormComponent } from './_utilis/dynamic-form/dynamic-form.component';
+import { DynamicFieldDirective } from './_utilis/dynamic-form/dynamic-field/dynamic-field.directive';
+import { CheckboxComponent } from './_utilis/dynamic-form/checkbox/checkbox.component';
+import { RadiobuttonComponent } from './_utilis/dynamic-form/radiobutton/radiobutton.component';
+import { DateComponent } from './_utilis/dynamic-form/date/date.component';
+import { SelectComponent } from './_utilis/dynamic-form/select/select.component';
+import { ButtonComponent } from './_utilis/dynamic-form/button/button.component';
+import { InputComponent } from './_utilis/dynamic-form/input/input.component';
+import { GenericListComponent } from './_utilis/generic-list/generic-list.component';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -68,7 +76,15 @@ export function tokenGetter() {
     ProductAddComponent,
     GenericListComponent,
     ContractorAddComponent,
-    ContractorListComponent
+    ContractorListComponent,
+    InputComponent,
+    ButtonComponent,
+    SelectComponent,
+    DateComponent,
+    RadiobuttonComponent,
+    CheckboxComponent,
+    DynamicFieldDirective,
+    DynamicFormComponent
   ],
   imports: [
     NgxDatatableModule,
@@ -101,7 +117,15 @@ export function tokenGetter() {
     ProductListResolver,
     ContractorListResolver
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [
+    InputComponent,
+    ButtonComponent,
+    SelectComponent,
+    DateComponent,
+    RadiobuttonComponent,
+    CheckboxComponent
+  ]
 })
 export class AppModule {
   constructor(titleService: TitleService) {
