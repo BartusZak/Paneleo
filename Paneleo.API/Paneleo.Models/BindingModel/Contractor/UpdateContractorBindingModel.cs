@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations;
+using Paneleo.Models.BindingModel.Contractor;
 
-namespace Paneleo.Models.BindingModel
+namespace Paneleo.Models.BindingModel.Contractor
 {
     public class UpdateContractorBindingModel : AddContractorBindingModel
     {

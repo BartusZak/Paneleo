@@ -6,7 +6,10 @@ using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Paneleo.Data.Repository.Interfaces;
 using Paneleo.Models.BindingModel;
+using Paneleo.Models.BindingModel.Contractor;
+using Paneleo.Models.BindingModel.Order;
 using Paneleo.Models.Model;
+using Paneleo.Models.Model.Contractor;
 using Paneleo.Models.ModelDto;
 using Paneleo.Services.Interfaces;
 
@@ -15,11 +18,11 @@ namespace Paneleo.Services.Services
     public class PaneleoContractorsService : IPaneleoContractorsService
     {
         private readonly IRepository<Contractor> _contractorRepository;
-        public readonly IMapper _mapper;
+        public readonly IMapper Mapper;
 
         public PaneleoContractorsService(IRepository<Contractor> contractorRepository, IMapper mapper)
         {
-            this._mapper = mapper;
+            this.Mapper = mapper;
             this._contractorRepository = contractorRepository;
         }
 
@@ -30,7 +33,7 @@ namespace Paneleo.Services.Services
             {
                 return response;
             }
-            var contractor = _mapper.Map<Contractor>(bindingModel);
+            var contractor = Mapper.Map<Contractor>(bindingModel);
 
             bool addSucceed = await _contractorRepository.AddAsync(contractor);
             if (!addSucceed)
@@ -49,10 +52,10 @@ namespace Paneleo.Services.Services
                 return response;
             }
 
-            var product = await _contractorRepository.GetByAsync(x => x.Id == bindingModel.Id);
+            var product = await _contractorRepository.GetByAsync(x => x.ContractorId == bindingModel.Id);
 
             _contractorRepository.Detach(product);
-            var updatedProduct = _mapper.Map<Contractor>(bindingModel);
+            var updatedProduct = Mapper.Map<Contractor>(bindingModel);
 
             bool updateSucceed = await _contractorRepository.UpdateAsync(updatedProduct);
             if (!updateSucceed)
@@ -66,7 +69,7 @@ namespace Paneleo.Services.Services
         public async Task<Response<object>> DeleteAsync(int contractorId)
         {
             var response = new Response<object>();
-            var contractor = await _contractorRepository.GetByAsync(x => x.Id == contractorId);
+            var contractor = await _contractorRepository.GetByAsync(x => x.ContractorId == contractorId);
             if (contractor == null)
             {
                 response.AddError(Key.Contractor, Error.ContractorNotExist);
@@ -94,7 +97,7 @@ namespace Paneleo.Services.Services
                 return response;
             }
 
-            response.SuccessResult = GetByParameters(searchParamsValidated.SuccessResult);
+            response.SuccessResult = await GetByParameters(searchParamsValidated.SuccessResult);
 
             //if (searchResults.TotalPageCount == 0)
             //{
@@ -105,9 +108,9 @@ namespace Paneleo.Services.Services
             return response;
         }
 
-        public SearchResults<ContractorDetailedDto> GetByParameters(SearchParamsBindingModel searchParams)
+        public async Task<SearchResults<ContractorDetailedDto>> GetByParameters(SearchParamsBindingModel searchParams)
         {
-            var contractors = _contractorRepository.GetAllAsync();
+            var contractors = await _contractorRepository.GetAllAsync();
             var contractorsCount = contractors.Count();
             var contractorsPageCount = (int)Math.Ceiling((decimal)contractors.Count() / searchParams.PageLimit);
             contractors = contractors.Skip(searchParams.PageLimit * (searchParams.PageNumber - 1)).Take(searchParams.PageLimit);
@@ -115,7 +118,7 @@ namespace Paneleo.Services.Services
 
             return new SearchResults<ContractorDetailedDto>()
             {
-                Results = _mapper.Map<List<ContractorDetailedDto>>(contractors),
+                Results = Mapper.Map<List<ContractorDetailedDto>>(contractors),
                 CurrentPage = searchParams.PageNumber,
                 TotalPageCount = contractorsPageCount,
                 TotalItemsCount = contractorsCount
@@ -154,7 +157,7 @@ namespace Paneleo.Services.Services
         private async Task<Response<object>> ValidateUpdateViewModel(UpdateOrderBindingModel bindingModel)
         {
             var response = new Response<object>();
-            bool contractorExists = await _contractorRepository.ExistAsync(x => x.Id == bindingModel.Id);
+            bool contractorExists = await _contractorRepository.ExistAsync(x => x.ContractorId == bindingModel.Id);
             if (!contractorExists)
             {
                 response.AddError(Key.Contractor, Error.ContractorNotExist);

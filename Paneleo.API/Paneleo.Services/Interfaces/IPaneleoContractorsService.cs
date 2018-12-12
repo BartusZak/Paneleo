@@ -1,5 +1,7 @@
 using System.Threading.Tasks;
 using Paneleo.Models.BindingModel;
+using Paneleo.Models.BindingModel.Contractor;
+using Paneleo.Models.BindingModel.Order;
 using Paneleo.Models.ModelDto;
 
 namespace Paneleo.Services.Interfaces

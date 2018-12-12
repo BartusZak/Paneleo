@@ -1,12 +1,12 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Paneleo.Models.BindingModel
+namespace Paneleo.Models.BindingModel.Contractor
 {
     public class AddContractorBindingModel
     {
         [Required(ErrorMessage = "Nazwa jest wymagana!")]
         public string Name { get; set; }
-        public string NIP { get; set; }
+        public string Nip { get; set; }
 
     }
 }

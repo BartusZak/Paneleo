@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Paneleo.Data.Repository.Interfaces;
 using Paneleo.Models.BindingModel;
 using Paneleo.Models.Model;
+using Paneleo.Models.Model.Product;
 using Paneleo.Models.ModelDto;
 using Paneleo.Services.Interfaces;
 
@@ -15,11 +16,11 @@ namespace Paneleo.Services.Services
     public class PaneleoProductsService : IPaneleoProductsService
     {
         private readonly IRepository<Product> _productRepository;
-        public readonly IMapper _mapper;
+        public readonly IMapper Mapper;
 
         public PaneleoProductsService(IRepository<Product> productRepository, IMapper mapper)
         {
-            this._mapper = mapper;
+            this.Mapper = mapper;
             this._productRepository = productRepository;
         }
 
@@ -30,7 +31,7 @@ namespace Paneleo.Services.Services
             {
                 return response;
             }
-            var product = _mapper.Map<Product>(bindingModel);
+            var product = Mapper.Map<Product>(bindingModel);
 
             bool addSucceed = await _productRepository.AddAsync(product);
             if (!addSucceed)
@@ -49,10 +50,10 @@ namespace Paneleo.Services.Services
                 return response;
             }
 
-            var product = await _productRepository.GetByAsync(x => x.Id == bindingModel.Id);
+            var product = await _productRepository.GetByAsync(x => x.Name == bindingModel.Name);
 
             _productRepository.Detach(product);
-            var updatedProduct = _mapper.Map<Product>(bindingModel);
+            var updatedProduct = Mapper.Map<Product>(bindingModel);
 
             bool updateSucceed = await _productRepository.UpdateAsync(updatedProduct);
             if (!updateSucceed)
@@ -63,10 +64,10 @@ namespace Paneleo.Services.Services
             return response;
         }
 
-        public async Task<Response<object>> DeleteAsync(int productId)
+        public async Task<Response<object>> DeleteAsync(string productName)
         {
             var response = new Response<object>();
-            var product = await _productRepository.GetByAsync(x => x.Id == productId);
+            var product = await _productRepository.GetByAsync(x => x.Name == productName);
             if (product == null)
             {
                 response.AddError(Key.Product, Error.ProductNotExist);
@@ -94,14 +95,14 @@ namespace Paneleo.Services.Services
                 return response;
             }
 
-            response.SuccessResult = GetByParameters(searchParamsValidated.SuccessResult);
+            response.SuccessResult = await GetByParameters(searchParamsValidated.SuccessResult);
 
             return response;
         }
 
-        public SearchResults<ProductDetailedDto> GetByParameters(SearchParamsBindingModel searchParams)
+        public async Task<SearchResults<ProductDetailedDto>> GetByParameters(SearchParamsBindingModel searchParams)
         {
-            var products = _productRepository.GetAllAsync();
+            var products = await _productRepository.GetAllAsync();
             var productsCount = products.Count();
             var productsPageCount = (int)Math.Ceiling((decimal)products.Count() / searchParams.PageLimit);
             products = products.Skip(searchParams.PageLimit * (searchParams.PageNumber - 1)).Take(searchParams.PageLimit);
@@ -109,7 +110,7 @@ namespace Paneleo.Services.Services
 
             return new SearchResults<ProductDetailedDto>()
             {
-                Results = _mapper.Map<List<ProductDetailedDto>>(products),
+                Results = Mapper.Map<List<ProductDetailedDto>>(products),
                 CurrentPage = searchParams.PageNumber,
                 TotalPageCount = productsPageCount,
                 TotalItemsCount = productsCount
@@ -148,7 +149,7 @@ namespace Paneleo.Services.Services
         private async Task<Response<object>> ValidateUpdateViewModel(UpdateProductBindingModel bindingModel)
         {
             var response = new Response<object>();
-            bool productExists = await _productRepository.ExistAsync(x => x.Id == bindingModel.Id);
+            bool productExists = await _productRepository.ExistAsync(x => x.Name == bindingModel.Name);
             if (!productExists)
             {
                 response.AddError(Key.Product, Error.ProductNotExist);

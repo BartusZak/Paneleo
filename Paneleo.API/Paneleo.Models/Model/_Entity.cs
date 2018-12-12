@@ -5,10 +5,9 @@ namespace Paneleo.Models.Model
 {
     public class Entity
     {
-        [Key]
-        public int Id { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime ModifiedAt { get; set; }
+        public User CreatedBy { get; set; }
 
         public Entity()
         {

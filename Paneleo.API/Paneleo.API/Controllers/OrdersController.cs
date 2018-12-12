@@ -2,6 +2,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Paneleo.Models.BindingModel;
+using Paneleo.Models.BindingModel.Order;
 using Paneleo.Services.Helpers;
 using Paneleo.Services.Interfaces;
 

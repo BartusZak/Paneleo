@@ -9,14 +9,15 @@ using Paneleo.Data.DatabaseContext;
 namespace Paneleo.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20181128084628_contractors")]
-    partial class contractors
+    [Migration("20181210145156_new")]
+    partial class @new
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024");
+                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
+                .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             modelBuilder.Entity("Paneleo.Models.Model.Contractor", b =>
                 {
@@ -27,13 +28,48 @@ namespace Paneleo.Data.Migrations
 
                     b.Property<DateTime>("ModifiedAt");
 
-                    b.Property<string>("NIP");
-
                     b.Property<string>("Name");
+
+                    b.Property<string>("Nip");
 
                     b.HasKey("Id");
 
                     b.ToTable("Contractors");
+                });
+
+            modelBuilder.Entity("Paneleo.Models.Model.Order", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int?>("ContractorId");
+
+                    b.Property<DateTime>("CreatedAt");
+
+                    b.Property<DateTime>("ModifiedAt");
+
+                    b.Property<string>("Place");
+
+                    b.Property<double>("ToPay");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ContractorId");
+
+                    b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("Paneleo.Models.Model.OrderProduct", b =>
+                {
+                    b.Property<int>("OrderId");
+
+                    b.Property<int>("ProductId");
+
+                    b.HasKey("OrderId", "ProductId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("OrderProducts");
                 });
 
             modelBuilder.Entity("Paneleo.Models.Model.Product", b =>
@@ -76,6 +112,26 @@ namespace Paneleo.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("Paneleo.Models.Model.Order", b =>
+                {
+                    b.HasOne("Paneleo.Models.Model.Contractor", "Contractor")
+                        .WithMany()
+                        .HasForeignKey("ContractorId");
+                });
+
+            modelBuilder.Entity("Paneleo.Models.Model.OrderProduct", b =>
+                {
+                    b.HasOne("Paneleo.Models.Model.Order", "Order")
+                        .WithMany()
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Paneleo.Models.Model.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

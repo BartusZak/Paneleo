@@ -11,7 +11,7 @@ namespace Paneleo.Data.Repository.Interfaces
         Task<bool> AddAsync(T entity);
         Task<bool> UpdateAsync(T entity);
         Task<T> GetByAsync(Expression<Func<T, bool>> getBy, bool withTracking = true);
-        IQueryable<T> GetAllAsync(bool withTracking = false, params Expression<Func<T, object>>[] includes);
+        Task<IQueryable<T>> GetAllAsync(bool withTracking = false, params Expression<Func<T, object>>[] includes);
         Task<IQueryable<T>> GetAllByAsync(Expression<Func<T, bool>> getBy, bool withTracking = true);
         Task<bool> RemoveAsync(T entity);
         Task<bool> ExistAsync(Expression<Func<T, bool>> getBy);

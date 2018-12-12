@@ -1,15 +1,16 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Paneleo.Models.BindingModel.Contractor;
+using Paneleo.Models.BindingModel.Product;
 
-namespace Paneleo.Models.BindingModel
+namespace Paneleo.Models.BindingModel.Order
 {
     public class AddOrderBindingModel
     {
-        public int Id { get; set; }
         public string Place { get; set; }
         public AddContractorBindingModel Contractor { get; set; }
-        public IEnumerable<AddProductBindingModel> Products { get; set; }
-        public double ToPay { get; set; }
+        public List<AddProductForOrderBindingModel> Products { get; set; }
+        public double TotalCost { get; set; }
 
     }
 }

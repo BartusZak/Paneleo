@@ -4,6 +4,8 @@ namespace Paneleo.Services
     {
         public static string ProductAlreadyExists = "Produkt o takiej nazwie już istnieje!";
         public static string ProductAddError = "Wystąpil problem, podczas dodawania produktu!";
+        public static string ProductAddErrorWithName = "Wystąpil problem, podczas dodawania produktu: ";
+
         public static string ProductUpdateError = "Wystąpil problem, podczas edycji produktu!";
         public static string ProductRemoveError = "Wystąpil problem, podczas usuwania produktu!";
         public static string ProductNotExist = "Taki produkt nie istnieje!";
@@ -20,5 +22,6 @@ namespace Paneleo.Services
         public static string OrderUpdateError = "Wystąpil problem, podczas edycji zamówienia!";
         public static string OrderRemoveError = "Wystąpil problem, podczas usuwania zamówienia!";
         public static string OrderNotExist = "Takie zmaówienie nie istnieje!";
+        public static string AlreadyInList = "znajduję się już na liście!";
     }
 }

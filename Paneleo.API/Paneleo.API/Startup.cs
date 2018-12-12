@@ -75,8 +75,8 @@ namespace Paneleo.API
         public void ConfigureDevelopmentServices(IServiceCollection services)
         {
             // services.AddDbContext<ApplicationDbContext>(x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("./Data")));
-            services.AddDbContext<ApplicationDbContext>(x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
-
+            //services.AddDbContext<ApplicationDbContext>(x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<ApplicationDbContext>(x => x.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
                 .AddJsonOptions(opt =>
                 {

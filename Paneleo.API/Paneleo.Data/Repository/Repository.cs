@@ -12,7 +12,7 @@ namespace Paneleo.Data.Repository
     public class Repository<T> : IRepository<T> where T : Entity
     {
         private readonly ApplicationDbContext _dbContext;
-        private DbSet<T> _dbSet;
+        private readonly DbSet<T> _dbSet;
         public Repository(ApplicationDbContext context)
         {
             _dbContext = context;
@@ -41,9 +41,9 @@ namespace Paneleo.Data.Repository
             return await query.FirstOrDefaultAsync(getBy);
         }
 
-        public IQueryable<T> GetAllAsync(bool withTracking = false, params Expression<Func<T, object>>[] includes)
+        public async Task<IQueryable<T>> GetAllAsync(bool withTracking = false, params Expression<Func<T, object>>[] includes)
         {
-            return GetAll(withTracking, includes);
+            return await Task.Run(() => GetAll(withTracking, includes));
         }
 
         public async Task<IQueryable<T>> GetAllByAsync(Expression<Func<T, bool>> getBy, bool withTracking = true)

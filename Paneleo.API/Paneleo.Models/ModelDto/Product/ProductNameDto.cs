@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Paneleo.Models.Model
+namespace Paneleo.Models.ModelDto.Product
 {
-    public class Contractor :Entity
+    public class ProductNameDto
     {
         public string Name { get; set; }
-        public string NIP { get; set; }
     }
 }

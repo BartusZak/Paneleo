@@ -9,14 +9,15 @@ using Paneleo.Data.DatabaseContext;
 namespace Paneleo.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20181206132048_Orders")]
-    partial class Orders
+    [Migration("20181211093125_test")]
+    partial class test
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024");
+                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
+                .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             modelBuilder.Entity("Paneleo.Models.Model.Contractor", b =>
                 {
@@ -27,9 +28,9 @@ namespace Paneleo.Data.Migrations
 
                     b.Property<DateTime>("ModifiedAt");
 
-                    b.Property<string>("NIP");
-
                     b.Property<string>("Name");
+
+                    b.Property<string>("Nip");
 
                     b.HasKey("Id");
 
@@ -41,8 +42,6 @@ namespace Paneleo.Data.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int?>("ContractorId");
-
                     b.Property<DateTime>("CreatedAt");
 
                     b.Property<DateTime>("ModifiedAt");
@@ -53,9 +52,20 @@ namespace Paneleo.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ContractorId");
-
                     b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("Paneleo.Models.Model.OrderProduct", b =>
+                {
+                    b.Property<int>("OrderId");
+
+                    b.Property<int>("ProductId");
+
+                    b.HasKey("OrderId", "ProductId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("OrderProducts");
                 });
 
             modelBuilder.Entity("Paneleo.Models.Model.Product", b =>
@@ -69,13 +79,9 @@ namespace Paneleo.Data.Migrations
 
                     b.Property<string>("Name");
 
-                    b.Property<int?>("OrderId");
-
                     b.Property<int>("Quantity");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("OrderId");
 
                     b.ToTable("Products");
                 });
@@ -104,18 +110,17 @@ namespace Paneleo.Data.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("Paneleo.Models.Model.Order", b =>
+            modelBuilder.Entity("Paneleo.Models.Model.OrderProduct", b =>
                 {
-                    b.HasOne("Paneleo.Models.Model.Contractor", "Contractor")
-                        .WithMany()
-                        .HasForeignKey("ContractorId");
-                });
+                    b.HasOne("Paneleo.Models.Model.Order", "Order")
+                        .WithMany("OrderProducts")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
-            modelBuilder.Entity("Paneleo.Models.Model.Product", b =>
-                {
-                    b.HasOne("Paneleo.Models.Model.Order")
-                        .WithMany("Products")
-                        .HasForeignKey("OrderId");
+                    b.HasOne("Paneleo.Models.Model.Product", "Product")
+                        .WithMany("OrderProducts")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

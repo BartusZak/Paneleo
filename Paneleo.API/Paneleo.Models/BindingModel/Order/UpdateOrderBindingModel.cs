@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Paneleo.Models.BindingModel
+namespace Paneleo.Models.BindingModel.Order
+
 {
     public class UpdateOrderBindingModel : AddOrderBindingModel
     {
