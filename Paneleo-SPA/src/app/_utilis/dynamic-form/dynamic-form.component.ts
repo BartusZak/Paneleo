@@ -58,10 +58,11 @@ export class DynamicFormComponent implements OnInit {
   }
 
   createControl() {
+    console.log(this.fields);
     const group = this.fb.group({});
     this.fields.forEach(field => {
       // tslint:disable-next-line:curly
-      if (field.type === 'button') return;
+      if (field.type === 'button' || field.type === 'products') return;
       const control = this.fb.control(
         field.value,
         this.bindValidations(field.validations || [])

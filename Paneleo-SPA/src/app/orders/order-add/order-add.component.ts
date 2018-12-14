@@ -4,6 +4,7 @@ import { FieldConfig } from 'src/app/_models/field.interface';
 import { Validators } from '@angular/forms';
 import { AlertifyService } from 'src/app/_services/alertify.service';
 import { OrderService } from 'src/app/_services/Order/order.service';
+import { templateSourceUrl } from '@angular/compiler';
 
 @Component({
   selector: 'app-order-add',
@@ -27,23 +28,8 @@ export class OrderAddComponent implements OnInit {
       ]
     },
     {
-      type: 'input',
-      label: 'Ilość',
-      inputType: 'number',
-      min: '0',
-      name: 'quantity',
-      validations: [
-        {
-          name: 'required',
-          validator: Validators.required,
-          message: 'Ilość jest wymagana!'
-        },
-        {
-          name: 'min',
-          validator: Validators.min(0),
-          message: 'Ilość musi być liczbą dodatnią!'
-        }
-      ]
+      type: 'products',
+      label: 'Produkty'
     },
     {
       type: 'button',

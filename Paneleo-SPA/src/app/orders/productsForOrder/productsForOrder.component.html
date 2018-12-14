@@ -1,0 +1,147 @@
+<div>
+  <ngx-datatable
+    #mydatatable
+    class="material"
+    [headerHeight]="50"
+    [limit]="10"
+    [columnMode]="'flex'"
+    [footerHeight]="0"
+    [rowHeight]="'auto'"
+    [rows]="rows"
+  >
+    <ngx-datatable-column name="id" [flexGrow]="1">
+      <ng-template ngx-datatable-header-template>
+        <span>Lp.</span>
+      </ng-template>
+      <ng-template ngx-datatable-cell-template let-value="value">
+        {{ value }}
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="name" [flexGrow]="3">
+      <ng-template ngx-datatable-header-template>
+        <span>Nazwa</span>
+      </ng-template>
+      <ng-template
+        ngx-datatable-cell-template
+        let-rowIndex="rowIndex"
+        let-value="value"
+        let-row="row"
+      >
+        <span
+          title="Kliknij podwójnie, aby edytować"
+          (click)="editing[rowIndex + '-name'] = true"
+          (dblclick)="editing[rowIndex + '-name'] = true"
+          *ngIf="!editing[rowIndex + '-name']"
+          class="container-fluid"
+        >
+          {{ value }}
+        </span>
+        <input
+          autofocus
+          (blur)="updateValue($event, 'name', rowIndex)"
+          *ngIf="editing[rowIndex + '-name']"
+          type="text"
+          [value]="value"
+        />
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="quantity" [flexGrow]="2">
+      <ng-template ngx-datatable-header-template>
+        <span>Ilość</span>
+      </ng-template>
+      <ng-template
+        ngx-datatable-cell-template
+        let-rowIndex="rowIndex"
+        let-value="value"
+        let-row="row"
+      >
+        <span
+          title="Kliknij podwójnie, aby edytować"
+          (dblclick)="editing[rowIndex + '-quantity'] = true"
+          *ngIf="!editing[rowIndex + '-quantity']"
+          class="container-fluid"
+        >
+          {{ value }}
+        </span>
+        <input
+          autofocus
+          (blur)="updateValue($event, 'quantity', rowIndex)"
+          *ngIf="editing[rowIndex + '-quantity']"
+          type="number"
+          [value]="value"
+        />
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="unitOfMeasure" [flexGrow]="2">
+      <ng-template ngx-datatable-header-template> <span>Jm</span> </ng-template>
+      <ng-template
+        ngx-datatable-cell-template
+        let-rowIndex="rowIndex"
+        let-row="row"
+        let-value="value"
+      >
+        <span
+          title="Kliknij podwójnie, aby edytować"
+          (dblclick)="editing[rowIndex + '-unitOfMeasure'] = true"
+          *ngIf="!editing[rowIndex + '-unitOfMeasure']"
+          class="container-fluid"
+        >
+          {{ value }}
+        </span>
+        <select
+          *ngIf="editing[rowIndex + '-unitOfMeasure']"
+          (blur)="editing[rowIndex + '-unitOfMeasure'] = false"
+          (change)="updateValue($event, 'unitOfMeasure', rowIndex)"
+          [value]="value"
+        >
+          <option value="sztuka">sztuka</option>
+          <option value="meter">metr</option>
+          <option value="runningMeter">mb</option>
+          <option value="squareMeter">m<sup>2</sup></option>
+        </select>
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="pricePerUnit" [flexGrow]="2">
+      <ng-template ngx-datatable-header-template>
+        <span>Cena za jednostkę</span>
+      </ng-template>
+      <ng-template
+        ngx-datatable-cell-template
+        let-rowIndex="rowIndex"
+        let-value="value"
+        let-row="row"
+      >
+        <span
+          title="Kliknij podwójnie, aby edytować"
+          (dblclick)="editing[rowIndex + '-pricePerUnit'] = true"
+          *ngIf="!editing[rowIndex + '-pricePerUnit']"
+          class="container-fluid"
+        >
+          {{ value }}
+        </span>
+        <input
+          autofocus
+          (blur)="updateValue($event, 'pricePerUnit', rowIndex)"
+          *ngIf="editing[rowIndex + '-pricePerUnit']"
+          type="number"
+          [value]="value"
+        />
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="totalPrice" [flexGrow]="2">
+      <ng-template ngx-datatable-header-template>
+        <span>Łączna cena</span>
+      </ng-template>
+      <ng-template ngx-datatable-cell-template let-value="value">
+        {{ value }}
+      </ng-template>
+    </ngx-datatable-column>
+  </ngx-datatable>
+</div>
+
+<button (click)="onAddProductToOrderClick()">Dodaj</button>

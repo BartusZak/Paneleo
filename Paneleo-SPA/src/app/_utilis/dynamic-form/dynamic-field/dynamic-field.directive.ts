@@ -14,6 +14,7 @@ import { DateComponent } from '../date/date.component';
 import { RadiobuttonComponent } from '../radiobutton/radiobutton.component';
 import { CheckboxComponent } from '../checkbox/checkbox.component';
 import { FieldConfig } from 'src/app/_models/field.interface';
+import { ProductsComponent } from '../products/products.component';
 
 const componentMapper = {
   input: InputComponent,
@@ -21,7 +22,8 @@ const componentMapper = {
   select: SelectComponent,
   date: DateComponent,
   radiobutton: RadiobuttonComponent,
-  checkbox: CheckboxComponent
+  checkbox: CheckboxComponent,
+  products: ProductsComponent
 };
 @Directive({
   // tslint:disable-next-line:directive-selector
