@@ -1,14 +1,18 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
+using System.Security.Principal;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Paneleo.Data.Repository.Interfaces;
+using Paneleo.Models;
 using Paneleo.Models.BindingModel;
 using Paneleo.Models.Model;
 using Paneleo.Models.Model.Product;
 using Paneleo.Models.ModelDto;
+using Paneleo.Models.ModelDto.Product;
 using Paneleo.Services.Interfaces;
 
 namespace Paneleo.Services.Services
@@ -16,22 +20,28 @@ namespace Paneleo.Services.Services
     public class PaneleoProductsService : IPaneleoProductsService
     {
         private readonly IRepository<Product> _productRepository;
+        private readonly IPaneleoRepository _paneleoRepository;
+
         public readonly IMapper Mapper;
 
-        public PaneleoProductsService(IRepository<Product> productRepository, IMapper mapper)
+        public PaneleoProductsService(IRepository<Product> productRepository, IMapper mapper, IPaneleoRepository paneleoRepository)
         {
+            _paneleoRepository = paneleoRepository;
             this.Mapper = mapper;
             this._productRepository = productRepository;
         }
 
-        public async Task<Response<object>> AddAsync(AddProductBindingModel bindingModel)
+        public async Task<Response<object>> AddAsync(AddProductBindingModel bindingModel, int userId)
         {
+
             var response = await ValidateAddingViewModel(bindingModel);
             if (response.ErrorOccurred)
             {
                 return response;
             }
             var product = Mapper.Map<Product>(bindingModel);
+            var user = (await _paneleoRepository.GetUser(userId));
+            product.CreatedBy = user;
 
             bool addSucceed = await _productRepository.AddAsync(product);
             if (!addSucceed)
@@ -39,10 +49,14 @@ namespace Paneleo.Services.Services
                 response.AddError(Key.Product, Error.ProductAddError);
             }
 
+            var productDto = Mapper.Map<AddProductDto>(product);
+
+            response.SuccessResult = productDto;
+
             return response;
         }
 
-        public async Task<Response<object>> UpdateAsync(UpdateProductBindingModel bindingModel)
+        public async Task<Response<object>> UpdateAsync(UpdateProductBindingModel bindingModel, int userId)
         {
             var response = await ValidateUpdateViewModel(bindingModel);
             if (response.ErrorOccurred)

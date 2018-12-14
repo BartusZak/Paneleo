@@ -1,10 +1,11 @@
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using Newtonsoft.Json;
+using System.Text;
+using Paneleo.Models.Model;
 
-namespace Paneleo.Models.Model.Product
+namespace Paneleo.Models.ModelDto.Product
 {
-    public class Product : Entity
+    public class AddProductDto : Entity
     {
         public string Name { get; set; }
         public string Brand { get; set; }

@@ -9,6 +9,7 @@ namespace Paneleo.Models.Model
         public DateTime CreatedAt { get; set; }
         public DateTime ModifiedAt { get; set; }
         public User CreatedBy { get; set; }
+        public User ModifiedBy { get; set; }
 
         public Entity()
         {

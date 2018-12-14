@@ -1,3 +1,5 @@
+using System;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -23,7 +25,8 @@ namespace Paneleo.API.Controllers
         [HttpPost]
         public async Task<IActionResult> AddAsync(AddProductBindingModel bindingModel)
         {
-            var result = await _productService.AddAsync(bindingModel);
+            var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+            var result = await _productService.AddAsync(bindingModel, userId);
             if (result.ErrorOccurred)
             {
                 return BadRequest(result);
@@ -34,7 +37,9 @@ namespace Paneleo.API.Controllers
         [HttpPut]
         public async Task<IActionResult> UpdateAsync(UpdateProductBindingModel bindingModel)
         {
-            var result = await _productService.UpdateAsync(bindingModel);
+            var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+
+            var result = await _productService.UpdateAsync(bindingModel, userId);
             if (result.ErrorOccurred)
             {
                 return BadRequest(result);

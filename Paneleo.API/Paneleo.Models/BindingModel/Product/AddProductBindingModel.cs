@@ -11,7 +11,10 @@ namespace Paneleo.Models.BindingModel
             get => _name;
             set => _name = value.Trim().ToLower();
         }
-        public int Quantity { get; set; }
+        public string Brand { get; set; }
+        public double Quantity { get; set; }
+        public string UnitOfMeasure { get; set; }
+        public double PriceOfUnit { get; set; }
 
     }
 }
