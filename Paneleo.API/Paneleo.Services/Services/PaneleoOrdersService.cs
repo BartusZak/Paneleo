@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
@@ -24,6 +25,8 @@ namespace Paneleo.Services.Services
     {
         private readonly IRepository<Order> _orderRepository;
         private readonly IRepository<Contractor> _contractorRepository;
+        private readonly IRepository<OrderProduct> _orderProductRepository;
+
         private readonly IRepository<Product> _productRepository;
         private readonly IMapper _mapper;
 
@@ -44,13 +47,85 @@ namespace Paneleo.Services.Services
 
         public async Task<Response<object>> AddAsync(AddOrderBindingModel bindingModel)
         {
-            var response = new Response<object>();
+
+            var response = await ValidateBindingModelAsync(bindingModel);
+
+            if (response.ErrorOccurred)
+            {
+                return response;
+            }
+
+            var mappedOrders = _mapper.Map<Order>(bindingModel);
+
+            var orderAddSuccess = await _orderRepository.AddAsync(mappedOrders);
+
+            if (!orderAddSuccess)
+            {
+                response.AddError(Key.Order, Error.OrderAddError);
+            }
+
+            response.SuccessResult = mappedOrders;
+
             return response;
         }
 
+        private async Task<Response<object>> ValidateBindingModelAsync(AddOrderBindingModel bindingModel)
+        {
+           
+            var response  =  CheckProducts(bindingModel.Products);
 
+            response = await CheckIfProductsExist(bindingModel.Products, response);
 
+            response = await CheckIfContractorExistsAsync(bindingModel.ContractorId, response);
 
+            return response;
+        }
+
+        private async Task<Response<object>> CheckIfProductsExist(ICollection<ProductOrderDto> bindingModelProducts, Response<object> response)
+        {
+            var productsFromRepo = (await _productRepository.GetAllAsync()).ToList();
+            foreach (var product in bindingModelProducts)
+            {
+                if (productsFromRepo.All(w => w.Id != product.ProductId))
+                {
+                    response.AddError(Key.Product, Error.ProductNotExist);
+                }
+            }
+
+            return response;
+        }
+     
+        private async Task<Response<object>> CheckIfContractorExistsAsync(int bindingModelContractorId, Response<object> response)
+        {
+            var contractorExists = await _contractorRepository.ExistAsync(x => x.Id == bindingModelContractorId);
+
+            if (!contractorExists)
+            {
+                response.AddError(Key.Contractor, Error.ContractorNotExist);
+            }
+
+            return response;
+        }
+
+        private Response<object> CheckProducts(ICollection<ProductOrderDto> bindingModelProducts)
+        {
+            var productsList = new List<ProductOrderDto>();
+            var response = new Response<object>();
+
+            foreach (var product in bindingModelProducts)
+            {
+                if (productsList.Any(x => x.ProductId == product.ProductId))
+                {
+                    response.AddError(Key.Product, "Produkt o ID " + product.ProductId + " " + Error.AlreadyInList);
+                }
+                else
+                {
+                    productsList.Add(product);
+                }
+            }
+
+            return response;
+        }
 
         public async Task<Response<object>> UpdateAsync(UpdateOrderBindingModel bindingModel)
         {
@@ -60,7 +135,7 @@ namespace Paneleo.Services.Services
                 return response;
             }
 
-            var product = await _orderRepository.GetByAsync(x => x.OrderId == bindingModel.Id);
+            var product = await _orderRepository.GetByAsync(x => x.Id == bindingModel.Id);
 
             _orderRepository.Detach(product);
             var updatedProduct = _mapper.Map<Order>(bindingModel);
@@ -77,7 +152,7 @@ namespace Paneleo.Services.Services
         public async Task<Response<object>> DeleteAsync(int orderId)
         {
             var response = new Response<object>();
-            var order = await _orderRepository.GetByAsync(x => x.OrderId == orderId);
+            var order = await _orderRepository.GetByAsync(x => x.Id == orderId);
             if (order == null)
             {
                 response.AddError(Key.Order, Error.OrderNotExist);
@@ -146,7 +221,7 @@ namespace Paneleo.Services.Services
         private async Task<Response<object>> ValidateUpdateViewModel(UpdateOrderBindingModel bindingModel)
         {
             var response = new Response<object>();
-            bool orderExists = await _orderRepository.ExistAsync(x => x.OrderId == bindingModel.Id);
+            bool orderExists = await _orderRepository.ExistAsync(x => x.Id == bindingModel.Id);
             if (!orderExists)
             {
                 response.AddError(Key.Order, Error.OrderNotExist);

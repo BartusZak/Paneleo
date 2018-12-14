@@ -52,7 +52,7 @@ namespace Paneleo.Services.Services
                 return response;
             }
 
-            var product = await _contractorRepository.GetByAsync(x => x.ContractorId == bindingModel.Id);
+            var product = await _contractorRepository.GetByAsync(x => x.Id == bindingModel.Id);
 
             _contractorRepository.Detach(product);
             var updatedProduct = Mapper.Map<Contractor>(bindingModel);
@@ -69,7 +69,7 @@ namespace Paneleo.Services.Services
         public async Task<Response<object>> DeleteAsync(int contractorId)
         {
             var response = new Response<object>();
-            var contractor = await _contractorRepository.GetByAsync(x => x.ContractorId == contractorId);
+            var contractor = await _contractorRepository.GetByAsync(x => x.Id == contractorId);
             if (contractor == null)
             {
                 response.AddError(Key.Contractor, Error.ContractorNotExist);
@@ -157,7 +157,7 @@ namespace Paneleo.Services.Services
         private async Task<Response<object>> ValidateUpdateViewModel(UpdateOrderBindingModel bindingModel)
         {
             var response = new Response<object>();
-            bool contractorExists = await _contractorRepository.ExistAsync(x => x.ContractorId == bindingModel.Id);
+            bool contractorExists = await _contractorRepository.ExistAsync(x => x.Id == bindingModel.Id);
             if (!contractorExists)
             {
                 response.AddError(Key.Contractor, Error.ContractorNotExist);

@@ -7,8 +7,6 @@ namespace Paneleo.Models.Model.Contractor
 {
     public class Contractor :Entity
     {
-        [Key]
-        public int ContractorId { get; set; }
         public string Nip { get; set; }
         public string Regon { get; set; }
         public string ContractorName { get; set; }
