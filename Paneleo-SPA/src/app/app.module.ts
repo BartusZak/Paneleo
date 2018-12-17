@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { BsDropdownModule, PaginationModule } from 'ngx-bootstrap';
 import { RouterModule } from '@angular/router';
@@ -53,6 +53,11 @@ import { OrderAddComponent } from './orders/order-add/order-add.component';
 import { OrderListResolver } from './_resolvers/orders-list-resolver';
 import { ProductsComponent } from './_utilis/dynamic-form/products/products.component';
 import { ProductsForOrderComponent } from './orders/productsForOrder/productsForOrder.component';
+
+import { registerLocaleData } from '@angular/common';
+import localePl from '@angular/common/locales/pl';
+
+registerLocaleData(localePl);
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -123,7 +128,8 @@ export function tokenGetter() {
     ProductService,
     ProductListResolver,
     ContractorListResolver,
-    OrderListResolver
+    OrderListResolver,
+    { provide: LOCALE_ID, useValue: 'pl' }
   ],
   bootstrap: [AppComponent],
   entryComponents: [

@@ -9,6 +9,17 @@
     [rowHeight]="'auto'"
     [rows]="rows"
   >
+    <ngx-datatable-column name="actions" [flexGrow]="1">
+      <ng-template ngx-datatable-header-template> </ng-template>
+      <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex">
+        <i
+          title="Usuń produkt z listy"
+          class="fa fa-trash btn btn-primary btn-sm"
+          aria-hidden="true"
+          (click)="onRemoveProductFromListClick(rowIndex)"
+        ></i>
+      </ng-template>
+    </ngx-datatable-column>
     <ngx-datatable-column name="id" [flexGrow]="1">
       <ng-template ngx-datatable-header-template>
         <span>Lp.</span>
@@ -22,29 +33,34 @@
       <ng-template ngx-datatable-header-template>
         <span>Nazwa</span>
       </ng-template>
-      <ng-template
-        ngx-datatable-cell-template
-        let-rowIndex="rowIndex"
-        let-value="value"
-        let-row="row"
-      >
-        <span
-          title="Kliknij podwójnie, aby edytować"
-          (click)="editing[rowIndex + '-name'] = true"
-          (dblclick)="editing[rowIndex + '-name'] = true"
-          *ngIf="!editing[rowIndex + '-name']"
-          class="container-fluid"
+      <div>
+        <ng-template
+          ngx-datatable-cell-template
+          let-rowIndex="rowIndex"
+          let-value="value"
+          let-row="row"
+          let-style="position: relative"
+          let-id="test"
         >
-          {{ value }}
-        </span>
-        <input
-          autofocus
-          (blur)="updateValue($event, 'name', rowIndex)"
-          *ngIf="editing[rowIndex + '-name']"
-          type="text"
-          [value]="value"
-        />
-      </ng-template>
+          <span
+            title="Kliknij, aby edytować"
+            (click)="editing[rowIndex + '-name'] = true"
+            (dblclick)="editing[rowIndex + '-name'] = true"
+            *ngIf="!editing[rowIndex + '-name']"
+            class="name-placeholer"
+          >
+            {{ value }}
+          </span>
+          <input
+            autofocus
+            (blur)="updateValue($event, 'name', rowIndex)"
+            *ngIf="editing[rowIndex + '-name']"
+            type="text"
+            [value]="value"
+            class="w-100"
+          />
+        </ng-template>
+      </div>
     </ngx-datatable-column>
 
     <ngx-datatable-column name="quantity" [flexGrow]="2">
@@ -58,7 +74,8 @@
         let-row="row"
       >
         <span
-          title="Kliknij podwójnie, aby edytować"
+          title="Kliknij, aby edytować"
+          (click)="editing[rowIndex + '-quantity'] = true"
           (dblclick)="editing[rowIndex + '-quantity'] = true"
           *ngIf="!editing[rowIndex + '-quantity']"
           class="container-fluid"
@@ -71,6 +88,7 @@
           *ngIf="editing[rowIndex + '-quantity']"
           type="number"
           [value]="value"
+          class="w-100"
         />
       </ng-template>
     </ngx-datatable-column>
@@ -84,7 +102,8 @@
         let-value="value"
       >
         <span
-          title="Kliknij podwójnie, aby edytować"
+          title="Kliknij, aby edytować"
+          (click)="editing[rowIndex + '-unitOfMeasure'] = true"
           (dblclick)="editing[rowIndex + '-unitOfMeasure'] = true"
           *ngIf="!editing[rowIndex + '-unitOfMeasure']"
           class="container-fluid"
@@ -96,11 +115,12 @@
           (blur)="editing[rowIndex + '-unitOfMeasure'] = false"
           (change)="updateValue($event, 'unitOfMeasure', rowIndex)"
           [value]="value"
+          class="w-100"
         >
           <option value="sztuka">sztuka</option>
-          <option value="meter">metr</option>
-          <option value="runningMeter">mb</option>
-          <option value="squareMeter">m<sup>2</sup></option>
+          <option value="metr">metr</option>
+          <option value="mb">mb</option>
+          <option value="m2">m<sup>2</sup></option>
         </select>
       </ng-template>
     </ngx-datatable-column>
@@ -116,12 +136,12 @@
         let-row="row"
       >
         <span
-          title="Kliknij podwójnie, aby edytować"
+          title="Kliknij, aby edytować"
+          (click)="editing[rowIndex + '-pricePerUnit'] = true"
           (dblclick)="editing[rowIndex + '-pricePerUnit'] = true"
           *ngIf="!editing[rowIndex + '-pricePerUnit']"
-          class="container-fluid"
         >
-          {{ value }}
+          {{ value | currency: 'zł' }}
         </span>
         <input
           autofocus
@@ -129,6 +149,7 @@
           *ngIf="editing[rowIndex + '-pricePerUnit']"
           type="number"
           [value]="value"
+          class="w-100"
         />
       </ng-template>
     </ngx-datatable-column>
@@ -138,10 +159,19 @@
         <span>Łączna cena</span>
       </ng-template>
       <ng-template ngx-datatable-cell-template let-value="value">
-        {{ value }}
+        {{ value | currency: 'zł' }}
       </ng-template>
     </ngx-datatable-column>
   </ngx-datatable>
 </div>
 
-<button (click)="onAddProductToOrderClick()">Dodaj</button>
+<span class="add-product-to-order" (click)="onAddProductToOrderClick()">
+  Dodaj produkt do zamówienia <i class="fa fa-plus-circle"></i>
+</span>
+
+<div>
+  <h2>
+    Razem do zapłaty:
+    <span class="text-secondary">{{ toPay | currency: 'zł' }}</span>
+  </h2>
+</div>

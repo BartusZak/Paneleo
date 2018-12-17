@@ -1,0 +1,9 @@
+.add-product-to-order {
+  padding: 10px;
+  display: inline-block;
+}
+
+.add-product-to-order:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
