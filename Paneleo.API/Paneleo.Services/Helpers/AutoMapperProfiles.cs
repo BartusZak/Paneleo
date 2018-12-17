@@ -27,6 +27,7 @@ namespace Paneleo.Services.Helpers
 
             CreateMap<AddContractorBindingModel, Contractor>();
             CreateMap<UpdateContractorBindingModel, Contractor>();
+            CreateMap<Contractor, ContractorDto>();
 
             CreateMap<AddOrderBindingModel,Order>()
                 .ForMember(x => x.ContractorId, x => x.MapFrom(y=>y.ContractorId))

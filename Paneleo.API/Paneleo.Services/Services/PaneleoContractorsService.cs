@@ -165,6 +165,30 @@ namespace Paneleo.Services.Services
 
             return response;
         }
+
+        public async Task<Response<List<ContractorDto>>> SearchAsync(string query)
+        {
+            var result = new Response<List<ContractorDto>>();
+
+            var queryUpper = query.ToUpperInvariant();
+
+            var contractorsFromDatabase = (await _contractorRepository
+                .GetAllByAsync(x => x.Name.ToUpperInvariant().Contains(queryUpper) || x.Nip.ToUpperInvariant().Contains(queryUpper))).Take(10).ToListAsync().Result;
+
+            if (contractorsFromDatabase == null)
+            {
+                return result;
+            }
+
+            var contractorsDto = Mapper.Map<List<ContractorDto>>(contractorsFromDatabase);
+
+            result.SuccessResult = contractorsDto;
+            
+            return result;
+        }
+
     }
+
+    
 
 }

@@ -66,5 +66,18 @@ namespace Paneleo.API.Controllers
             return Ok(result);
         }
 
+        [HttpGet("Search/{query}")]
+        public async Task<IActionResult> Search(string query)
+        {
+            var result = await _contractorService.SearchAsync(query);
+
+            if (result.ErrorOccurred)
+            {
+                return BadRequest(result);
+            }
+
+            return Ok(result);
+        }
+
     }
 }

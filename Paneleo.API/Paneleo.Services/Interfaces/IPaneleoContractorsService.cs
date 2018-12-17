@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Paneleo.Models.BindingModel;
 using Paneleo.Models.BindingModel.Contractor;
@@ -12,5 +13,6 @@ namespace Paneleo.Services.Interfaces
         Task<Response<object>> UpdateAsync(UpdateOrderBindingModel bindingModel);
         Task<Response<object>> DeleteAsync(int contractorId);
         Task<Response<SearchResults<ContractorDetailedDto>>> GetAllAsync(SearchParamsBindingModel searchParams);
+        Task<Response<List<ContractorDto>>> SearchAsync(string query);
     }
 }
