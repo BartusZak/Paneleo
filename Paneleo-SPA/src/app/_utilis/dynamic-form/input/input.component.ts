@@ -1,6 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { FieldConfig } from 'src/app/_models/field.interface';
+import { Observable, of } from 'rxjs';
+import {
+  debounceTime,
+  distinctUntilChanged,
+  map,
+  tap,
+  switchMap,
+  catchError
+} from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
+import { ContractorService } from 'src/app/_services/Contractor/contractor.service';
 @Component({
   selector: 'app-input',
   template: `
@@ -15,6 +26,7 @@ import { FieldConfig } from 'src/app/_models/field.interface';
         [placeholder]="field.label"
         [type]="field.inputType"
         [min]="field.min"
+        [ngbTypeahead]="search"
       />
       <ng-container *ngFor="let validation of field.validations">
         <div
@@ -34,6 +46,19 @@ import { FieldConfig } from 'src/app/_models/field.interface';
 export class InputComponent implements OnInit {
   field: FieldConfig;
   group: FormGroup;
-  constructor() {}
+  model: any;
+  searching = false;
+  searchFailed = false;
+
+  constructor(private contractorService: ContractorService) {}
+
+  search = (text$: Observable<string>) =>
+    text$.pipe(
+      debounceTime(300),
+      distinctUntilChanged(),
+      tap(() => (this.searching = true)),
+      switchMap(term =>
+    );
+
   ngOnInit() {}
 }

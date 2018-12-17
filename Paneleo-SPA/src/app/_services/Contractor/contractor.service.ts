@@ -3,7 +3,7 @@ import { environment } from 'src/environments/environment';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Contractor } from 'src/app/_models/contractor';
 import { PaginatedResult } from 'src/app/_models/pagination';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 @Injectable({
@@ -57,5 +57,13 @@ export class ContractorService {
 
   updateContractor(id: number, contractor: Contractor) {
     return this.http.put(this.baseUrl + 'contractors/' + id, contractor);
+  }
+
+  searchContractorByQuery(term: string) {
+    if (term === '') {
+      return of([]);
+    }
+
+    return this.http.get(this.baseUrl + 'contractors/Search/' + term);
   }
 }
