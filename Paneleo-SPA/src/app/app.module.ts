@@ -52,7 +52,6 @@ import { OrderListComponent } from './orders/order-list/order-list.component';
 import { OrderAddComponent } from './orders/order-add/order-add.component';
 import { OrderListResolver } from './_resolvers/orders-list-resolver';
 import { ProductsComponent } from './_utilis/dynamic-form/products/products.component';
-import { ProductsForOrderComponent } from './orders/productsForOrder/productsForOrder.component';
 
 import { registerLocaleData } from '@angular/common';
 import localePl from '@angular/common/locales/pl';
@@ -94,8 +93,7 @@ export function tokenGetter() {
     CheckboxComponent,
     DynamicFieldDirective,
     DynamicFormComponent,
-    ProductsComponent,
-    ProductsForOrderComponent
+    ProductsComponent
   ],
   imports: [
     NgxDatatableModule,

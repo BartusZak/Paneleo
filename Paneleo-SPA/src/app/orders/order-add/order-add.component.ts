@@ -38,7 +38,8 @@ export class OrderAddComponent implements OnInit {
     },
     {
       type: 'products',
-      label: 'Produkty'
+      label: 'Produkty',
+      name: 'products'
     },
     {
       type: 'button',

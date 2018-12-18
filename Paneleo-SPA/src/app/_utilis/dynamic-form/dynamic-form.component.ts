@@ -51,7 +51,8 @@ export class DynamicFormComponent implements OnInit {
     event.preventDefault();
     event.stopPropagation();
     if (this.form.valid) {
-      this.submit.emit(this.form.value);
+      // this.submit.emit(this.form.value);
+      console.log(this.form.value);
     } else {
       this.validateAllFormFields(this.form);
     }
@@ -61,9 +62,9 @@ export class DynamicFormComponent implements OnInit {
     const group = this.fb.group({});
     this.fields.forEach(field => {
       // tslint:disable-next-line:curly
-      if (field.type === 'button' || field.type === 'products') return;
+      if (field.type === 'button') return;
       const control = this.fb.control(
-        field.value,
+        field.default ? (field.value = field.default) : field.value,
         this.bindValidations(field.validations || [])
       );
       group.addControl(field.name, control);

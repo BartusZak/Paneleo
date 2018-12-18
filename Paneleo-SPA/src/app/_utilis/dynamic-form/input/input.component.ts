@@ -5,12 +5,10 @@ import { Observable, of } from 'rxjs';
 import {
   debounceTime,
   distinctUntilChanged,
-  map,
   tap,
   switchMap,
   catchError
 } from 'rxjs/operators';
-import { HttpClient } from '@angular/common/http';
 import { ContractorService } from 'src/app/_services/Contractor/contractor.service';
 import { NgbTypeaheadConfig } from '@ng-bootstrap/ng-bootstrap';
 @Component({
@@ -73,10 +71,7 @@ export class InputComponent implements OnInit {
   searching = false;
   searchFailed = false;
 
-  constructor(
-    private contractorService: ContractorService,
-    config: NgbTypeaheadConfig
-  ) {
+  constructor(config: NgbTypeaheadConfig) {
     config.showHint = true;
   }
 
@@ -100,5 +95,9 @@ export class InputComponent implements OnInit {
 
   formatter = (x: { name: string }) => x.name;
 
-  ngOnInit() {}
+  ngOnInit() {
+    if (this.field.default) {
+      this.group.value[this.field.name] = this.field.default;
+    }
+  }
 }

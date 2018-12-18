@@ -2,7 +2,8 @@ export class Order {
   id: number;
   place: string;
   contractorId: number;
-  products: Array<{ productId: number; quantity: number; totalCost: number }>;
+  // products: Array<{ productId: number; quantity: number; totalCost: number }>;
+  products: any;
   dateOfIssue: Date;
   dateOfSell: Date;
   totalCost: number;
