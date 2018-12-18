@@ -58,7 +58,6 @@ export class DynamicFormComponent implements OnInit {
   }
 
   createControl() {
-    console.log(this.fields);
     const group = this.fb.group({});
     this.fields.forEach(field => {
       // tslint:disable-next-line:curly

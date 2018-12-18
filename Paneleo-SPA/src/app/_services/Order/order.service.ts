@@ -44,15 +44,15 @@ export class OrderService {
       );
   }
 
-  getOrder(id): Observable<Order> {
+  getOrder(id: number): Observable<Order> {
     return this.http.get<Order>(this.baseUrl + 'orders/' + id);
   }
 
   addOrder(order: Order) {
-    return this.http.post(this.baseUrl + 'orders/', Order);
+    return this.http.post(this.baseUrl + 'orders/', order);
   }
 
   updateOrder(id: number, order: Order) {
-    return this.http.put(this.baseUrl + 'orders/' + id, Order);
+    return this.http.put(this.baseUrl + 'orders/' + id, order);
   }
 }

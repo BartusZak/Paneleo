@@ -1,28 +1,27 @@
 export class Order {
   id: number;
-  note: string;
-  client: string;
-  items: Array<{ id: number; text: string }>;
+  place: string;
+  contractorId: number;
+  products: Array<{ productId: number; quantity: number; totalCost: number }>;
   dateOfIssue: Date;
   dateOfSell: Date;
-  endDate: Date;
-  pleace: string;
+  totalCost: number;
 
-  constructor(
-    id: number,
-    note: string,
-    client: string,
-    items: Array<{ id: number; text: string }>,
-    dateOfIssue: Date,
-    endDate: Date,
-    pleace: string
-  ) {
-    this.id = id;
-    this.client = client;
-    this.items = items;
-    this.note = note;
-    this.dateOfIssue = dateOfIssue;
-    this.endDate = endDate;
-    this.pleace = pleace;
-  }
+  // constructor(
+  //   id: number,
+  //   note: string,
+  //   client: string,
+  //   items: Array<{ id: number; text: string }>,
+  //   dateOfIssue: Date,
+  //   endDate: Date,
+  //   pleace: string
+  // ) {
+  //   this.id = id;
+  //   this.client = client;
+  //   this.items = items;
+  //   this.note = note;
+  //   this.dateOfIssue = dateOfIssue;
+  //   this.endDate = endDate;
+  //   this.pleace = pleace;
+  // }
 }

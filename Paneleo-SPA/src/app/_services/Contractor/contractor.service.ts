@@ -5,6 +5,7 @@ import { Contractor } from 'src/app/_models/contractor';
 import { PaginatedResult } from 'src/app/_models/pagination';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { Response } from 'src/app/_models/response';
 
 @Injectable({
   providedIn: 'root'
@@ -47,7 +48,7 @@ export class ContractorService {
       );
   }
 
-  getContractor(id): Observable<Contractor> {
+  getContractor(id: number): Observable<Contractor> {
     return this.http.get<Contractor>(this.baseUrl + 'contractors/' + id);
   }
 
@@ -59,11 +60,14 @@ export class ContractorService {
     return this.http.put(this.baseUrl + 'contractors/' + id, contractor);
   }
 
-  searchContractorByQuery(term: string) {
+  searchContractorByQuery = (term: string) => {
     if (term === '') {
       return of([]);
     }
 
-    return this.http.get(this.baseUrl + 'contractors/Search/' + term);
-  }
+    return this.http
+      .get<Response<Contractor>>(this.baseUrl + 'contractors/Search/' + term)
+      .pipe(map(data => data.successResult));
+    // tslint:disable-next-line:semicolon
+  };
 }

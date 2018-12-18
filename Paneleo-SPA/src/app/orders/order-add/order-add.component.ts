@@ -5,6 +5,7 @@ import { Validators } from '@angular/forms';
 import { AlertifyService } from 'src/app/_services/alertify.service';
 import { OrderService } from 'src/app/_services/Order/order.service';
 import { templateSourceUrl } from '@angular/compiler';
+import { ContractorService } from 'src/app/_services/Contractor/contractor.service';
 
 @Component({
   selector: 'app-order-add',
@@ -18,14 +19,22 @@ export class OrderAddComponent implements OnInit {
       type: 'input',
       label: 'Kontrahent',
       inputType: 'text',
-      name: 'name',
+      name: 'contractorId',
       validations: [
         {
           name: 'required',
           validator: Validators.required,
           message: 'Kontrahent jest wymagany!'
         }
-      ]
+      ],
+      typeahead: this.contractorService.searchContractorByQuery
+    },
+    {
+      type: 'input',
+      label: 'Miejsce',
+      inputType: 'text',
+      default: 'Giżycko',
+      name: 'place'
     },
     {
       type: 'products',
@@ -39,7 +48,8 @@ export class OrderAddComponent implements OnInit {
 
   constructor(
     private alertify: AlertifyService,
-    private orderService: OrderService
+    private orderService: OrderService,
+    private contractorService: ContractorService
   ) {}
 
   ngOnInit() {}
