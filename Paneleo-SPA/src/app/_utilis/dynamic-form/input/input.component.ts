@@ -7,7 +7,8 @@ import {
   distinctUntilChanged,
   tap,
   switchMap,
-  catchError
+  catchError,
+  map
 } from 'rxjs/operators';
 import { ContractorService } from 'src/app/_services/Contractor/contractor.service';
 import { NgbTypeaheadConfig } from '@ng-bootstrap/ng-bootstrap';
@@ -89,15 +90,14 @@ export class InputComponent implements OnInit {
           })
         )
       ),
-      tap(() => (this.searching = false))
+      tap(() => (this.searching = false)),
+      tap(data => {
+        console.log(data);
+      })
       // tslint:disable-next-line:semicolon
     );
 
   formatter = (x: { name: string }) => x.name;
 
-  ngOnInit() {
-    if (this.field.default) {
-      this.group.value[this.field.name] = this.field.default;
-    }
-  }
+  ngOnInit() {}
 }

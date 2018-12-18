@@ -55,6 +55,7 @@ export class ProductsComponent implements OnInit {
         productId: null
       }
     ];
+    this.updateProductsList();
     // tslint:disable-next-line:semicolon
   };
 

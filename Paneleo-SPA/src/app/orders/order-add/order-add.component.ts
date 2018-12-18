@@ -56,7 +56,9 @@ export class OrderAddComponent implements OnInit {
   ngOnInit() {}
 
   submit(value: any) {
-    this.orderService.addOrder(value).subscribe(
+    const newOrder = { ...value };
+    newOrder.contractorId = value.contractorId.id;
+    this.orderService.addOrder(newOrder).subscribe(
       () => {
         this.alertify.success('Dodano nowe zamówienie!');
       },

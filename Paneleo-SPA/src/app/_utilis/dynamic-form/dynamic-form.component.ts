@@ -51,8 +51,8 @@ export class DynamicFormComponent implements OnInit {
     event.preventDefault();
     event.stopPropagation();
     if (this.form.valid) {
-      // this.submit.emit(this.form.value);
-      console.log(this.form.value);
+      this.submit.emit(this.form.value);
+      // console.log(this.form.value);
     } else {
       this.validateAllFormFields(this.form);
     }
