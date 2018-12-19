@@ -28,10 +28,16 @@ export class ProductAddComponent implements OnInit {
     },
     {
       type: 'input',
+      label: 'Brand',
+      inputType: 'text',
+      name: 'brand'
+    },
+    {
+      type: 'input',
       label: 'Ilość',
       inputType: 'number',
       min: '0',
-      name: 'quantity',
+      name: 'productQuantity',
       validations: [
         {
           name: 'required',
@@ -42,6 +48,40 @@ export class ProductAddComponent implements OnInit {
           name: 'min',
           validator: Validators.min(0),
           message: 'Ilość musi być liczbą dodatnią!'
+        }
+      ]
+    },
+    {
+      type: 'select',
+      label: 'Jm',
+      default: 'sztuka',
+      inputType: 'text',
+      name: 'unitOfMeasure',
+      options: ['sztuka', 'm2'],
+      validations: [
+        {
+          name: 'required',
+          validator: Validators.required,
+          message: 'Nazwa Produktu jest wymagana!'
+        }
+      ]
+    },
+    {
+      type: 'input',
+      label: 'Cena za jednostkę',
+      inputType: 'number',
+      min: '0',
+      name: 'PricePerUnit',
+      validations: [
+        {
+          name: 'required',
+          validator: Validators.required,
+          message: 'Cena jest wymagana!'
+        },
+        {
+          name: 'min',
+          validator: Validators.min(0),
+          message: 'Cena musi być liczbą dodatnią!'
         }
       ]
     },

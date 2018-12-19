@@ -232,10 +232,18 @@ namespace Paneleo.Services.Services
             var ordersPageCount = (int)Math.Ceiling((decimal)orders.Count() / searchParams.PageLimit);
             orders = orders.Skip(searchParams.PageLimit * (searchParams.PageNumber - 1)).Take(searchParams.PageLimit);
 
+            var ordersDto = _mapper.Map<List<OrderDetailedDto>>(orders);
+            var i = 0;
+
+            foreach (var order in orders)
+            {
+                var contractor = await _contractorRepository.GetByAsync(x => x.Id == order.ContractorId);
+                ordersDto[i++].ContractorName = contractor.Name;
+            }
 
             return new SearchResults<OrderDetailedDto>()
             {
-                Results = _mapper.Map<List<OrderDetailedDto>>(orders),
+                Results = ordersDto,
                 CurrentPage = searchParams.PageNumber,
                 TotalPageCount = ordersPageCount,
                 TotalItemsCount = ordersCount

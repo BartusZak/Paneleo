@@ -4,7 +4,13 @@ import { FieldConfig } from 'src/app/_models/field.interface';
 @Component({
   selector: 'app-select',
   template: `
-    test
+    <div class="form-group form-group-height" [formGroup]="group">
+      <select class="form-control" [formControlName]="field.name">
+        <option *ngFor="let item of field.options" [value]="item">{{
+          item
+        }}</option>
+      </select>
+    </div>
   `,
   styles: []
 })

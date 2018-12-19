@@ -21,33 +21,9 @@ export class GenericListComponent implements OnInit {
 
   setPage(atrib) {
     this.loading = true;
-    if (this.getData == null) {
-      const test = {
-        currentPage: 1,
-        results: [
-          {
-            actions: '<i class="fa fa-trash" aria-hidden="true"></i>',
-            id: 1,
-            productName: '',
-            quantity: 1,
-            unitOfMeasure: 'sztuka',
-            pricePerUnit: 0.0,
-            totalCost: 0.0
-          }
-        ],
-        totalItemsCount: 1,
-        totalPageCount: 1
-      };
-
-      this.data = test;
+    this.getData(atrib).subscribe(pagedData => {
+      this.data = pagedData;
       this.loading = false;
-      console.log(this.data);
-    } else {
-      this.getData(atrib).subscribe(pagedData => {
-        console.log(pagedData);
-        this.data = pagedData;
-        this.loading = false;
-      });
-    }
+    });
   }
 }

@@ -17,7 +17,7 @@ export class ProductsComponent implements OnInit {
 
   updateProductsList = () => {
     this.group.value.products = this.rows;
-    console.log(this.group.value);
+    this.group.value.totalCost = this.toPay;
     // tslint:disable-next-line:semicolon
   };
 

@@ -68,6 +68,9 @@ export class DynamicFormComponent implements OnInit {
         this.bindValidations(field.validations || [])
       );
       group.addControl(field.name, control);
+      if (field.name === 'products') {
+        group.addControl('totalCost', control);
+      }
     });
     return group;
   }
