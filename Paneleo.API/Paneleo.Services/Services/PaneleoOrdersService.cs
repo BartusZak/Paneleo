@@ -6,7 +6,9 @@ using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Paneleo.Data.Repository;
 using Paneleo.Data.Repository.Interfaces;
+using Paneleo.Models;
 using Paneleo.Models.BindingModel;
 using Paneleo.Models.BindingModel.Order;
 using Paneleo.Models.BindingModel.Product;
@@ -25,17 +27,18 @@ namespace Paneleo.Services.Services
     {
         private readonly IRepository<Order> _orderRepository;
         private readonly IRepository<Contractor> _contractorRepository;
-        private readonly IRepository<OrderProduct> _orderProductRepository;
-
         private readonly IRepository<Product> _productRepository;
+
+        private readonly IPaneleoRepository _paneleoRepository;
+
         private readonly IMapper _mapper;
 
         private readonly IPaneleoContractorsService _contractorService;
         private readonly IPaneleoProductsService _productsService;
 
-        public PaneleoOrdersService(IRepository<Order> orderRepository, IRepository<Contractor> contractorRepository, IRepository<Product> productRepository, IPaneleoContractorsService contractorService, IPaneleoProductsService productsService,IMapper mapper)
+        public PaneleoOrdersService(IRepository<Order> orderRepository, IRepository<Contractor> contractorRepository, IRepository<Product> productRepository, IPaneleoContractorsService contractorService, IPaneleoProductsService productsService, IPaneleoRepository paneleoRepository, IMapper mapper)
         {
-            _mapper = mapper;
+            _paneleoRepository = paneleoRepository;
             _orderRepository = orderRepository;
             _contractorRepository = contractorRepository;
             _productRepository = productRepository;
@@ -43,11 +46,12 @@ namespace Paneleo.Services.Services
             _contractorService = contractorService;
             _productsService = productsService;
 
+            _mapper = mapper;
         }
 
-        public async Task<Response<object>> AddAsync(AddOrderBindingModel bindingModel)
+        public async Task<Response<object>> AddAsync(AddOrderBindingModel bindingModel, int userId)
         {
-
+            var user = (await _paneleoRepository.GetUser(userId));
             var response = await ValidateBindingModelAsync(bindingModel);
 
             if (response.ErrorOccurred)
@@ -55,26 +59,62 @@ namespace Paneleo.Services.Services
                 return response;
             }
 
-            var mappedOrders = _mapper.Map<Order>(bindingModel);
+            if (bindingModel.Products != null)
+            {
+                await AddNotExistingProductsToDatabaseAsync(bindingModel.Products, user);
+                bindingModel.Products = await AssignProductIdToProducts(bindingModel.Products);
+            }
 
-            var orderAddSuccess = await _orderRepository.AddAsync(mappedOrders);
+            var mappedOrder = _mapper.Map<Order>(bindingModel);
+            mappedOrder.CreatedBy = user;
+
+            var orderAddSuccess = await _orderRepository.AddAsync(mappedOrder);
 
             if (!orderAddSuccess)
             {
                 response.AddError(Key.Order, Error.OrderAddError);
             }
 
-            response.SuccessResult = mappedOrders;
+            response.SuccessResult = mappedOrder;
 
             return response;
+        }
+
+        private async Task<ICollection<ProductOrderDto>> AssignProductIdToProducts(ICollection<ProductOrderDto> bindingModelProducts)
+        {
+            foreach (var product in bindingModelProducts)
+            {
+                var productId = (await _productRepository.GetByAsync(x => x.Name == product.Name)).Id;
+                product.ProductId = productId;
+            }
+
+            return bindingModelProducts;
+        }
+
+        private async Task AddNotExistingProductsToDatabaseAsync(ICollection<ProductOrderDto> bindingModelProducts,
+            User user)
+        {
+            foreach (var product in bindingModelProducts)
+            {
+                var productsExists = await _productRepository.ExistAsync(x => x.Name == product.Name);
+
+                if (!productsExists)
+                {
+                    var newProduct = _mapper.Map<Product>(product);
+                    newProduct.CreatedBy = user;
+                    await _productRepository.AddAsync(newProduct);
+                }
+            }
         }
 
         private async Task<Response<object>> ValidateBindingModelAsync(AddOrderBindingModel bindingModel)
         {
            
-            var response  =  CheckProducts(bindingModel.Products);
+            var response  =  bindingModel.Products != null ? CheckProducts(bindingModel.Products) : new Response<object>();
 
-            response = await CheckIfProductsExist(bindingModel.Products, response);
+            //response = bindingModel.Products != null
+            //    ? await CheckIfProductsExist(bindingModel.Products, response)
+            //    : response;
 
             response = await CheckIfContractorExistsAsync(bindingModel.ContractorId, response);
 
@@ -114,9 +154,9 @@ namespace Paneleo.Services.Services
 
             foreach (var product in bindingModelProducts)
             {
-                if (productsList.Any(x => x.ProductId == product.ProductId))
+                if (productsList.Any(x => x.Name == product.Name))
                 {
-                    response.AddError(Key.Product, "Produkt o ID " + product.ProductId + " " + Error.AlreadyInList);
+                    response.AddError(Key.Product, "Produkt " + product.Name + " " + Error.AlreadyInList);
                 }
                 else
                 {
@@ -127,7 +167,7 @@ namespace Paneleo.Services.Services
             return response;
         }
 
-        public async Task<Response<object>> UpdateAsync(UpdateOrderBindingModel bindingModel)
+        public async Task<Response<object>> UpdateAsync(UpdateOrderBindingModel bindingModel, int userId)
         {
             var response = await ValidateUpdateViewModel(bindingModel);
             if (response.ErrorOccurred)

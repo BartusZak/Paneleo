@@ -29,6 +29,8 @@ namespace Paneleo.Services.Helpers
             CreateMap<UpdateContractorBindingModel, Contractor>();
             CreateMap<Contractor, ContractorDto>();
 
+            CreateMap<Product,ProductOrderDto>().ReverseMap();
+
             CreateMap<AddOrderBindingModel,Order>()
                 .ForMember(x => x.ContractorId, x => x.MapFrom(y=>y.ContractorId))
                 .ForMember(x => x.Products, x=>x.MapFrom(y => y.Products));

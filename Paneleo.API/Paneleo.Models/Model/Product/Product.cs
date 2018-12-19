@@ -8,8 +8,8 @@ namespace Paneleo.Models.Model.Product
     {
         public string Name { get; set; }
         public string Brand { get; set; }
-        public double Quantity { get; set; }
+        public double ProductQuantity { get; set; }
         public string UnitOfMeasure { get; set; }
-        public double PriceOfUnit { get; set; }
+        public double PricePerUnit { get; set; }
     }
 }

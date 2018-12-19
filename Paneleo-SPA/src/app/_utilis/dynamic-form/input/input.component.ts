@@ -31,7 +31,7 @@ import { NgbTypeaheadConfig } from '@ng-bootstrap/ng-bootstrap';
         [placeholder]="field.label"
         [type]="field.inputType"
         [min]="field.min"
-        [value]="field.default"
+        [value]="field.default ? field.default : ''"
       />
       <input
         *ngIf="field.typeahead"
