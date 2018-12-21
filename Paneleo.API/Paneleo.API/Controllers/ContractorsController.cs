@@ -66,6 +66,17 @@ namespace Paneleo.API.Controllers
             return Ok(result);
         }
 
+        [HttpGet("FromGusByNip")]
+        public IActionResult GetFromGusByNip([FromQuery] string nip)
+        {
+            var result = _contractorService.GetFromGusByNipAsync(nip);
+            if (result.ErrorOccurred)
+            {
+                return BadRequest(result);
+            }
+            return Ok(result);
+        }
+
         [HttpGet("Search/{query}")]
         public async Task<IActionResult> Search(string query)
         {

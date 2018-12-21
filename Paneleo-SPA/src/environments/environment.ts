@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:5000/api/'
+  apiUrl: 'http://localhost:5000/api/',
+  nip24Url: 'https://www.nip24.pl/api-test/get/invoice/nip/'
 };
 
 /*

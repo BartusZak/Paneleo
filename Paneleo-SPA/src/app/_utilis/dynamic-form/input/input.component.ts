@@ -14,57 +14,8 @@ import { ContractorService } from 'src/app/_services/Contractor/contractor.servi
 import { NgbTypeaheadConfig } from '@ng-bootstrap/ng-bootstrap';
 @Component({
   selector: 'app-input',
-  template: `
-    <ng-template #rt let-r="result" let-t="term">
-      <ngb-highlight [result]="r.name" [term]="t"></ngb-highlight>
-    </ng-template>
-
-    <div class="form-group form-group-height" [formGroup]="group">
-      <input
-        *ngIf="!field.typeahead"
-        [ngClass]="{
-          'is-invalid':
-            group.get(field.name).errors && group.get(field.name).touched
-        }"
-        class="form-control"
-        [formControlName]="field.name"
-        [placeholder]="field.label"
-        [type]="field.inputType"
-        [min]="field.min"
-        [value]="field.default ? field.default : ''"
-      />
-      <input
-        *ngIf="field.typeahead"
-        [ngClass]="{
-          'is-invalid':
-            group.get(field.name).errors && group.get(field.name).touched
-        }"
-        class="form-control"
-        [formControlName]="field.name"
-        [placeholder]="field.label"
-        [type]="field.inputType"
-        [min]="field.min"
-        [ngbTypeahead]="search"
-        [class.is-invalid]="searchFailed"
-        [resultTemplate]="rt"
-        [inputFormatter]="formatter"
-      />
-      <span *ngIf="searching">wyszukiwanie...</span>
-      <div class="invalid-feedback" *ngIf="searchFailed">Nie znaleziono.</div>
-      <ng-container *ngFor="let validation of field.validations">
-        <div
-          class="invalid-feedback"
-          *ngIf="
-            group.get(field.name).hasError(validation.name) &&
-            group.get(field.name).touched
-          "
-        >
-          {{ validation.message }}
-        </div>
-      </ng-container>
-    </div>
-  `,
-  styles: []
+  templateUrl: './input.component.html',
+  styleUrls: ['./input.component.css']
 })
 export class InputComponent implements OnInit {
   field: FieldConfig;

@@ -1,0 +1,38 @@
+/* ::ng-deep input[ng-reflect-name='nip'] {
+  width: 40%;
+}
+::ng-deep input[ng-reflect-name='name'] {
+  width: 50%;
+}
+
+::ng-deep input[ng-reflect-name='nip'],
+::ng-deep input[ng-reflect-name='name'] {
+} */
+
+:host ::ng-deep form.dynamic-form {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+:host ::ng-deep app-input:nth-child(1) {
+  width: 49%;
+}
+
+:host ::ng-deep app-input:nth-child(2) {
+  width: 50%;
+}
+
+:host ::ng-deep app-input:nth-child(3),
+:host ::ng-deep app-input:nth-child(4) {
+  width: 49%;
+}
+
+:host ::ng-deep app-input:nth-child(5),
+:host ::ng-deep app-input:nth-child(6),
+:host ::ng-deep app-input:nth-child(7),
+:host ::ng-deep app-input:nth-child(8),
+:host ::ng-deep app-input:nth-child(9),
+:host ::ng-deep app-input:nth-child(10) {
+  width: 32%;
+}

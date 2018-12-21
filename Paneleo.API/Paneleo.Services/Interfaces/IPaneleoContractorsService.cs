@@ -14,5 +14,6 @@ namespace Paneleo.Services.Interfaces
         Task<Response<object>> DeleteAsync(int contractorId);
         Task<Response<SearchResults<ContractorDetailedDto>>> GetAllAsync(SearchParamsBindingModel searchParams);
         Task<Response<List<ContractorDto>>> SearchAsync(string query);
+        Response<object> GetFromGusByNipAsync(string nip);
     }
 }

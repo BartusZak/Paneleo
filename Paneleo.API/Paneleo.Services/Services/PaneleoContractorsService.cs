@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using NIP24;
 using Paneleo.Data.Repository.Interfaces;
 using Paneleo.Models.BindingModel;
 using Paneleo.Models.BindingModel.Contractor;
@@ -187,6 +188,22 @@ namespace Paneleo.Services.Services
             return result;
         }
 
+        public Response<object> GetFromGusByNipAsync(string nip)
+        {
+            var response = new Response<object>();
+            NIP24Client nip24 = new NIP24Client("8K0YH4O5Jrys", "nVghdUKwc05t");
+
+            InvoiceData invoice = nip24.GetInvoiceData(Number.NIP, nip, true);
+
+            if (invoice != null)
+            {
+                response.SuccessResult = invoice;
+                return response;
+            }
+
+            response.AddError(Key.Contractor, nip24.LastError);
+            return response;
+        }
     }
 
     

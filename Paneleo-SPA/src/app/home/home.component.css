@@ -1,0 +1,25 @@
+.realease-date-header {
+  margin-left: -20px;
+  text-decoration: underline;
+  font-weight: bold;
+}
+
+#header-main-line {
+  border-color: white;
+  box-shadow: black 1px 1px 1px 1px;
+  width: 50%;
+}
+
+li.plus {
+  list-style: none;
+  margin-left: -18.5px;
+}
+
+li.plus:before {
+  color: green;
+  font-weight: bold;
+  font-size: x-large;
+  content: '+';
+  margin-right: 4px;
+  line-height: 0px;
+}

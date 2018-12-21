@@ -1,19 +1,40 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpParams,
+  HttpHeaders,
+  HttpInterceptor,
+  HttpRequest,
+  HttpHandler,
+  HttpEvent
+} from '@angular/common/http';
 import { Contractor } from 'src/app/_models/contractor';
 import { PaginatedResult } from 'src/app/_models/pagination';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Response } from 'src/app/_models/response';
-
 @Injectable({
   providedIn: 'root'
 })
-export class ContractorService {
+export class ContractorService implements HttpInterceptor {
   baseUrl = environment.apiUrl;
+  nip24Url = environment.nip24Url;
 
   constructor(private http: HttpClient) {}
+
+  intercept(
+    req: HttpRequest<any>,
+    next: HttpHandler
+  ): Observable<HttpEvent<any>> {
+    req = req.clone({
+      setHeaders: {
+        Authorization: `test`
+      }
+    });
+
+    return next.handle(req);
+  }
 
   getContractors(
     pageLimit?,
@@ -70,4 +91,11 @@ export class ContractorService {
       .pipe(map(data => data.successResult));
     // tslint:disable-next-line:semicolon
   };
+
+  getContractorByNip(nip: number) {
+    return this.http.get<Response<Contractor>>(
+      this.baseUrl + 'contractors/FromGusByNip/?nip=' + nip
+    );
+    // tslint:disable-next-line:semicolon
+  }
 }

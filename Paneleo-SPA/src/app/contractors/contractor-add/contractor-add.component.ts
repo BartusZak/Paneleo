@@ -15,6 +15,19 @@ export class ContractorAddComponent implements OnInit {
   regConfig: FieldConfig[] = [
     {
       type: 'input',
+      label: 'NIP',
+      inputType: 'text',
+      name: 'nip',
+      validations: [
+        {
+          name: 'required',
+          validator: Validators.required,
+          message: 'NIP jest wymagany!'
+        }
+      ]
+    },
+    {
+      type: 'input',
       label: 'Nazwa Kontrahenta',
       inputType: 'text',
       name: 'name',
@@ -28,16 +41,51 @@ export class ContractorAddComponent implements OnInit {
     },
     {
       type: 'input',
-      label: 'NIP',
+      label: 'Imię',
       inputType: 'text',
-      name: 'nip',
-      validations: [
-        {
-          name: 'required',
-          validator: Validators.required,
-          message: 'NIP jest wymagany!'
-        }
-      ]
+      name: 'firstName'
+    },
+    {
+      type: 'input',
+      label: 'Nazwisko',
+      inputType: 'text',
+      name: 'lastName'
+    },
+    {
+      type: 'input',
+      label: 'Ulica',
+      inputType: 'text',
+      name: 'street'
+    },
+    {
+      type: 'input',
+      label: 'Number ulicy',
+      inputType: 'text',
+      name: 'streetNumber'
+    },
+    {
+      type: 'input',
+      label: 'Numer domu',
+      inputType: 'text',
+      name: 'houseNumber'
+    },
+    {
+      type: 'input',
+      label: 'Miasto',
+      inputType: 'text',
+      name: 'city'
+    },
+    {
+      type: 'input',
+      label: 'Kod pocztowy',
+      inputType: 'text',
+      name: 'postCode'
+    },
+    {
+      type: 'input',
+      label: 'Nr tel.',
+      inputType: 'text',
+      name: 'phone'
     },
     {
       type: 'button',
@@ -50,7 +98,16 @@ export class ContractorAddComponent implements OnInit {
     private contractorService: ContractorService
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.contractorService.getContractorByNip(7171642051).subscribe(
+      data => {
+        console.log(data);
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
 
   submit(value: any) {
     this.contractorService.addContractor(value).subscribe(

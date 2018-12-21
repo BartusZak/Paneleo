@@ -14,6 +14,16 @@
   height: 65px;
 }
 
-.ngx-datatable {
-  /* color: red; */
+.btn-primary.disabled,
+.btn-primary:disabled {
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  background-image: unset;
+}
+
+.btn-success.disabled,
+.btn-success:disabled {
+  border: 1px solid #28a7458f;
+  background-color: #28a7458f;
+  background-image: unset;
 }

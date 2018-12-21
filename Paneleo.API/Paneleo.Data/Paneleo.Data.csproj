@@ -22,6 +22,7 @@
 	   <PrivateAssets>all</PrivateAssets>
 	   <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
 	 </PackageReference>
+	 <PackageReference Include="NIP24.NIP24Client" Version="1.3.2" />
 	 <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="2.1.2" />
   </ItemGroup>
 
