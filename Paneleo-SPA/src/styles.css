@@ -20,10 +20,12 @@
   background-color: #cccccc;
   background-image: unset;
 }
+.btn {
+  transition: 1s;
+}
 
 .btn-success.disabled,
 .btn-success:disabled {
-  border: 1px solid #28a7458f;
-  background-color: #28a7458f;
-  background-image: unset;
+  opacity: 0.65;
+  cursor: not-allowed;
 }
