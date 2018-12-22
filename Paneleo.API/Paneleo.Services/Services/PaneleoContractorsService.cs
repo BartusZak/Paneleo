@@ -19,28 +19,36 @@ namespace Paneleo.Services.Services
     public class PaneleoContractorsService : IPaneleoContractorsService
     {
         private readonly IRepository<Contractor> _contractorRepository;
+        private readonly IPaneleoRepository _paneleoRepository;
         public readonly IMapper Mapper;
 
-        public PaneleoContractorsService(IRepository<Contractor> contractorRepository, IMapper mapper)
+        public PaneleoContractorsService(IRepository<Contractor> contractorRepository, IMapper mapper, IPaneleoRepository paneleoRepository)
         {
+            _paneleoRepository = paneleoRepository;
             this.Mapper = mapper;
             this._contractorRepository = contractorRepository;
         }
 
-        public async Task<Response<object>> AddAsync(AddContractorBindingModel bindingModel)
+        public async Task<Response<object>> AddAsync(AddContractorBindingModel bindingModel, int userId)
         {
             var response = await ValidateAddingViewModel(bindingModel);
             if (response.ErrorOccurred)
             {
                 return response;
             }
+
             var contractor = Mapper.Map<Contractor>(bindingModel);
+
+            var user = (await _paneleoRepository.GetUser(userId));
+            contractor.CreatedBy = user;
 
             bool addSucceed = await _contractorRepository.AddAsync(contractor);
             if (!addSucceed)
             {
                 response.AddError(Key.Contractor, Error.ContractorAddError);
             }
+
+            response.SuccessResult = contractor;
 
             return response;
         }

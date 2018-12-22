@@ -1,4 +1,6 @@
 export class Contractor {
+  id: number;
+  isCompany: boolean;
   nip: string;
   name: string;
   firstName: string;

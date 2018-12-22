@@ -5,31 +5,21 @@ import {
   OnChanges,
   OnInit,
   Output
-} from '@angular/core';
+} from "@angular/core";
 import {
   FormGroup,
   FormBuilder,
   Validators,
   FormControl
-} from '@angular/forms';
-import { FieldConfig } from 'src/app/_models/field.interface';
+} from "@angular/forms";
+import { FieldConfig } from "src/app/_models/field.interface";
 
 @Component({
-  exportAs: 'dynamicForm',
+  exportAs: "dynamicForm",
   // tslint:disable-next-line:component-selector
-  selector: 'dynamic-form',
-  template: `
-    <form class="dynamic-form" [formGroup]="form" (submit)="onSubmit($event)">
-      <ng-container
-        *ngFor="let field of fields"
-        dynamicField
-        [field]="field"
-        [group]="form"
-      >
-      </ng-container>
-    </form>
-  `,
-  styles: []
+  selector: "dynamic-form",
+  templateUrl: "./dynamic-form.component.html",
+  styleUrls: ["./dynamic-form.component.css"]
 })
 export class DynamicFormComponent implements OnInit {
   @Input() fields: FieldConfig[] = [];
@@ -62,14 +52,14 @@ export class DynamicFormComponent implements OnInit {
     const group = this.fb.group({});
     this.fields.forEach(field => {
       // tslint:disable-next-line:curly
-      if (field.type === 'button') return;
+      if (field.type === "button") return;
       const control = this.fb.control(
         field.default ? (field.value = field.default) : field.value,
         this.bindValidations(field.validations || [])
       );
       group.addControl(field.name, control);
-      if (field.name === 'products') {
-        group.addControl('totalCost', control);
+      if (field.name === "products") {
+        group.addControl("totalCost", control);
       }
     });
     return group;

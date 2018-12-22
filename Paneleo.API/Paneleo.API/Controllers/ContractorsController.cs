@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -25,7 +26,8 @@ namespace Paneleo.API.Controllers
         [HttpPost]
         public async Task<IActionResult> AddAsync(AddContractorBindingModel bindingModel)
         {
-            var result = await _contractorService.AddAsync(bindingModel);
+            var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+            var result = await _contractorService.AddAsync(bindingModel, userId);
             if (result.ErrorOccurred)
             {
                 return BadRequest(result);

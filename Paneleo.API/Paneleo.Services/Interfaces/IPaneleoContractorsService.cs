@@ -9,7 +9,7 @@ namespace Paneleo.Services.Interfaces
 {
     public interface IPaneleoContractorsService
     {
-        Task<Response<object>> AddAsync(AddContractorBindingModel bindingModel);
+        Task<Response<object>> AddAsync(AddContractorBindingModel bindingModel, int userId);
         Task<Response<object>> UpdateAsync(UpdateOrderBindingModel bindingModel);
         Task<Response<object>> DeleteAsync(int contractorId);
         Task<Response<SearchResults<ContractorDetailedDto>>> GetAllAsync(SearchParamsBindingModel searchParams);
