@@ -5,3 +5,4 @@ node_modules
 *.db
 bin
 obj
+Paneleo.API/Paneleo.API/appsettings.json
