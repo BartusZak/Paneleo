@@ -1,11 +1,11 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from "@angular/core";
 
-import { Title } from '@angular/platform-browser';
-import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
-import { filter, map, switchMap } from 'rxjs/operators';
+import { Title } from "@angular/platform-browser";
+import { Router, NavigationEnd, ActivatedRoute } from "@angular/router";
+import { filter, map, switchMap } from "rxjs/operators";
 
-const APP_TITLE = 'Paneleo';
-const SEPARATOR = ' > ';
+const APP_TITLE = "Paneleo";
+const SEPARATOR = " > ";
 
 @Injectable()
 export class TitleService {
@@ -35,18 +35,17 @@ export class TitleService {
         }),
         switchMap(route => route.data),
         map(data => {
-          console.log(data);
           if (data.title) {
             // If a route has a title set (e.g. data: {title: "Foo"}) then we use it
             return data.title;
           } else {
             // If not, we do a little magic on the url to create an approximation
-            return this.router.url.split('/').reduce((acc, frag) => {
+            return this.router.url.split("/").reduce((acc, frag) => {
               if (acc && frag) {
                 acc += SEPARATOR;
               }
               // tslint:disable-next-line:no-shadowed-variable
-              return this.router.url.split('/').reduce((acc, frag) => {
+              return this.router.url.split("/").reduce((acc, frag) => {
                 if (acc && frag) {
                   acc += SEPARATOR;
                 }

@@ -1,0 +1,34 @@
+<div class="form-group form-group-height" [formGroup]="group">
+  <input
+    [ngClass]="{
+      'is-invalid':
+        group.get(field.name).errors && group.get(field.name).touched
+    }"
+    class="form-control"
+    [formControlName]="field.name"
+    [placeholder]="field.label"
+    [type]="field.inputType"
+    [min]="field.min"
+    [class.is-invalid]="searchFailed"
+  />
+  <div class="nip">
+    <button
+      (click)="onGusButtonClick($event)"
+      class="btn btn-primary btn-get-data-from-gus"
+    >
+      <span>POBIERZ</span> <br /><span id="span-gus">Z GUS</span>
+    </button>
+  </div>
+
+  <ng-container *ngFor="let validation of field.validations">
+    <div
+      class="invalid-feedback"
+      *ngIf="
+        group.get(field.name).hasError(validation.name) &&
+        group.get(field.name).touched
+      "
+    >
+      {{ validation.message }}
+    </div>
+  </ng-container>
+</div>

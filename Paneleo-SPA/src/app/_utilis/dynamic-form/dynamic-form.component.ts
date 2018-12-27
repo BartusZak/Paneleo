@@ -4,7 +4,8 @@ import {
   Input,
   OnChanges,
   OnInit,
-  Output
+  Output,
+  ChangeDetectorRef
 } from "@angular/core";
 import {
   FormGroup,
@@ -31,7 +32,7 @@ export class DynamicFormComponent implements OnInit {
   get value() {
     return this.form.value;
   }
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private ref: ChangeDetectorRef) {}
 
   ngOnInit() {
     this.form = this.createControl();
@@ -40,9 +41,10 @@ export class DynamicFormComponent implements OnInit {
   onSubmit(event: Event) {
     event.preventDefault();
     event.stopPropagation();
+    this.ref.detectChanges();
+    console.log(this.form.value);
     if (this.form.valid) {
-      this.submit.emit(this.form.value);
-      // console.log(this.form.value);
+      // this.submit.emit(this.form.value);
     } else {
       this.validateAllFormFields(this.form);
     }

@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { FieldConfig } from 'src/app/_models/field.interface';
-import { Observable, of } from 'rxjs';
+import { Component, OnInit } from "@angular/core";
+import { FormGroup } from "@angular/forms";
+import { FieldConfig } from "src/app/_models/field.interface";
+import { Observable, of } from "rxjs";
 import {
   debounceTime,
   distinctUntilChanged,
@@ -9,13 +9,13 @@ import {
   switchMap,
   catchError,
   map
-} from 'rxjs/operators';
-import { ContractorService } from 'src/app/_services/Contractor/contractor.service';
-import { NgbTypeaheadConfig } from '@ng-bootstrap/ng-bootstrap';
+} from "rxjs/operators";
+import { ContractorService } from "src/app/_services/Contractor/contractor.service";
+import { NgbTypeaheadConfig } from "@ng-bootstrap/ng-bootstrap";
 @Component({
-  selector: 'app-input',
-  templateUrl: './input.component.html',
-  styleUrls: ['./input.component.css']
+  selector: "app-input",
+  templateUrl: "./input.component.html",
+  styleUrls: ["./input.component.css"]
 })
 export class InputComponent implements OnInit {
   field: FieldConfig;
@@ -42,9 +42,7 @@ export class InputComponent implements OnInit {
         )
       ),
       tap(() => (this.searching = false)),
-      tap(data => {
-        console.log(data);
-      })
+      tap(data => {})
       // tslint:disable-next-line:semicolon
     );
 

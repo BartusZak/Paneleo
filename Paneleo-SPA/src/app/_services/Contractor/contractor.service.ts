@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
+import { Injectable } from "@angular/core";
+import { environment } from "src/environments/environment";
 import {
   HttpClient,
   HttpParams,
@@ -8,14 +8,14 @@ import {
   HttpRequest,
   HttpHandler,
   HttpEvent
-} from '@angular/common/http';
-import { Contractor } from 'src/app/_models/contractor';
-import { PaginatedResult } from 'src/app/_models/pagination';
-import { Observable, of } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { Response } from 'src/app/_models/response';
+} from "@angular/common/http";
+import { Contractor } from "src/app/_models/contractor";
+import { PaginatedResult } from "src/app/_models/pagination";
+import { Observable, of } from "rxjs";
+import { map } from "rxjs/operators";
+import { Response, SingleResponse } from "src/app/_models/response";
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class ContractorService implements HttpInterceptor {
   baseUrl = environment.apiUrl;
@@ -47,13 +47,13 @@ export class ContractorService implements HttpInterceptor {
     let params = new HttpParams();
 
     if (pageNumber != null && pageLimit != null) {
-      params = params.append('PageNumber', pageNumber);
-      params = params.append('PageLimit', pageLimit);
+      params = params.append("PageNumber", pageNumber);
+      params = params.append("PageLimit", pageLimit);
     }
 
     return this.http
-      .get<any>(this.baseUrl + 'contractors', {
-        observe: 'response',
+      .get<any>(this.baseUrl + "contractors", {
+        observe: "response",
         params
       })
       .pipe(
@@ -70,31 +70,31 @@ export class ContractorService implements HttpInterceptor {
   }
 
   getContractor(id: number): Observable<Contractor> {
-    return this.http.get<Contractor>(this.baseUrl + 'contractors/' + id);
+    return this.http.get<Contractor>(this.baseUrl + "contractors/" + id);
   }
 
   addContractor(contractor: Contractor) {
-    return this.http.post(this.baseUrl + 'contractors/', contractor);
+    return this.http.post(this.baseUrl + "contractors/", contractor);
   }
 
   updateContractor(id: number, contractor: Contractor) {
-    return this.http.put(this.baseUrl + 'contractors/' + id, contractor);
+    return this.http.put(this.baseUrl + "contractors/" + id, contractor);
   }
 
   searchContractorByQuery = (term: string) => {
-    if (term === '') {
+    if (term === "") {
       return of([]);
     }
 
     return this.http
-      .get<Response<Contractor>>(this.baseUrl + 'contractors/Search/' + term)
+      .get<Response<Contractor>>(this.baseUrl + "contractors/Search/" + term)
       .pipe(map(data => data.successResult));
     // tslint:disable-next-line:semicolon
   };
 
   getContractorByNip(nip: number) {
-    return this.http.get<Response<Contractor>>(
-      this.baseUrl + 'contractors/FromGusByNip/?nip=' + nip
+    return this.http.get<SingleResponse<Contractor>>(
+      this.baseUrl + "contractors/FromGusByNip/?nip=" + nip
     );
     // tslint:disable-next-line:semicolon
   }

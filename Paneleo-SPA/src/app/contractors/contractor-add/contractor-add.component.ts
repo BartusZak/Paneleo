@@ -28,7 +28,7 @@ export class ContractorAddComponent implements OnInit {
       ]
     },
     {
-      type: "input",
+      type: "nip",
       label: "NIP",
       inputType: "text",
       name: "nip",
@@ -168,16 +168,7 @@ export class ContractorAddComponent implements OnInit {
     private contractorService: ContractorService
   ) {}
 
-  ngOnInit() {
-    this.contractorService.getContractorByNip(7171642051).subscribe(
-      data => {
-        console.log(data);
-      },
-      error => {
-        console.log(error);
-      }
-    );
-  }
+  ngOnInit() {}
 
   submit(value: any) {
     this.contractorService.addContractor(value).subscribe(

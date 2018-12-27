@@ -1,0 +1,31 @@
+input {
+  width: 80%;
+  display: inline-block;
+  float: left;
+  border-bottom-right-radius: 0px;
+  border-top-right-radius: 0px;
+}
+
+.btn-get-data-from-gus {
+  height: calc(2.90625rem + 2px);
+  display: inline-block;
+  width: 20%;
+  float: left;
+  padding: 0px;
+  text-align: center;
+  border-bottom-left-radius: 0px;
+  border-top-left-radius: 0px;
+}
+
+.btn-get-data-from-gus span:first-child {
+  font-size: x-small;
+}
+
+span#span-gus {
+  margin-top: -5px;
+  display: block;
+}
+
+.invalid-feedback {
+  margin: 0px;
+}

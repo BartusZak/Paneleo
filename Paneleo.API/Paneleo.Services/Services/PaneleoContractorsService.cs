@@ -199,7 +199,9 @@ namespace Paneleo.Services.Services
         public Response<object> GetFromGusByNipAsync(string nip)
         {
             var response = new Response<object>();
-            NIP24Client nip24 = new NIP24Client("8K0YH4O5Jrys", "nVghdUKwc05t");
+
+            //NIP24Client nip24 = new NIP24Client("8K0YH4O5Jrys", "nVghdUKwc05t");
+            NIP24Client nip24 = new NIP24Client("DWiuhJbNFDol", "ZBAdTB899Y11");
 
             InvoiceData invoice = nip24.GetInvoiceData(Number.NIP, nip, true);
 
