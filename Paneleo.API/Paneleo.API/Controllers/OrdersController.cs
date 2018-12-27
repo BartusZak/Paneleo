@@ -68,5 +68,16 @@ namespace Paneleo.API.Controllers
             return Ok(result);
         }
 
+        [HttpGet("LastOrderId")]
+        public async Task<IActionResult> GetLastOrderId()
+        {
+            var result = await _orderService.GetLastOrderIdAsync();
+            if (result.ErrorOccurred)
+            {
+                return BadRequest(result);
+            }
+            return Ok(result);
+        }
+
     }
 }

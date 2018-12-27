@@ -1,0 +1,21 @@
+#order-number-heading {
+  display: inline-block;
+  text-align: right;
+  width: 70%;
+}
+
+#order-id-container {
+  display: inline-block;
+  width: 30%;
+  text-align: right;
+}
+
+span#order-id {
+  font-size: x-large;
+  font-weight: bolder;
+  padding-right: 5%;
+}
+
+span#order-date-time {
+  margin-right: 20%;
+}

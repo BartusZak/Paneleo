@@ -225,6 +225,23 @@ namespace Paneleo.Services.Services
             return response;
         }
 
+        public async Task<Response<object>> GetLastOrderIdAsync()
+        {
+            var response = new Response<object>();
+
+            var lastOrderId = (await _orderRepository.GetAllAsync()).OrderByDescending(x => x.Id).FirstOrDefault();
+
+            if (lastOrderId == null)
+            {
+                response.AddError(Key.Order, Error.OrderNotExist);
+                return response;
+            }
+
+            response.SuccessResult = lastOrderId.Id;
+
+            return response;
+        }
+
         public async Task<SearchResults<OrderDetailedDto>> GetByParameters(SearchParamsBindingModel searchParams)
         {
             var orders = await _orderRepository.GetAllAsync();

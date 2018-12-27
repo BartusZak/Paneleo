@@ -1,18 +1,22 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { DynamicFormComponent } from 'src/app/_utilis/dynamic-form/dynamic-form.component';
 import { FieldConfig } from 'src/app/_models/field.interface';
 import { Validators } from '@angular/forms';
+import { templateSourceUrl } from '@angular/compiler';
+import { formatDate } from '@angular/common';
+
+import { DynamicFormComponent } from 'src/app/_utilis/dynamic-form/dynamic-form.component';
+import { ContractorService } from 'src/app/_services/Contractor/contractor.service';
 import { AlertifyService } from 'src/app/_services/alertify.service';
 import { OrderService } from 'src/app/_services/Order/order.service';
-import { templateSourceUrl } from '@angular/compiler';
-import { ContractorService } from 'src/app/_services/Contractor/contractor.service';
-
 @Component({
   selector: 'app-order-add',
   templateUrl: './order-add.component.html',
   styleUrls: ['./order-add.component.css']
 })
 export class OrderAddComponent implements OnInit {
+  today = new Date();
+  orderId = Math.floor(Math.random() * 100 + 30);
+  jstoday = '';
   @ViewChild(DynamicFormComponent) form: DynamicFormComponent;
   regConfig: FieldConfig[] = [
     {
@@ -51,7 +55,9 @@ export class OrderAddComponent implements OnInit {
     private alertify: AlertifyService,
     private orderService: OrderService,
     private contractorService: ContractorService
-  ) {}
+  ) {
+    this.jstoday = formatDate(this.today, '/MM/yyyy', 'pl-PL', '+0530');
+  }
 
   ngOnInit() {}
 
