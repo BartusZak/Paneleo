@@ -225,19 +225,19 @@ namespace Paneleo.Services.Services
             return response;
         }
 
-        public async Task<Response<object>> GetLastOrderIdAsync()
+        public async Task<Response<object>> GetLastOrderDetailsAsync()
         {
             var response = new Response<object>();
 
-            var lastOrderId = (await _orderRepository.GetAllAsync()).OrderByDescending(x => x.Id).FirstOrDefault();
+            var lastOrder = (await _orderRepository.GetAllAsync()).OrderByDescending(x => x.Id).FirstOrDefault();
 
-            if (lastOrderId == null)
+            if (lastOrder == null)
             {
                 response.AddError(Key.Order, Error.OrderNotExist);
                 return response;
             }
 
-            response.SuccessResult = lastOrderId.Id;
+            response.SuccessResult = lastOrder;
 
             return response;
         }

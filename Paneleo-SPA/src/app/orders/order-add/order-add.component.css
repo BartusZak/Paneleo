@@ -19,3 +19,7 @@ span#order-id {
 span#order-date-time {
   margin-right: 20%;
 }
+
+#order-heading-container {
+  padding: 1% 0;
+}

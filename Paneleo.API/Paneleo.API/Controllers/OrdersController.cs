@@ -68,10 +68,10 @@ namespace Paneleo.API.Controllers
             return Ok(result);
         }
 
-        [HttpGet("LastOrderId")]
-        public async Task<IActionResult> GetLastOrderId()
+        [HttpGet("LastOrderDetails")]
+        public async Task<IActionResult> GetLastOrderDetails()
         {
-            var result = await _orderService.GetLastOrderIdAsync();
+            var result = await _orderService.GetLastOrderDetailsAsync();
             if (result.ErrorOccurred)
             {
                 return BadRequest(result);

@@ -15,6 +15,7 @@ import { ContractorListResolver } from './_resolvers/contractors-list-resolver';
 import { OrderListComponent } from './orders/order-list/order-list.component';
 import { OrderAddComponent } from './orders/order-add/order-add.component';
 import { OrderListResolver } from './_resolvers/orders-list-resolver';
+import { OrderAddResolver } from './_resolvers/order-add-resolver';
 
 export const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -31,14 +32,14 @@ export const appRoutes: Routes = [
       {
         path: 'orders',
         component: OrderListComponent,
-        data: [{ title: 'Zamówienia' }],
+        data: { title: 'Zamówienia' },
         resolve: { list: OrderListResolver }
       },
       {
         path: 'orders/add',
         component: OrderAddComponent,
-        data: { title: 'Dodawanie zamówienia' }
-        // resolve: { user: UserEditResolver }
+        data: { title: 'Dodawanie zamówienia' },
+        resolve: { order: OrderAddResolver }
       },
       {
         path: 'products',

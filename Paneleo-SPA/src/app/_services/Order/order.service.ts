@@ -47,6 +47,9 @@ export class OrderService {
   getOrder(id: number): Observable<Order> {
     return this.http.get<Order>(this.baseUrl + 'orders/' + id);
   }
+  getLastOrderDetails(): Observable<Order> {
+    return this.http.get<Order>(this.baseUrl + 'orders/LastOrderDetails');
+  }
 
   addOrder(order: Order) {
     return this.http.post(this.baseUrl + 'orders/', order);
