@@ -14,7 +14,13 @@
     [placeholder]="field.label"
     [type]="field.inputType"
     [min]="field.min"
-    [value]="field.default ? field.default : ''"
+    [value]="
+      field.default
+        ? field.type === 'date'
+          ? (field.default | date: 'yyyy-MM-dd')
+          : field.default
+        : ''
+    "
   />
   <input
     *ngIf="field.typeahead"

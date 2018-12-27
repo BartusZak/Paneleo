@@ -62,6 +62,9 @@ export class DynamicFormComponent implements OnInit {
         group.addControl('totalCost', control);
       }
     });
+    if (group.controls['orderDate']) {
+      group.controls['orderDate'].disable();
+    }
     return group;
   }
 

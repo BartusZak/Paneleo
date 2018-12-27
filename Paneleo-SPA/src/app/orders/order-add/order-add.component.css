@@ -23,3 +23,25 @@ span#order-date-time {
 #order-heading-container {
   padding: 1% 0;
 }
+
+:host ::ng-deep form.dynamic-form {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+:host ::ng-deep app-input:nth-child(1),
+:host ::ng-deep app-input:nth-child(2) {
+  width: 49%;
+}
+
+:host ::ng-deep app-input:nth-child(3) {
+  width: 100%;
+}
+:host ::ng-deep app-input:nth-child(3) input {
+  width: 49%;
+}
+
+:host ::ng-deep app-products {
+  width: 100%;
+}

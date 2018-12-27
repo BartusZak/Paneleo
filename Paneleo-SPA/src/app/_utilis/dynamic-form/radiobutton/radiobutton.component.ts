@@ -4,8 +4,14 @@ import { FieldConfig } from 'src/app/_models/field.interface';
 @Component({
   selector: 'app-radiobutton',
   template: `
-    <div class="demo-full-width margin-top" [formGroup]="group">
-      <label class="radio-label-padding">{{ field.label }}:</label>
+    <div
+      class="form-check form-check-inline"
+      [formGroup]="group"
+      [formControlName]="field.name"
+    >
+      <label class="radio-inline" *ngFor="let item of field.options"
+        ><input [value]="field.value" type="radio" />{{ field.label }}</label
+      >
     </div>
   `,
   styles: []

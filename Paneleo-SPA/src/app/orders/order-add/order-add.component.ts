@@ -16,10 +16,31 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class OrderAddComponent implements OnInit {
   today = new Date();
-  orderId = Math.floor(Math.random() * 100 + 30);
+  orderId: number;
   jstoday = '';
   @ViewChild(DynamicFormComponent) form: DynamicFormComponent;
   regConfig: FieldConfig[] = [
+    {
+      type: 'input',
+      label: 'Data',
+      inputType: 'date',
+      default: new Date().toISOString().split('T')[0],
+      name: 'orderDate'
+    },
+    {
+      type: 'input',
+      label: 'Miejsce',
+      inputType: 'text',
+      default: 'Giżycko',
+      name: 'place'
+    },
+    {
+      type: 'radiobutton',
+      label: 'isCompany',
+      options: ['Firma', 'Osoba prywatna'],
+      value: 'Firma',
+      name: 'isCompany'
+    },
     {
       type: 'input',
       label: 'Kontrahent',
@@ -33,13 +54,6 @@ export class OrderAddComponent implements OnInit {
         }
       ],
       typeahead: this.contractorService.searchContractorByQuery
-    },
-    {
-      type: 'input',
-      label: 'Miejsce',
-      inputType: 'text',
-      default: 'Giżycko',
-      name: 'place'
     },
     {
       type: 'products',
@@ -63,8 +77,9 @@ export class OrderAddComponent implements OnInit {
 
   ngOnInit() {
     this.route.data.subscribe(data => {
-      this.orderId = data['order'].successResult.id;
+      this.orderId = data['order'].successResult.id + 1;
     });
+    console.log(Date.now());
   }
 
   submit(value: any) {
