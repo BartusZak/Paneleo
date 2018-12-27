@@ -9,6 +9,7 @@
     [placeholder]="field.label"
     [type]="field.inputType"
     [min]="field.min"
+    [maxlength]="10"
     [class.is-invalid]="searchFailed"
   />
   <div class="nip">
@@ -19,7 +20,7 @@
       <span>POBIERZ</span> <br /><span id="span-gus">Z GUS</span>
     </button>
   </div>
-
+  <div class="invalid-feedback" *ngIf="searchFailed">{{ nipError }}</div>
   <ng-container *ngFor="let validation of field.validations">
     <div
       class="invalid-feedback"

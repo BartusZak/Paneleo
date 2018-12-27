@@ -22,7 +22,8 @@ namespace Paneleo.Services.Services
         private readonly IPaneleoRepository _paneleoRepository;
         public readonly IMapper Mapper;
 
-        public PaneleoContractorsService(IRepository<Contractor> contractorRepository, IMapper mapper, IPaneleoRepository paneleoRepository)
+        public PaneleoContractorsService(IRepository<Contractor> contractorRepository, IMapper mapper,
+            IPaneleoRepository paneleoRepository)
         {
             _paneleoRepository = paneleoRepository;
             this.Mapper = mapper;
@@ -91,10 +92,12 @@ namespace Paneleo.Services.Services
                 response.AddError(Key.Contractor, Error.ContractorRemoveError);
                 return response;
             }
+
             return response;
         }
 
-        public async Task<Response<SearchResults<ContractorDetailedDto>>> GetAllAsync(SearchParamsBindingModel searchParams)
+        public async Task<Response<SearchResults<ContractorDetailedDto>>> GetAllAsync(
+            SearchParamsBindingModel searchParams)
         {
             var response = new Response<SearchResults<ContractorDetailedDto>>();
 
@@ -121,8 +124,9 @@ namespace Paneleo.Services.Services
         {
             var contractors = await _contractorRepository.GetAllAsync();
             var contractorsCount = contractors.Count();
-            var contractorsPageCount = (int)Math.Ceiling((decimal)contractors.Count() / searchParams.PageLimit);
-            contractors = contractors.Skip(searchParams.PageLimit * (searchParams.PageNumber - 1)).Take(searchParams.PageLimit);
+            var contractorsPageCount = (int) Math.Ceiling((decimal) contractors.Count() / searchParams.PageLimit);
+            contractors = contractors.Skip(searchParams.PageLimit * (searchParams.PageNumber - 1))
+                .Take(searchParams.PageLimit);
 
 
             return new SearchResults<ContractorDetailedDto>()
@@ -154,12 +158,13 @@ namespace Paneleo.Services.Services
         {
             var response = new Response<object>();
             bool contractorExists = await _contractorRepository.ExistAsync(x =>
-               x.Name == viewModel.Name);
+                x.Name == viewModel.Name);
             if (contractorExists)
             {
                 response.AddError(Key.Contractor, Error.ContractorAlreadyExists);
                 return response;
             }
+
             return response;
         }
 
@@ -182,7 +187,10 @@ namespace Paneleo.Services.Services
             var queryUpper = query.ToUpperInvariant();
 
             var contractorsFromDatabase = (await _contractorRepository
-                .GetAllByAsync(x => x.Name.ToUpperInvariant().Contains(queryUpper) || x.Nip.ToUpperInvariant().Contains(queryUpper))).Take(10).ToListAsync().Result;
+                    .GetAllByAsync(x =>
+                        x.Name.ToUpperInvariant().Contains(queryUpper) ||
+                        x.Nip.ToUpperInvariant().Contains(queryUpper)))
+                .Take(10).ToListAsync().Result;
 
             if (contractorsFromDatabase == null)
             {
@@ -192,13 +200,19 @@ namespace Paneleo.Services.Services
             var contractorsDto = Mapper.Map<List<ContractorDto>>(contractorsFromDatabase);
 
             result.SuccessResult = contractorsDto;
-            
+
             return result;
         }
 
         public Response<object> GetFromGusByNipAsync(string nip)
         {
             var response = new Response<object>();
+
+            if (!NipValidate(nip))
+            {
+                response.AddError(Key.Contractor, Error.NipIsNotValid);
+                return response;
+            }
 
             //NIP24Client nip24 = new NIP24Client("8K0YH4O5Jrys", "nVghdUKwc05t");
             NIP24Client nip24 = new NIP24Client("DWiuhJbNFDol", "ZBAdTB899Y11");
@@ -214,8 +228,36 @@ namespace Paneleo.Services.Services
             response.AddError(Key.Contractor, nip24.LastError);
             return response;
         }
-    }
 
-    
+
+        private static bool NipValidate(string nipValidate)
+        {
+            const byte lenght = 10;
+
+            var weights = new byte[] {6, 5, 7, 2, 3, 4, 5, 6, 7};
+
+            if (nipValidate.Length.Equals(lenght).Equals(false)) return false;
+
+            if (ulong.TryParse(nipValidate, out _).Equals(false)) return false;
+            string sNip = nipValidate.ToString();
+            var digits = new byte[lenght];
+
+            for (int i = 0; i < lenght; i++)
+            {
+                if (byte.TryParse(sNip[i].ToString(), out digits[i]).Equals(false)) return false;
+            }
+
+            var checksum = 0;
+
+            for (var i = 0; i < lenght - 1; i++)
+            {
+                checksum += digits[i] * weights[i];
+            }
+
+            return (checksum % 11 % 10).Equals(digits[digits.Length - 1]);
+
+        }
+
+    }
 
 }
