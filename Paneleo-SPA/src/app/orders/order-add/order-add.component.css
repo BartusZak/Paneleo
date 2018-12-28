@@ -31,17 +31,59 @@ span#order-date-time {
 }
 
 :host ::ng-deep app-input:nth-child(1),
-:host ::ng-deep app-input:nth-child(2) {
+:host ::ng-deep app-input:nth-child(2),
+:host ::ng-deep app-input:nth-child(4) input,
+:host ::ng-deep app-nip input,
+:host ::ng-deep app-input:nth-child(13) {
   width: 49%;
 }
 
-:host ::ng-deep app-input:nth-child(3) {
+:host ::ng-deep app-radiobutton {
   width: 100%;
-}
-:host ::ng-deep app-input:nth-child(3) input {
-  width: 49%;
+  margin-bottom: 10px;
 }
 
+:host ::ng-deep app-input:nth-child(4),
+:host ::ng-deep app-nip,
 :host ::ng-deep app-products {
   width: 100%;
+}
+
+:host ::ng-deep app-nip button.btn-get-data-from-gus {
+  width: 10%;
+}
+
+:host ::ng-deep app-nip .form-control.is-invalid ~ .invalid-feedback {
+  display: inline-block;
+}
+
+:host ::ng-deep app-input:nth-child(6),
+:host ::ng-deep app-input:nth-child(8),
+:host ::ng-deep app-input:nth-child(11) {
+  width: 24%;
+}
+
+:host ::ng-deep app-input:nth-child(7) {
+  width: 75%;
+}
+
+:host ::ng-deep app-input:nth-child(7) input,
+:host ::ng-deep app-input:nth-child(12) input {
+  width: 32%;
+}
+
+:host ::ng-deep app-input:nth-child(9) {
+  width: 13%;
+}
+
+:host ::ng-deep app-input:nth-child(10) {
+  width: 61%;
+}
+
+:host ::ng-deep app-input:nth-child(10) input {
+  width: 16%;
+}
+
+:host ::ng-deep app-input:nth-child(12) {
+  width: 75%;
 }

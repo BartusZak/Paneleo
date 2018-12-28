@@ -61,13 +61,13 @@ export class ContractorAddComponent implements OnInit {
     },
     {
       type: 'input',
-      label: 'Number ulicy',
+      label: 'Nr ulicy',
       inputType: 'text',
       name: 'streetNumber'
     },
     {
       type: 'input',
-      label: 'Numer domu',
+      label: 'Nr domu',
       inputType: 'text',
       name: 'houseNumber'
     },

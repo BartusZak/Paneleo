@@ -4,14 +4,20 @@ import { FieldConfig } from 'src/app/_models/field.interface';
 @Component({
   selector: 'app-radiobutton',
   template: `
-    <div
-      class="form-check form-check-inline"
-      [formGroup]="group"
-      [formControlName]="field.name"
-    >
-      <label class="radio-inline" *ngFor="let item of field.options"
-        ><input [value]="field.value" type="radio" />{{ field.label }}</label
+    <div [formGroup]="group">
+      <div
+        *ngFor="let item of field.options"
+        class="form-check form-check-inline"
       >
+        <input
+          class="form-check-input"
+          type="radio"
+          [formControlName]="field.name"
+          [id]="item"
+          [value]="item"
+        />
+        <label class="form-check-label" [for]="item">{{ item }}</label>
+      </div>
     </div>
   `,
   styles: []
@@ -22,9 +28,3 @@ export class RadiobuttonComponent implements OnInit {
   constructor() {}
   ngOnInit() {}
 }
-
-// <mat-radio-group [formControlName]="field.name">
-// <mat-radio-button *ngFor="let item of field.options" [value]="item">{{
-//   item
-// }}</mat-radio-button>
-// </mat-radio-group>

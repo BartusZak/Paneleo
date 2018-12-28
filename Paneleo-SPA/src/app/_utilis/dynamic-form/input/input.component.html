@@ -36,8 +36,8 @@
     [ngbTypeahead]="search"
     [class.is-invalid]="searchFailed"
     [resultTemplate]="rt"
-    [inputFormatter]="formatter"
   />
+  <!-- [inputFormatter]="formatter" -->
   <span *ngIf="searching">wyszukiwanie...</span>
   <div class="invalid-feedback" *ngIf="searchFailed">Nie znaleziono.</div>
   <ng-container *ngFor="let validation of field.validations">

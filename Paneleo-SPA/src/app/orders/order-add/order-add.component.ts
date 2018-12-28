@@ -43,17 +43,78 @@ export class OrderAddComponent implements OnInit {
     },
     {
       type: 'input',
-      label: 'Kontrahent',
+      label: 'Nazwa Kontrahenta',
       inputType: 'text',
-      name: 'contractorId',
+      name: 'name',
       validations: [
         {
           name: 'required',
           validator: Validators.required,
-          message: 'Kontrahent jest wymagany!'
+          message: 'Nazwa Kontrahenta jest wymagana!'
         }
       ],
       typeahead: this.contractorService.searchContractorByQuery
+    },
+    {
+      type: 'nip',
+      label: 'NIP',
+      inputType: 'text',
+      name: 'nip',
+      validations: [
+        {
+          name: 'required',
+          validator: Validators.required,
+          message: 'NIP jest wymagany!'
+        }
+      ]
+    },
+    {
+      type: 'input',
+      label: 'Imię',
+      inputType: 'text',
+      name: 'firstName'
+    },
+    {
+      type: 'input',
+      label: 'Nazwisko',
+      inputType: 'text',
+      name: 'lastName'
+    },
+    {
+      type: 'input',
+      label: 'Ulica',
+      inputType: 'text',
+      name: 'street'
+    },
+    {
+      type: 'input',
+      label: 'Nr ulicy',
+      inputType: 'text',
+      name: 'streetNumber'
+    },
+    {
+      type: 'input',
+      label: 'Nr domu',
+      inputType: 'text',
+      name: 'houseNumber'
+    },
+    {
+      type: 'input',
+      label: 'Kod pocztowy',
+      inputType: 'text',
+      name: 'postCode'
+    },
+    {
+      type: 'input',
+      label: 'Miasto',
+      inputType: 'text',
+      name: 'city'
+    },
+    {
+      type: 'input',
+      label: 'Nr tel.',
+      inputType: 'text',
+      name: 'phone'
     },
     {
       type: 'products',
