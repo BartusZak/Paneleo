@@ -25,7 +25,6 @@ export class InputComponent implements OnInit {
 
   constructor(config: NgbTypeaheadConfig) {
     config.showHint = true;
-    console.log(this.group);
   }
 
   search = (text$: Observable<string>) =>

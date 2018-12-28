@@ -8,6 +8,8 @@ import { MomentModule } from 'ngx-moment';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
+import { registerLocaleData } from '@angular/common';
+import localePl from '@angular/common/locales/pl';
 
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
@@ -52,11 +54,9 @@ import { OrderListComponent } from './orders/order-list/order-list.component';
 import { OrderAddComponent } from './orders/order-add/order-add.component';
 import { OrderListResolver } from './_resolvers/orders-list-resolver';
 import { ProductsComponent } from './_utilis/dynamic-form/products/products.component';
-
-import { registerLocaleData } from '@angular/common';
-import localePl from '@angular/common/locales/pl';
 import { NipComponent } from './_utilis/dynamic-form/nip/nip.component';
 import { OrderAddResolver } from './_resolvers/order-add-resolver';
+import { ContractorComponent } from './_utilis/dynamic-form/contractor/contractor.component';
 
 registerLocaleData(localePl);
 
@@ -96,7 +96,8 @@ export function tokenGetter() {
     DynamicFieldDirective,
     DynamicFormComponent,
     ProductsComponent,
-    NipComponent
+    NipComponent,
+    ContractorComponent
   ],
   imports: [
     NgxDatatableModule,
@@ -142,7 +143,8 @@ export function tokenGetter() {
     RadiobuttonComponent,
     CheckboxComponent,
     ProductsComponent,
-    NipComponent
+    NipComponent,
+    ContractorComponent
   ]
 })
 export class AppModule {

@@ -1,0 +1,43 @@
+<div class="form-group">
+  <div class="form-check form-check-inline">
+    <input
+      class="form-check-input"
+      type="radio"
+      name="inlineRadioOptions"
+      id="company"
+      value="{{ true }}"
+      checked
+      (change)="handleRadioInputChange()"
+    />
+    <label class="form-check-label" for="company">Firma</label>
+  </div>
+  <div class="form-check form-check-inline">
+    <input
+      class="form-check-input"
+      type="radio"
+      name="inlineRadioOptions"
+      id="privatePerson"
+      value="{{ false }}"
+      (change)="handleRadioInputChange()"
+    />
+    <label class="form-check-label" for="privatePerson">Osoba Prywatna</label>
+  </div>
+</div>
+
+<div id="company-form-container">
+  <dynamic-form
+    *ngIf="isCompany"
+    [fields]="companyFields"
+    (submit)="submit($event)"
+  >
+  </dynamic-form>
+</div>
+
+<div id="privatePerson-form-container">
+  <dynamic-form
+    *ngIf="!isCompany"
+    [fields]="privatePersonFields"
+    (submit)="submit($event)"
+  >
+  </dynamic-form>
+</div>

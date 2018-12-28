@@ -31,13 +31,77 @@ span#order-date-time {
 }
 
 :host ::ng-deep app-input:nth-child(1),
-:host ::ng-deep app-input:nth-child(2),
-:host ::ng-deep app-input:nth-child(4) input,
-:host ::ng-deep app-nip input,
-:host ::ng-deep app-input:nth-child(13) {
+:host ::ng-deep app-input:nth-child(2) {
   width: 49%;
 }
 
+:host ::ng-deep #company-form-container app-input:nth-child(1) {
+  width: 100%;
+}
+
+:host ::ng-deep #company-form-container app-input:nth-child(1) input {
+  width: 49%;
+}
+
+:host ::ng-deep #company-form-container app-nip {
+  width: 100%;
+}
+
+:host ::ng-deep #company-form-container app-nip input {
+  width: 40%;
+}
+
+:host ::ng-deep #company-form-container app-nip button {
+  width: 9%;
+}
+
+:host ::ng-deep #company-form-container app-input:nth-child(3),
+:host ::ng-deep #company-form-container app-input:nth-child(5),
+:host ::ng-deep #company-form-container app-input:nth-child(8),
+:host ::ng-deep #privatePerson-form-container app-input:nth-child(1),
+:host ::ng-deep #privatePerson-form-container app-input:nth-child(3),
+:host ::ng-deep #privatePerson-form-container app-input:nth-child(6) {
+  width: 24%;
+}
+
+:host ::ng-deep #company-form-container app-input:nth-child(4),
+:host ::ng-deep #company-form-container app-input:nth-child(9),
+:host ::ng-deep #privatePerson-form-container app-input:nth-child(2),
+:host ::ng-deep #privatePerson-form-container app-input:nth-child(7) {
+  width: 75%;
+}
+
+:host ::ng-deep #company-form-container app-input:nth-child(4) input,
+:host ::ng-deep #company-form-container app-input:nth-child(9) input,
+:host ::ng-deep #privatePerson-form-container app-input:nth-child(2) input,
+:host ::ng-deep #privatePerson-form-container app-input:nth-child(7) input {
+  width: 32%;
+}
+
+:host ::ng-deep #company-form-container app-input:nth-child(6),
+:host ::ng-deep #privatePerson-form-container app-input:nth-child(4) {
+  width: 12%;
+}
+
+:host ::ng-deep #company-form-container app-input:nth-child(7),
+:host ::ng-deep #privatePerson-form-container app-input:nth-child(5) {
+  width: 62%;
+}
+
+:host ::ng-deep #company-form-container app-input:nth-child(7) input,
+:host ::ng-deep #privatePerson-form-container app-input:nth-child(5) input {
+  width: 18%;
+}
+
+:host ::ng-deep app-products {
+  width: 100%;
+}
+
+:host ::ng-deep app-nip .form-control.is-invalid ~ .invalid-feedback {
+  display: inline-block;
+}
+
+/*
 :host ::ng-deep app-radiobutton {
   width: 100%;
   margin-bottom: 10px;
@@ -86,4 +150,4 @@ span#order-date-time {
 
 :host ::ng-deep app-input:nth-child(12) {
   width: 75%;
-}
+} */

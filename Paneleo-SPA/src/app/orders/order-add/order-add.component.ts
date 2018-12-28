@@ -35,86 +35,9 @@ export class OrderAddComponent implements OnInit {
       name: 'place'
     },
     {
-      type: 'radiobutton',
-      label: 'isCompany',
-      options: ['Firma', 'Osoba prywatna'],
-      value: 'Firma',
-      name: 'isCompany'
-    },
-    {
-      type: 'input',
-      label: 'Nazwa Kontrahenta',
-      inputType: 'text',
-      name: 'name',
-      validations: [
-        {
-          name: 'required',
-          validator: Validators.required,
-          message: 'Nazwa Kontrahenta jest wymagana!'
-        }
-      ],
-      typeahead: this.contractorService.searchContractorByQuery
-    },
-    {
-      type: 'nip',
-      label: 'NIP',
-      inputType: 'text',
-      name: 'nip',
-      validations: [
-        {
-          name: 'required',
-          validator: Validators.required,
-          message: 'NIP jest wymagany!'
-        }
-      ]
-    },
-    {
-      type: 'input',
-      label: 'Imię',
-      inputType: 'text',
-      name: 'firstName'
-    },
-    {
-      type: 'input',
-      label: 'Nazwisko',
-      inputType: 'text',
-      name: 'lastName'
-    },
-    {
-      type: 'input',
-      label: 'Ulica',
-      inputType: 'text',
-      name: 'street'
-    },
-    {
-      type: 'input',
-      label: 'Nr ulicy',
-      inputType: 'text',
-      name: 'streetNumber'
-    },
-    {
-      type: 'input',
-      label: 'Nr domu',
-      inputType: 'text',
-      name: 'houseNumber'
-    },
-    {
-      type: 'input',
-      label: 'Kod pocztowy',
-      inputType: 'text',
-      name: 'postCode'
-    },
-    {
-      type: 'input',
-      label: 'Miasto',
-      inputType: 'text',
-      name: 'city'
-    },
-    {
-      type: 'input',
-      label: 'Nr tel.',
-      inputType: 'text',
-      name: 'phone'
+      type: 'contractor',
+      label: 'Kontrahent',
+      name: 'contractor'
     },
     {
       type: 'products',
@@ -140,7 +63,6 @@ export class OrderAddComponent implements OnInit {
     this.route.data.subscribe(data => {
       this.orderId = data['order'].successResult.id + 1;
     });
-    console.log(Date.now());
   }
 
   submit(value: any) {

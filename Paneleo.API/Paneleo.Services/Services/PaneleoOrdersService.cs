@@ -233,7 +233,10 @@ namespace Paneleo.Services.Services
 
             if (lastOrder == null)
             {
-                response.AddError(Key.Order, Error.OrderNotExist);
+                response.SuccessResult = new Contractor
+                    {
+                        Id = 0
+                    };
                 return response;
             }
 

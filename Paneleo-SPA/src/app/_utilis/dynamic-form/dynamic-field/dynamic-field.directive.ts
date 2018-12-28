@@ -16,6 +16,7 @@ import { CheckboxComponent } from '../checkbox/checkbox.component';
 import { FieldConfig } from 'src/app/_models/field.interface';
 import { ProductsComponent } from '../products/products.component';
 import { NipComponent } from '../nip/nip.component';
+import { ContractorComponent } from '../contractor/contractor.component';
 
 const componentMapper = {
   input: InputComponent,
@@ -25,7 +26,8 @@ const componentMapper = {
   radiobutton: RadiobuttonComponent,
   checkbox: CheckboxComponent,
   products: ProductsComponent,
-  nip: NipComponent
+  nip: NipComponent,
+  contractor: ContractorComponent
 };
 @Directive({
   // tslint:disable-next-line:directive-selector
