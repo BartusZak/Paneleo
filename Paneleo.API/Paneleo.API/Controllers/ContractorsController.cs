@@ -23,6 +23,52 @@ namespace Paneleo.API.Controllers
             this._contractorService = contractorService;
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetAll([FromQuery]SearchParamsBindingModel searchParams)
+        {
+            var result = await _contractorService.GetAllAsync(searchParams);
+            if (result.ErrorOccurred)
+            {
+                return BadRequest(result);
+            }
+            return Ok(result);
+        }
+
+        [HttpGet("{contractorId}")]
+        public async Task<IActionResult> Get(int contractorId)
+        {
+            var result = await _contractorService.GetAsync(contractorId);
+            if (result.ErrorOccurred)
+            {
+                return BadRequest(result);
+            }
+            return Ok(result);
+        }
+
+        [HttpGet("FromGusByNip")]
+        public IActionResult GetFromGusByNip([FromQuery] string nip)
+        {
+            var result = _contractorService.GetFromGusByNipAsync(nip);
+            if (result.ErrorOccurred)
+            {
+                return BadRequest(result);
+            }
+            return Ok(result);
+        }
+
+        [HttpGet("Search/{query}")]
+        public async Task<IActionResult> Search(string query)
+        {
+            var result = await _contractorService.SearchAsync(query);
+
+            if (result.ErrorOccurred)
+            {
+                return BadRequest(result);
+            }
+
+            return Ok(result);
+        }
+
         [HttpPost]
         public async Task<IActionResult> AddAsync(AddContractorBindingModel bindingModel)
         {
@@ -54,41 +100,6 @@ namespace Paneleo.API.Controllers
             {
                 return BadRequest(result);
             }
-            return Ok(result);
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> GetAll([FromQuery]SearchParamsBindingModel searchParams)
-        {
-            var result = await _contractorService.GetAllAsync(searchParams);
-            if (result.ErrorOccurred)
-            {
-                return BadRequest(result);
-            }
-            return Ok(result);
-        }
-
-        [HttpGet("FromGusByNip")]
-        public IActionResult GetFromGusByNip([FromQuery] string nip)
-        {
-            var result = _contractorService.GetFromGusByNipAsync(nip);
-            if (result.ErrorOccurred)
-            {
-                return BadRequest(result);
-            }
-            return Ok(result);
-        }
-
-        [HttpGet("Search/{query}")]
-        public async Task<IActionResult> Search(string query)
-        {
-            var result = await _contractorService.SearchAsync(query);
-
-            if (result.ErrorOccurred)
-            {
-                return BadRequest(result);
-            }
-
             return Ok(result);
         }
 

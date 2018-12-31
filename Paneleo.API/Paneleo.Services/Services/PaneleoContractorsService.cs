@@ -12,6 +12,7 @@ using Paneleo.Models.BindingModel.Order;
 using Paneleo.Models.Model;
 using Paneleo.Models.Model.Contractor;
 using Paneleo.Models.ModelDto;
+using Paneleo.Models.ModelDto.Contractor;
 using Paneleo.Services.Interfaces;
 
 namespace Paneleo.Services.Services
@@ -20,14 +21,14 @@ namespace Paneleo.Services.Services
     {
         private readonly IRepository<Contractor> _contractorRepository;
         private readonly IPaneleoRepository _paneleoRepository;
-        public readonly IMapper Mapper;
+        public readonly IMapper _mapper;
 
         public PaneleoContractorsService(IRepository<Contractor> contractorRepository, IMapper mapper,
             IPaneleoRepository paneleoRepository)
         {
             _paneleoRepository = paneleoRepository;
-            this.Mapper = mapper;
-            this._contractorRepository = contractorRepository;
+            _mapper = mapper;
+            _contractorRepository = contractorRepository;
         }
 
         public async Task<Response<object>> AddAsync(AddContractorBindingModel bindingModel, int userId)
@@ -103,6 +104,23 @@ namespace Paneleo.Services.Services
                 response.AddError(Key.Contractor, Error.ContractorRemoveError);
                 return response;
             }
+
+            return response;
+        }
+
+        public async Task<Response<ContractorDetailedDto>> GetAsync(int contractorId)
+        {
+            var response = new Response<ContractorDetailedDto>();
+
+            var contractor = await _contractorRepository.GetByAsync(x => x.Id == contractorId);
+
+            if (contractor == null)
+            {
+                response.AddError(Key.Contractor, Error.ContractorNotExist);
+                return response;
+            }
+
+            response.SuccessResult = _mapper.Map<ContractorDetailedDto>(contractor);
 
             return response;
         }
