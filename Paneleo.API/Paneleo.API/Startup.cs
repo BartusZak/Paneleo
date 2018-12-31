@@ -90,6 +90,7 @@ namespace Paneleo.API
             services.AddTransient<IPaneleoProductsService, PaneleoProductsService>();
             services.AddTransient<IPaneleoContractorsService, PaneleoContractorsService>();
             services.AddTransient<IPaneleoOrdersService, PaneleoOrdersService>();
+            services.AddTransient<IPaneleoDashboardService, PaneleoDashboardService>();
             services.AddTransient<Seed>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options =>
