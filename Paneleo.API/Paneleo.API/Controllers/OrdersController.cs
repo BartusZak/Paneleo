@@ -22,6 +22,39 @@ namespace Paneleo.API.Controllers
             this._orderService = orderService;
         }
 
+        [HttpGet("{orderId}")]
+        public async Task<IActionResult> Get(int orderId)
+        {
+            var result = await _orderService.GetAsync(orderId);
+            if (result.ErrorOccurred)
+            {
+                return BadRequest(result);
+            }
+            return Ok(result);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAll([FromQuery]SearchParamsBindingModel searchParams)
+        {
+            var result = await _orderService.GetAllAsync(searchParams);
+            if (result.ErrorOccurred)
+            {
+                return BadRequest(result);
+            }
+            return Ok(result);
+        }
+
+        [HttpGet("LastOrderDetails")]
+        public async Task<IActionResult> GetLastOrderDetails()
+        {
+            var result = await _orderService.GetLastOrderDetailsAsync();
+            if (result.ErrorOccurred)
+            {
+                return BadRequest(result);
+            }
+            return Ok(result);
+        }
+
         [HttpPost]
         public async Task<IActionResult> AddAsync(AddOrderBindingModel bindingModel)
         {
@@ -50,28 +83,6 @@ namespace Paneleo.API.Controllers
         public async Task<IActionResult> DeleteAsync(int orderId)
         {
             var result = await _orderService.DeleteAsync(orderId);
-            if (result.ErrorOccurred)
-            {
-                return BadRequest(result);
-            }
-            return Ok(result);
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> GetAll([FromQuery]SearchParamsBindingModel searchParams)
-        {
-            var result = await _orderService.GetAllAsync(searchParams);
-            if (result.ErrorOccurred)
-            {
-                return BadRequest(result);
-            }
-            return Ok(result);
-        }
-
-        [HttpGet("LastOrderDetails")]
-        public async Task<IActionResult> GetLastOrderDetails()
-        {
-            var result = await _orderService.GetLastOrderDetailsAsync();
             if (result.ErrorOccurred)
             {
                 return BadRequest(result);

@@ -26,6 +26,7 @@ namespace Paneleo.Services.Services
     public class PaneleoOrdersService : IPaneleoOrdersService
     {
         private readonly IRepository<Order> _orderRepository;
+        private readonly IRepository<OrderProduct> _orderProductRepository;
         private readonly IRepository<Contractor> _contractorRepository;
         private readonly IRepository<Product> _productRepository;
 
@@ -36,10 +37,11 @@ namespace Paneleo.Services.Services
         private readonly IPaneleoContractorsService _contractorService;
         private readonly IPaneleoProductsService _productsService;
 
-        public PaneleoOrdersService(IRepository<Order> orderRepository, IRepository<Contractor> contractorRepository, IRepository<Product> productRepository, IPaneleoContractorsService contractorService, IPaneleoProductsService productsService, IPaneleoRepository paneleoRepository, IMapper mapper)
+        public PaneleoOrdersService(IRepository<Order> orderRepository, IRepository<OrderProduct> orderProductRepository, IRepository<Contractor> contractorRepository, IRepository<Product> productRepository, IPaneleoContractorsService contractorService, IPaneleoProductsService productsService, IPaneleoRepository paneleoRepository, IMapper mapper)
         {
             _paneleoRepository = paneleoRepository;
             _orderRepository = orderRepository;
+            _orderProductRepository = orderProductRepository;
             _contractorRepository = contractorRepository;
             _productRepository = productRepository;
 
@@ -263,7 +265,8 @@ namespace Paneleo.Services.Services
             foreach (var order in orders)
             {
                 var contractor = await _contractorRepository.GetByAsync(x => x.Id == order.ContractorId);
-                ordersDto[i++].ContractorName = contractor.Name;
+                //ordersDto[i++].ContractorName = contractor.Name;
+                ordersDto[i++].Contractor.Name = contractor.Name;
             }
 
             return new SearchResults<OrderDetailedDto>()
@@ -299,6 +302,44 @@ namespace Paneleo.Services.Services
             {
                 response.AddError(Key.Order, Error.OrderNotExist);
             }
+
+            return response;
+        }
+
+        public async Task<Response<OrderDetailedDto>> GetAsync(int orderId)
+        {
+            var response = new Response<OrderDetailedDto>();
+
+            if (orderId == 0)
+            {
+                response.AddError(Key.Contractor, Error.ContractorNotExist);
+                return response;
+            }
+
+            var order = (await _orderRepository.GetByAsync(x => x.Id == orderId));
+
+            if (order == null)
+            {
+                response.AddError(Key.Contractor, Error.ContractorNotExist);
+                return response;
+            }
+
+            var orderDto = _mapper.Map<OrderDetailedDto>(order);
+
+            var contractor = await _contractorRepository.GetByAsync(x => x.Id == order.ContractorId);
+
+            orderDto.Contractor = _mapper.Map<ContractorDto>(contractor);
+
+            var productIds = await _orderProductRepository.GetAllByAsync(x => x.OrderId == orderId);
+
+            foreach (var product in productIds)
+            {
+                var productDto =
+                    _mapper.Map<ProductOrderDto>(await _productRepository.GetByAsync(x => x.Id == product.ProductId));
+                orderDto.Products.Add(productDto);
+            }
+
+            response.SuccessResult = orderDto;
 
             return response;
         }
