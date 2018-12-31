@@ -1,0 +1,15 @@
+<h1>Zamówienie nr {{ order.id }}</h1>
+<hr />
+
+<div>
+  Kontrahent:
+  <a [routerLink]="['/contractor', order.contractor.id]">{{
+    order.contractor.name
+  }}</a>
+</div>
+
+<div>Wystawiono: {{ order.createdAt | date }}</div>
+
+<div>
+  <div *ngFor="let product of order.products">{{ product.name }}</div>
+</div>
