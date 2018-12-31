@@ -36,10 +36,10 @@ export const appRoutes: Routes = [
         data: { title: 'Dashboard' }
       },
       {
-        path: 'orders',
-        component: OrderListComponent,
-        data: { title: 'Zamówienia' },
-        resolve: { list: OrderListResolver }
+        path: 'orders/add',
+        component: OrderAddComponent,
+        data: { title: 'Dodawanie zamówienia' },
+        resolve: { order: OrderAddResolver }
       },
       {
         path: 'orders/:id',
@@ -48,16 +48,15 @@ export const appRoutes: Routes = [
         resolve: { order: OrderDetailsResolver }
       },
       {
-        path: 'orders/add',
-        component: OrderAddComponent,
-        data: { title: 'Dodawanie zamówienia' },
-        resolve: { order: OrderAddResolver }
+        path: 'orders',
+        component: OrderListComponent,
+        data: { title: 'Zamówienia' },
+        resolve: { list: OrderListResolver }
       },
       {
-        path: 'products',
-        component: ProductListComponent,
-        data: { title: 'Lista Produktów' },
-        resolve: { list: ProductListResolver }
+        path: 'products/add',
+        component: ProductAddComponent,
+        data: { title: 'Dodawanie produktu' }
       },
       {
         path: 'products/:id',
@@ -66,15 +65,15 @@ export const appRoutes: Routes = [
         resolve: { product: ProductDetailsResolver }
       },
       {
-        path: 'products/add',
-        component: ProductAddComponent,
-        data: { title: 'Dodawanie produktu' }
+        path: 'products',
+        component: ProductListComponent,
+        data: { title: 'Lista Produktów' },
+        resolve: { list: ProductListResolver }
       },
       {
-        path: 'contractors',
-        component: ContractorListComponent,
-        data: { title: 'Lista Kontrahentów' },
-        resolve: { list: ContractorListResolver }
+        path: 'contractors/add',
+        component: ContractorAddComponent,
+        data: { title: 'Dodawanie Kontrahenta' }
       },
       {
         path: 'contractors/:id',
@@ -83,9 +82,10 @@ export const appRoutes: Routes = [
         resolve: { contractor: ContractorDetailsResolver }
       },
       {
-        path: 'contractors/add',
-        component: ContractorAddComponent,
-        data: { title: 'Dodawanie Kontrahenta' }
+        path: 'contractors',
+        component: ContractorListComponent,
+        data: { title: 'Lista Kontrahentów' },
+        resolve: { list: ContractorListResolver }
       },
       {
         path: 'users',

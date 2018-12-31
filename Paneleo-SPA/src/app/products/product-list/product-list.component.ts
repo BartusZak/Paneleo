@@ -12,7 +12,7 @@ export class ProductListComponent implements OnInit {
   productColumns = [
     { prop: 'id', summaryFunc: () => console.log('test') },
     { prop: 'name', name: 'Nazwa', summaryFunc: () => null },
-    { prop: 'quantity', name: 'Ilość', summaryFunc: () => null }
+    { prop: 'productQuantity', name: 'Ilość', summaryFunc: () => null }
   ];
   constructor(private productService: ProductService, private router: Router) {}
 
