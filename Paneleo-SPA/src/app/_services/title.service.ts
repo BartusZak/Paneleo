@@ -1,11 +1,11 @@
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 
-import { Title } from "@angular/platform-browser";
-import { Router, NavigationEnd, ActivatedRoute } from "@angular/router";
-import { filter, map, switchMap } from "rxjs/operators";
+import { Title } from '@angular/platform-browser';
+import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
+import { filter, map, switchMap } from 'rxjs/operators';
 
-const APP_TITLE = "Paneleo";
-const SEPARATOR = " > ";
+const APP_TITLE = 'Paneleo';
+const SEPARATOR = ' > ';
 
 @Injectable()
 export class TitleService {
@@ -40,12 +40,12 @@ export class TitleService {
             return data.title;
           } else {
             // If not, we do a little magic on the url to create an approximation
-            return this.router.url.split("/").reduce((acc, frag) => {
+            return this.router.url.split('/').reduce((acc, frag) => {
               if (acc && frag) {
                 acc += SEPARATOR;
               }
               // tslint:disable-next-line:no-shadowed-variable
-              return this.router.url.split("/").reduce((acc, frag) => {
+              return this.router.url.split('/').reduce((acc, frag) => {
                 if (acc && frag) {
                   acc += SEPARATOR;
                 }
@@ -56,7 +56,7 @@ export class TitleService {
         })
       )
       .subscribe(pathString =>
-        this.titleService.setTitle(`${APP_TITLE} ${pathString}`)
+        this.titleService.setTitle(`${pathString} ${APP_TITLE}`)
       );
   }
 }

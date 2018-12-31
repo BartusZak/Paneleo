@@ -21,7 +21,7 @@ namespace Paneleo.Services.Services
     {
         private readonly IRepository<Contractor> _contractorRepository;
         private readonly IPaneleoRepository _paneleoRepository;
-        public readonly IMapper _mapper;
+        private readonly IMapper _mapper;
 
         public PaneleoContractorsService(IRepository<Contractor> contractorRepository, IMapper mapper,
             IPaneleoRepository paneleoRepository)

@@ -22,6 +22,28 @@ namespace Paneleo.API.Controllers
             this._productService = productService;
         }
 
+        [HttpGet("{productId}")]
+        public async Task<IActionResult> Get(int productId)
+        {
+            var result = await _productService.GetAsync(productId);
+            if (result.ErrorOccurred)
+            {
+                return BadRequest(result);
+            }
+            return Ok(result);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAll([FromQuery]SearchParamsBindingModel searchParams)
+        {
+            var result = await _productService.GetAllAsync(searchParams);
+            if (result.ErrorOccurred)
+            {
+                return BadRequest(result);
+            }
+            return Ok(result);
+        }
+
         [HttpPost]
         public async Task<IActionResult> AddAsync(AddProductBindingModel bindingModel)
         {
@@ -51,17 +73,6 @@ namespace Paneleo.API.Controllers
         public async Task<IActionResult> DeleteAsync(string productName)
         {
             var result = await _productService.DeleteAsync(productName);
-            if (result.ErrorOccurred)
-            {
-                return BadRequest(result);
-            }
-            return Ok(result);
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> GetAll([FromQuery]SearchParamsBindingModel searchParams)
-        {
-            var result = await _productService.GetAllAsync(searchParams);
             if (result.ErrorOccurred)
             {
                 return BadRequest(result);

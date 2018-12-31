@@ -22,13 +22,13 @@ namespace Paneleo.Services.Services
         private readonly IRepository<Product> _productRepository;
         private readonly IPaneleoRepository _paneleoRepository;
 
-        public readonly IMapper Mapper;
+        private readonly IMapper _mapper;
 
         public PaneleoProductsService(IRepository<Product> productRepository, IMapper mapper, IPaneleoRepository paneleoRepository)
         {
             _paneleoRepository = paneleoRepository;
-            this.Mapper = mapper;
-            this._productRepository = productRepository;
+            _mapper = mapper;
+            _productRepository = productRepository;
         }
 
         public async Task<Response<object>> AddAsync(AddProductBindingModel bindingModel, int userId)
@@ -94,6 +94,23 @@ namespace Paneleo.Services.Services
                 response.AddError(Key.Product, Error.ProductRemoveError);
                 return response;
             }
+            return response;
+        }
+
+        public async Task<Response<ProductDetailedDto>> GetAsync(int productId)
+        {
+            var response = new Response<ProductDetailedDto>();
+
+            var product = await _productRepository.GetByAsync(x => x.Id == productId);
+
+            if (product == null)
+            {
+                response.AddError(Key.Product, Error.ProductNotExist);
+                return response;
+            }
+
+            response.SuccessResult = _mapper.Map<ProductDetailedDto>(product);
+
             return response;
         }
 

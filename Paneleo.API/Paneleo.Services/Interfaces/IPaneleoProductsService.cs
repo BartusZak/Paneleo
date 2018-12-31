@@ -10,6 +10,7 @@ namespace Paneleo.Services.Interfaces
         Task<Response<object>> AddAsync(AddProductBindingModel bindingModel, int identityName);
         Task<Response<object>> UpdateAsync(UpdateProductBindingModel bindingModel, int userId);
         Task<Response<object>> DeleteAsync(string productName);
+        Task<Response<ProductDetailedDto>> GetAsync(int productId);
         Task<Response<SearchResults<ProductDetailedDto>>> GetAllAsync(SearchParamsBindingModel searchParams);
     }
 }
