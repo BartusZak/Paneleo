@@ -69,8 +69,10 @@ export class ContractorService implements HttpInterceptor {
       );
   }
 
-  getContractor(id: number): Observable<Contractor> {
-    return this.http.get<Contractor>(this.baseUrl + 'contractors/' + id);
+  getContractor(id: string): Observable<SingleResponse<Contractor>> {
+    return this.http.get<SingleResponse<Contractor>>(
+      this.baseUrl + 'contractors/' + id
+    );
   }
 
   addContractor(contractor: Contractor) {

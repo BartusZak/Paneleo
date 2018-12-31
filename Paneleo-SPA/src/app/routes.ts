@@ -1,89 +1,97 @@
-import { Routes } from "@angular/router";
-import { DashboardComponent } from "./dashboard/dashboard.component";
-import { UsersListComponent } from "./users/users-list/users-list.component";
-import { HomeComponent } from "./home/home.component";
-import { AuthGuard } from "./_guards/auth.guard";
-import { UsersListResolver } from "./_resolvers/users-list-resolver";
-import { UserEditComponent } from "./users/user-edit/user-edit.component";
-import { UserEditResolver } from "./_resolvers/users-edit-resolver";
-import { ProductListComponent } from "./products/product-list/product-list.component";
-import { ProductListResolver } from "./_resolvers/products-list-resolver";
-import { ProductAddComponent } from "./products/product-add/product-add.component";
-import { ContractorListComponent } from "./contractors/contractor-list/contractor-list.component";
-import { ContractorAddComponent } from "./contractors/contractor-add/contractor-add.component";
-import { ContractorListResolver } from "./_resolvers/contractors-list-resolver";
-import { OrderListComponent } from "./orders/order-list/order-list.component";
-import { OrderAddComponent } from "./orders/order-add/order-add.component";
-import { OrderListResolver } from "./_resolvers/orders-list-resolver";
-import { OrderAddResolver } from "./_resolvers/order-add-resolver";
-import { OrderDetailsComponent } from "./orders/order-details/order-details.component";
-import { OrderDetailsResolver } from "./_resolvers/order-add-details";
+import { Routes } from '@angular/router';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { UsersListComponent } from './users/users-list/users-list.component';
+import { HomeComponent } from './home/home.component';
+import { AuthGuard } from './_guards/auth.guard';
+import { UsersListResolver } from './_resolvers/users-list-resolver';
+import { UserEditComponent } from './users/user-edit/user-edit.component';
+import { UserEditResolver } from './_resolvers/users-edit-resolver';
+import { ProductListComponent } from './products/product-list/product-list.component';
+import { ProductListResolver } from './_resolvers/products-list-resolver';
+import { ProductAddComponent } from './products/product-add/product-add.component';
+import { ContractorListComponent } from './contractors/contractor-list/contractor-list.component';
+import { ContractorAddComponent } from './contractors/contractor-add/contractor-add.component';
+import { ContractorListResolver } from './_resolvers/contractors-list-resolver';
+import { OrderListComponent } from './orders/order-list/order-list.component';
+import { OrderAddComponent } from './orders/order-add/order-add.component';
+import { OrderListResolver } from './_resolvers/orders-list-resolver';
+import { OrderAddResolver } from './_resolvers/order-add-resolver';
+import { OrderDetailsComponent } from './orders/order-details/order-details.component';
+import { OrderDetailsResolver } from './_resolvers/order/order-details-resolver';
+import { ContractorDetailsComponent } from './contractors/contractor-details/contractor-details.component';
+import { ContractorDetailsResolver } from './_resolvers/contractor/contractor-details-resolver';
 
 export const appRoutes: Routes = [
-  { path: "", component: HomeComponent },
+  { path: '', component: HomeComponent },
   {
-    path: "",
-    runGuardsAndResolvers: "always",
+    path: '',
+    runGuardsAndResolvers: 'always',
     canActivate: [AuthGuard],
     children: [
       {
-        path: "dashboard",
+        path: 'dashboard',
         component: DashboardComponent,
-        data: { title: "Dashboard" }
+        data: { title: 'Dashboard' }
       },
       {
-        path: "orders",
+        path: 'orders',
         component: OrderListComponent,
-        data: { title: "Zamówienia" },
+        data: { title: 'Zamówienia' },
         resolve: { list: OrderListResolver }
       },
       {
-        path: "orders/:id",
+        path: 'orders/:id',
         component: OrderDetailsComponent,
-        data: { title: "Szczegóły zamówienia" },
+        data: { title: 'Szczegóły zamówienia' },
         resolve: { order: OrderDetailsResolver }
       },
       {
-        path: "orders/add",
+        path: 'orders/add',
         component: OrderAddComponent,
-        data: { title: "Dodawanie zamówienia" },
+        data: { title: 'Dodawanie zamówienia' },
         resolve: { order: OrderAddResolver }
       },
       {
-        path: "products",
+        path: 'products',
         component: ProductListComponent,
-        data: { title: "Lista Produktów" },
+        data: { title: 'Lista Produktów' },
         resolve: { list: ProductListResolver }
       },
       {
-        path: "products/add",
+        path: 'products/add',
         component: ProductAddComponent,
-        data: { title: "Dodawanie produktu" }
+        data: { title: 'Dodawanie produktu' }
       },
       {
-        path: "contractors",
+        path: 'contractors',
         component: ContractorListComponent,
-        data: { title: "Lista Kontrahentów" },
+        data: { title: 'Lista Kontrahentów' },
         resolve: { list: ContractorListResolver }
       },
       {
-        path: "contractors/add",
-        component: ContractorAddComponent,
-        data: { title: "Dodawanie Kontrahenta" }
+        path: 'contractors/:id',
+        component: ContractorDetailsComponent,
+        data: { title: 'Szczegóły kontrahenta' },
+        resolve: { contractor: ContractorDetailsResolver }
       },
       {
-        path: "users",
+        path: 'contractors/add',
+        component: ContractorAddComponent,
+        data: { title: 'Dodawanie Kontrahenta' }
+      },
+      {
+        path: 'users',
         component: UsersListComponent,
-        data: { title: "Użytkownicy" },
+        data: { title: 'Użytkownicy' },
         resolve: { users: UsersListResolver }
       },
       {
-        path: "user/edit",
+        path: 'user/edit',
         component: UserEditComponent,
-        data: { title: "Edycja Profilu" },
+        data: { title: 'Edycja Profilu' },
         resolve: { user: UserEditResolver }
       }
     ]
   },
-  { path: "**", redirectTo: "", pathMatch: "full" }
+  { path: '**', redirectTo: '', pathMatch: 'full' }
 ];
