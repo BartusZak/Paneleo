@@ -23,5 +23,10 @@ namespace Paneleo.Models.ModelDto
             }
             Errors[key].Add(value);
         }
+
+        public void RemoveError(string key)
+        {
+            Errors.Remove(key);
+        }
     }
 }

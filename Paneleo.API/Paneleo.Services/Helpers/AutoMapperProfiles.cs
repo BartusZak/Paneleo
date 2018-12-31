@@ -31,9 +31,9 @@ namespace Paneleo.Services.Helpers
 
             CreateMap<Product,ProductOrderDto>().ReverseMap();
 
-            CreateMap<AddOrderBindingModel,Order>()
-                .ForMember(x => x.ContractorId, x => x.MapFrom(y=>y.ContractorId))
-                .ForMember(x => x.Products, x=>x.MapFrom(y => y.Products));
+            CreateMap<AddOrderBindingModel, Order>();
+                //.ForMember(x => x.ContractorId, x => x.MapFrom(y=>y.ContractorId))
+                //.ForMember(x => x.Products, x=>x.MapFrom(y => y.Products));
 
             CreateMap<ProductOrderDto, OrderProduct>()
                 .ForMember(x => x.ProductId, x => x.MapFrom(y => y.ProductId));

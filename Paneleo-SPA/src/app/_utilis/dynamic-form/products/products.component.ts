@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { FieldConfig } from 'src/app/_models/field.interface';
+import { Component, OnInit } from "@angular/core";
+import { FormGroup } from "@angular/forms";
+import { FieldConfig } from "src/app/_models/field.interface";
 @Component({
-  selector: 'app-products',
-  templateUrl: './products.component.html',
-  styleUrls: ['./products.component.css']
+  selector: "app-products",
+  templateUrl: "./products.component.html",
+  styleUrls: ["./products.component.css"]
 })
 export class ProductsComponent implements OnInit {
   field: FieldConfig;
@@ -24,20 +24,20 @@ export class ProductsComponent implements OnInit {
   updateTotalPrice = () => {
     this.toPay = 0;
     this.rows.forEach(item => {
-      this.toPay = item.totalCost + this.toPay;
+      this.toPay = Math.round((item.totalCost + this.toPay) * 100) / 100;
     });
     this.updateProductsList();
     // tslint:disable-next-line:semicolon
   };
 
   updateValue(event, cell, rowIndex) {
-    this.editing[rowIndex + '-' + cell] = false;
+    this.editing[rowIndex + "-" + cell] = false;
     this.rows[rowIndex][cell] = event.target.value;
     this.rows = [...this.rows];
 
-    if (cell === 'pricePerUnit' || cell === 'quantity') {
-      this.rows[rowIndex]['totalCost'] =
-        this.rows[rowIndex]['pricePerUnit'] * this.rows[rowIndex]['quantity'];
+    if (cell === "pricePerUnit" || cell === "quantity") {
+      this.rows[rowIndex]["totalCost"] =
+        this.rows[rowIndex]["pricePerUnit"] * this.rows[rowIndex]["quantity"];
     }
     this.updateTotalPrice();
   }
@@ -47,9 +47,9 @@ export class ProductsComponent implements OnInit {
       ...this.rows,
       {
         id: this.rows.length + 1,
-        name: 'Nazwa',
+        name: "Nazwa",
         quantity: 1,
-        unitOfMeasure: 'sztuka',
+        unitOfMeasure: "sztuka",
         pricePerUnit: 0.0,
         totalCost: 0.0,
         productId: null

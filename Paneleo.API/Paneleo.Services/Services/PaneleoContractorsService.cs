@@ -32,7 +32,7 @@ namespace Paneleo.Services.Services
 
         public async Task<Response<object>> AddAsync(AddContractorBindingModel bindingModel, int userId)
         {
-            if (!bindingModel.IsCompany || bindingModel.Nip == null)
+            if ((!bindingModel.IsCompany && bindingModel.Name == null) || bindingModel.Nip == null)
             {
                 bindingModel.Name = bindingModel.FirstName + " " + bindingModel.LastName;
             }
@@ -41,10 +41,11 @@ namespace Paneleo.Services.Services
                 bindingModel.IsCompany = true;
             }
 
-
             var response = await ValidateAddingViewModel(bindingModel);
             if (response.ErrorOccurred)
             {
+                var existingContractor = await _contractorRepository.GetByAsync(x => x.Name == bindingModel.Name);
+                response.SuccessResult = existingContractor;
                 return response;
             }
 

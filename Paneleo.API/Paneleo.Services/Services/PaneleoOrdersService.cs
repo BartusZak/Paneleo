@@ -59,14 +59,19 @@ namespace Paneleo.Services.Services
                 return response;
             }
 
+            response = await _contractorService.AddAsync(bindingModel.Contractor, userId);
+            response.RemoveError(Key.Contractor);
+
             if (bindingModel.Products != null)
             {
                 await AddNotExistingProductsToDatabaseAsync(bindingModel.Products, user);
                 bindingModel.Products = await AssignProductIdToProducts(bindingModel.Products);
             }
 
+            var addedContractor = _mapper.Map<Contractor>(response.SuccessResult);
             var mappedOrder = _mapper.Map<Order>(bindingModel);
             mappedOrder.CreatedBy = user;
+            mappedOrder.ContractorId = addedContractor.Id;
 
             var orderAddSuccess = await _orderRepository.AddAsync(mappedOrder);
 
@@ -116,7 +121,7 @@ namespace Paneleo.Services.Services
             //    ? await CheckIfProductsExist(bindingModel.Products, response)
             //    : response;
 
-            response = await CheckIfContractorExistsAsync(bindingModel.ContractorId, response);
+            //response = await CheckIfContractorExistsAsync(bindingModel.ContractorId, response);
 
             return response;
         }
