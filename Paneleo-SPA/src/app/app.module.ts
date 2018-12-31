@@ -61,6 +61,8 @@ import { ContractorComponent } from './_utilis/dynamic-form/contractor/contracto
 import { OrderDetailsComponent } from './orders/order-details/order-details.component';
 import { ContractorDetailsComponent } from './contractors/contractor-details/contractor-details.component';
 import { OrderDetailsResolver } from './_resolvers/order/order-details-resolver';
+import { ProductDetailsComponent } from './products/product-details/product-details.component';
+import { ProductDetailsResolver } from './_resolvers/product/product-details-resolver';
 
 registerLocaleData(localePl);
 
@@ -103,7 +105,8 @@ export function tokenGetter() {
     NipComponent,
     ContractorComponent,
     OrderDetailsComponent,
-    ContractorDetailsComponent
+    ContractorDetailsComponent,
+    ProductDetailsComponent
   ],
   imports: [
     NgxDatatableModule,
@@ -140,6 +143,7 @@ export function tokenGetter() {
     OrderAddResolver,
     OrderDetailsResolver,
     ContractorDetailsResolver,
+    ProductDetailsResolver,
     { provide: LOCALE_ID, useValue: 'pl' }
   ],
   bootstrap: [AppComponent],

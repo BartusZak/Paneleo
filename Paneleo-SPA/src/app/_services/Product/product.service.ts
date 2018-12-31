@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { Product } from '../../_models/product';
 import { PaginatedResult } from 'src/app/_models/pagination';
 import { map } from 'rxjs/operators';
+import { SingleResponse } from 'src/app/_models/response';
 
 @Injectable({
   providedIn: 'root'
@@ -44,8 +45,10 @@ export class ProductService {
       );
   }
 
-  getProduct(id): Observable<Product> {
-    return this.http.get<Product>(this.baseUrl + 'products/' + id);
+  getProduct(id: string): Observable<SingleResponse<Product>> {
+    return this.http.get<SingleResponse<Product>>(
+      this.baseUrl + 'products/' + id
+    );
   }
 
   addProduct(product: Product) {

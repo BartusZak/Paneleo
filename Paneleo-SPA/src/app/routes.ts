@@ -1,3 +1,4 @@
+import { ProductDetailsComponent } from './products/product-details/product-details.component';
 import { Routes } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { UsersListComponent } from './users/users-list/users-list.component';
@@ -20,6 +21,7 @@ import { OrderDetailsComponent } from './orders/order-details/order-details.comp
 import { OrderDetailsResolver } from './_resolvers/order/order-details-resolver';
 import { ContractorDetailsComponent } from './contractors/contractor-details/contractor-details.component';
 import { ContractorDetailsResolver } from './_resolvers/contractor/contractor-details-resolver';
+import { ProductDetailsResolver } from './_resolvers/product/product-details-resolver';
 
 export const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -56,6 +58,12 @@ export const appRoutes: Routes = [
         component: ProductListComponent,
         data: { title: 'Lista Produktów' },
         resolve: { list: ProductListResolver }
+      },
+      {
+        path: 'products/:id',
+        component: ProductDetailsComponent,
+        data: { title: 'Szczegóły produktu' },
+        resolve: { product: ProductDetailsResolver }
       },
       {
         path: 'products/add',
