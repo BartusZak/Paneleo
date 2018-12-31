@@ -265,6 +265,10 @@ namespace Paneleo.Services.Services
             foreach (var order in orders)
             {
                 var contractor = await _contractorRepository.GetByAsync(x => x.Id == order.ContractorId);
+                if (ordersDto[i].Contractor == null)
+                {
+                    ordersDto[i].Contractor = new ContractorDto();
+                }
                 //ordersDto[i++].ContractorName = contractor.Name;
                 ordersDto[i++].Contractor.Name = contractor.Name;
             }

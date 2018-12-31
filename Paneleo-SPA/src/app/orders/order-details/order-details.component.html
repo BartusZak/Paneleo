@@ -3,7 +3,7 @@
 
 <div>
   Kontrahent:
-  <a [routerLink]="['/contractor', order.contractor.id]">{{
+  <a [routerLink]="['/contractors', order.contractor.id]">{{
     order.contractor.name
   }}</a>
 </div>
@@ -11,5 +11,7 @@
 <div>Wystawiono: {{ order.createdAt | date }}</div>
 
 <div>
-  <div *ngFor="let product of order.products">{{ product.name }}</div>
+  <div *ngFor="let product of order.products">
+    <a [routerLink]="['/products', product.id]">{{ product.name }}</a>
+  </div>
 </div>
