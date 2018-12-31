@@ -50,7 +50,7 @@ namespace Paneleo.Services.Services
                 return response;
             }
 
-            var contractor = Mapper.Map<Contractor>(bindingModel);
+            var contractor = _mapper.Map<Contractor>(bindingModel);
 
             var user = (await _paneleoRepository.GetUser(userId));
             contractor.CreatedBy = user;
@@ -77,7 +77,7 @@ namespace Paneleo.Services.Services
             var product = await _contractorRepository.GetByAsync(x => x.Id == bindingModel.Id);
 
             _contractorRepository.Detach(product);
-            var updatedProduct = Mapper.Map<Contractor>(bindingModel);
+            var updatedProduct = _mapper.Map<Contractor>(bindingModel);
 
             bool updateSucceed = await _contractorRepository.UpdateAsync(updatedProduct);
             if (!updateSucceed)
@@ -160,7 +160,7 @@ namespace Paneleo.Services.Services
 
             return new SearchResults<ContractorDetailedDto>()
             {
-                Results = Mapper.Map<List<ContractorDetailedDto>>(contractors),
+                Results = _mapper.Map<List<ContractorDetailedDto>>(contractors),
                 CurrentPage = searchParams.PageNumber,
                 TotalPageCount = contractorsPageCount,
                 TotalItemsCount = contractorsCount
@@ -226,7 +226,7 @@ namespace Paneleo.Services.Services
                 return result;
             }
 
-            var contractorsDto = Mapper.Map<List<ContractorDto>>(contractorsFromDatabase);
+            var contractorsDto = _mapper.Map<List<ContractorDto>>(contractorsFromDatabase);
 
             result.SuccessResult = contractorsDto;
 

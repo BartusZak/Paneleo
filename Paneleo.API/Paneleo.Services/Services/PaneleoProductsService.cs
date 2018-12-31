@@ -39,7 +39,7 @@ namespace Paneleo.Services.Services
             {
                 return response;
             }
-            var product = Mapper.Map<Product>(bindingModel);
+            var product = _mapper.Map<Product>(bindingModel);
             var user = (await _paneleoRepository.GetUser(userId));
             product.CreatedBy = user;
 
@@ -49,7 +49,7 @@ namespace Paneleo.Services.Services
                 response.AddError(Key.Product, Error.ProductAddError);
             }
 
-            var productDto = Mapper.Map<AddProductDto>(product);
+            var productDto = _mapper.Map<AddProductDto>(product);
 
             response.SuccessResult = productDto;
 
@@ -67,7 +67,7 @@ namespace Paneleo.Services.Services
             var product = await _productRepository.GetByAsync(x => x.Name == bindingModel.Name);
 
             _productRepository.Detach(product);
-            var updatedProduct = Mapper.Map<Product>(bindingModel);
+            var updatedProduct = _mapper.Map<Product>(bindingModel);
 
             bool updateSucceed = await _productRepository.UpdateAsync(updatedProduct);
             if (!updateSucceed)
@@ -141,7 +141,7 @@ namespace Paneleo.Services.Services
 
             return new SearchResults<ProductDetailedDto>()
             {
-                Results = Mapper.Map<List<ProductDetailedDto>>(products),
+                Results = _mapper.Map<List<ProductDetailedDto>>(products),
                 CurrentPage = searchParams.PageNumber,
                 TotalPageCount = productsPageCount,
                 TotalItemsCount = productsCount
