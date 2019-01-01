@@ -72,6 +72,7 @@ namespace Paneleo.Services.Services
 
             var addedContractor = _mapper.Map<Contractor>(response.SuccessResult);
             var mappedOrder = _mapper.Map<Order>(bindingModel);
+
             mappedOrder.CreatedBy = user;
             mappedOrder.ContractorId = addedContractor.Id;
 
@@ -80,6 +81,15 @@ namespace Paneleo.Services.Services
             if (!orderAddSuccess)
             {
                 response.AddError(Key.Order, Error.OrderAddError);
+            }
+
+            mappedOrder.Name = mappedOrder.Id.ToString("D5") + mappedOrder.CreatedAt.ToString("/MM/yyyy");
+
+            var orderUpdateSuccess = await _orderRepository.UpdateAsync(mappedOrder);
+
+            if (!orderUpdateSuccess)
+            {
+                response.AddError(Key.Order, Error.OrderUpdateError);
             }
 
             response.SuccessResult = mappedOrder;

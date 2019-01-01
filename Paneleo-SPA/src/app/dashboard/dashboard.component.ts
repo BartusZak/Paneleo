@@ -14,8 +14,6 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
     this.route.data.subscribe(data => {
       this.statistics = data.statistics.successResult;
-      console.log(data);
-      console.log(this.statistics);
     });
   }
 }

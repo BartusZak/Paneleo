@@ -1,0 +1,10 @@
+<div class="card box-shadow">
+  <div class="card-body">
+    <h3>{{ name }}</h3>
+    <ul class="list-group">
+      <li *ngFor="let item of array" class="list-group-item">
+        <a [routerLink]="[link, item.id]">{{ item.name }}</a>
+      </li>
+    </ul>
+  </div>
+</div>

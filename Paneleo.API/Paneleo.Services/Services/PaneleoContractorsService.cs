@@ -33,6 +33,14 @@ namespace Paneleo.Services.Services
 
         public async Task<Response<object>> AddAsync(AddContractorBindingModel bindingModel, int userId)
         {
+            var response = new Response<object>();
+
+            if (bindingModel == null)
+            {
+                response.AddError(Key.Contractor, Error.ContractorAddError);
+                return response;
+            }
+
             if ((!bindingModel.IsCompany && bindingModel.Name == null) || bindingModel.Nip == null)
             {
                 bindingModel.Name = bindingModel.FirstName + " " + bindingModel.LastName;
@@ -42,7 +50,7 @@ namespace Paneleo.Services.Services
                 bindingModel.IsCompany = true;
             }
 
-            var response = await ValidateAddingViewModel(bindingModel);
+            response = await ValidateAddingViewModel(bindingModel);
             if (response.ErrorOccurred)
             {
                 var existingContractor = await _contractorRepository.GetByAsync(x => x.Name == bindingModel.Name);

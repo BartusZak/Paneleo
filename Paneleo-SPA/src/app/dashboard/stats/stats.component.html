@@ -2,7 +2,7 @@
   <app-box
     class="col-12 col-sm-6 col-md-3"
     title="Wartość zamówień"
-    count="{{ totalOrdersValue }}"
+    count="{{ totalOrdersValue | currency: 'PLN':'symbol' }}"
   ></app-box>
   <app-box
     class="col-12 col-sm-6 col-md-3"

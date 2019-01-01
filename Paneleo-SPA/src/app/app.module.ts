@@ -1,3 +1,4 @@
+import { LastAddedComponent } from './dashboard/last-added/last-added.component';
 import { ContractorDetailsResolver } from './_resolvers/contractor/contractor-details-resolver';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, LOCALE_ID } from '@angular/core';
@@ -32,9 +33,6 @@ import { UserEditResolver } from './_resolvers/users-edit-resolver';
 import { TitleService } from './_services/title.service';
 import { StatsComponent } from './dashboard/stats/stats.component';
 import { BoxComponent } from './dashboard/stats/box/box.component';
-import { LastAddedClientsComponent } from './dashboard/last-added-clients/last-added-clients.component';
-import { LastAddedOrdersComponent } from './dashboard/last-added-orders/last-added-orders.component';
-import { LastAddedProductsComponent } from './dashboard/last-added-products/last-added-products.component';
 import { ProductListComponent } from './products/product-list/product-list.component';
 import { ProductAddComponent } from './products/product-add/product-add.component';
 import { ProductService } from './_services/Product/product.service';
@@ -87,9 +85,6 @@ export function tokenGetter() {
     LeftMenuComponent,
     UserCardComponent,
     UserEditComponent,
-    LastAddedClientsComponent,
-    LastAddedOrdersComponent,
-    LastAddedProductsComponent,
     ProductListComponent,
     ProductAddComponent,
     GenericListComponent,
@@ -108,7 +103,8 @@ export function tokenGetter() {
     ContractorComponent,
     OrderDetailsComponent,
     ContractorDetailsComponent,
-    ProductDetailsComponent
+    ProductDetailsComponent,
+    LastAddedComponent
   ],
   imports: [
     NgxDatatableModule,

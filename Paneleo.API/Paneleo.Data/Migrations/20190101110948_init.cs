@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Paneleo.Data.Migrations
 {
-    public partial class lukasz5 : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -36,12 +36,21 @@ namespace Paneleo.Data.Migrations
                     CreatedAt = table.Column<DateTime>(nullable: false),
                     ModifiedAt = table.Column<DateTime>(nullable: false),
                     CreatedById = table.Column<int>(nullable: true),
+                    ModifiedById = table.Column<int>(nullable: true),
+                    IsCompany = table.Column<bool>(nullable: false),
                     Nip = table.Column<string>(nullable: true),
-                    Regon = table.Column<string>(nullable: true),
-                    ContractorName = table.Column<string>(nullable: true),
                     Name = table.Column<string>(nullable: true),
-                    SecondName = table.Column<string>(nullable: true),
-                    Forename = table.Column<string>(nullable: true)
+                    FirstName = table.Column<string>(nullable: true),
+                    LastName = table.Column<string>(nullable: true),
+                    Street = table.Column<string>(nullable: true),
+                    StreetNumber = table.Column<string>(nullable: true),
+                    HouseNumber = table.Column<string>(nullable: true),
+                    City = table.Column<string>(nullable: true),
+                    PostCode = table.Column<string>(nullable: true),
+                    PostCity = table.Column<string>(nullable: true),
+                    Phone = table.Column<string>(nullable: true),
+                    Email = table.Column<string>(nullable: true),
+                    Www = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -49,6 +58,12 @@ namespace Paneleo.Data.Migrations
                     table.ForeignKey(
                         name: "FK_Contractors_Users_CreatedById",
                         column: x => x.CreatedById,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Contractors_Users_ModifiedById",
+                        column: x => x.ModifiedById,
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -63,10 +78,12 @@ namespace Paneleo.Data.Migrations
                     CreatedAt = table.Column<DateTime>(nullable: false),
                     ModifiedAt = table.Column<DateTime>(nullable: false),
                     CreatedById = table.Column<int>(nullable: true),
+                    ModifiedById = table.Column<int>(nullable: true),
                     Name = table.Column<string>(nullable: true),
                     Brand = table.Column<string>(nullable: true),
+                    ProductQuantity = table.Column<double>(nullable: false),
                     UnitOfMeasure = table.Column<string>(nullable: true),
-                    PriceOfUnit = table.Column<double>(nullable: false)
+                    PricePerUnit = table.Column<double>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -74,6 +91,12 @@ namespace Paneleo.Data.Migrations
                     table.ForeignKey(
                         name: "FK_Products_Users_CreatedById",
                         column: x => x.CreatedById,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Products_Users_ModifiedById",
+                        column: x => x.ModifiedById,
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -88,6 +111,8 @@ namespace Paneleo.Data.Migrations
                     CreatedAt = table.Column<DateTime>(nullable: false),
                     ModifiedAt = table.Column<DateTime>(nullable: false),
                     CreatedById = table.Column<int>(nullable: true),
+                    ModifiedById = table.Column<int>(nullable: true),
+                    Name = table.Column<string>(nullable: true),
                     Place = table.Column<string>(nullable: true),
                     ContractorId = table.Column<int>(nullable: false),
                     TotalCost = table.Column<double>(nullable: false)
@@ -107,6 +132,12 @@ namespace Paneleo.Data.Migrations
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Orders_Users_ModifiedById",
+                        column: x => x.ModifiedById,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -118,10 +149,11 @@ namespace Paneleo.Data.Migrations
                     CreatedAt = table.Column<DateTime>(nullable: false),
                     ModifiedAt = table.Column<DateTime>(nullable: false),
                     CreatedById = table.Column<int>(nullable: true),
+                    ModifiedById = table.Column<int>(nullable: true),
                     Quantity = table.Column<double>(nullable: false),
                     TotalCost = table.Column<double>(nullable: false),
                     ProductId = table.Column<int>(nullable: false),
-                    OrderId = table.Column<int>(nullable: true)
+                    OrderId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -133,11 +165,17 @@ namespace Paneleo.Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
+                        name: "FK_OrderProducts_Users_ModifiedById",
+                        column: x => x.ModifiedById,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
                         name: "FK_OrderProducts_Orders_OrderId",
                         column: x => x.OrderId,
                         principalTable: "Orders",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_OrderProducts_Products_ProductId",
                         column: x => x.ProductId,
@@ -152,9 +190,19 @@ namespace Paneleo.Data.Migrations
                 column: "CreatedById");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Contractors_ModifiedById",
+                table: "Contractors",
+                column: "ModifiedById");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_OrderProducts_CreatedById",
                 table: "OrderProducts",
                 column: "CreatedById");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrderProducts_ModifiedById",
+                table: "OrderProducts",
+                column: "ModifiedById");
 
             migrationBuilder.CreateIndex(
                 name: "IX_OrderProducts_OrderId",
@@ -177,9 +225,19 @@ namespace Paneleo.Data.Migrations
                 column: "CreatedById");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Orders_ModifiedById",
+                table: "Orders",
+                column: "ModifiedById");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Products_CreatedById",
                 table: "Products",
                 column: "CreatedById");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Products_ModifiedById",
+                table: "Products",
+                column: "ModifiedById");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

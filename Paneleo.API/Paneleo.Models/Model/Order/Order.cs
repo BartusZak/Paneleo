@@ -6,6 +6,7 @@ namespace Paneleo.Models.Model.Order
 {
     public class Order : Entity
     {
+        public string Name { get; set; }
         public string Place { get; set; }
         public int ContractorId { get; set; }
         public virtual Contractor.Contractor Contractor { get; set; }

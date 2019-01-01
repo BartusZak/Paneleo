@@ -82,6 +82,8 @@ namespace Paneleo.Data.Migrations
 
                     b.Property<int?>("ModifiedById");
 
+                    b.Property<string>("Name");
+
                     b.Property<string>("Place");
 
                     b.Property<double>("TotalCost");

@@ -57,16 +57,16 @@ namespace Paneleo.Services.Services
 
         private async Task<ICollection<ProductShortDto>> GetLast5Products()
         {
-            var contractors = (await _productRepository.GetAllAsync()).OrderByDescending(x => x.CreatedAt).Take(5);
+            var products = (await _productRepository.GetAllAsync()).OrderByDescending(x => x.CreatedAt).Take(5);
 
-            return _mapper.Map<ICollection<ProductShortDto>>(contractors);
+            return _mapper.Map<ICollection<ProductShortDto>>(products);
         }
 
         private async Task<ICollection<OrderShortDto>> GetLast5Orders()
         {
-            var contractors = (await _orderRepository.GetAllAsync()).OrderByDescending(x => x.CreatedAt).Take(5);
+            var orders = (await _orderRepository.GetAllAsync()).OrderByDescending(x => x.CreatedAt).Take(5);
 
-            return _mapper.Map<ICollection<OrderShortDto>>(contractors);
+            return _mapper.Map<ICollection<OrderShortDto>>(orders);
         }
 
         private async Task<ICollection<ContractorShortDto>> GetLast5Contractors()

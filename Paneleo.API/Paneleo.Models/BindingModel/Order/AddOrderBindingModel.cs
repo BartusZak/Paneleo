@@ -10,6 +10,7 @@ namespace Paneleo.Models.BindingModel.Order
     {
         public string Place { get; set; }
         //public int ContractorId { get; set; }
+        [Required(ErrorMessage = "Kontrahent jest wymagany!")]
         public AddContractorBindingModel Contractor { get; set; }
         public ICollection<ProductOrderDto> Products { get; set; }
         public double TotalCost { get; set; }

@@ -9,8 +9,8 @@ using Paneleo.Data.DatabaseContext;
 namespace Paneleo.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20181214125845_nowa")]
-    partial class nowa
+    [Migration("20190101110948_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -24,13 +24,21 @@ namespace Paneleo.Data.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("ContractorName");
+                    b.Property<string>("City");
 
                     b.Property<DateTime>("CreatedAt");
 
                     b.Property<int?>("CreatedById");
 
-                    b.Property<string>("Forename");
+                    b.Property<string>("Email");
+
+                    b.Property<string>("FirstName");
+
+                    b.Property<string>("HouseNumber");
+
+                    b.Property<bool>("IsCompany");
+
+                    b.Property<string>("LastName");
 
                     b.Property<DateTime>("ModifiedAt");
 
@@ -40,9 +48,17 @@ namespace Paneleo.Data.Migrations
 
                     b.Property<string>("Nip");
 
-                    b.Property<string>("Regon");
+                    b.Property<string>("Phone");
 
-                    b.Property<string>("SecondName");
+                    b.Property<string>("PostCity");
+
+                    b.Property<string>("PostCode");
+
+                    b.Property<string>("Street");
+
+                    b.Property<string>("StreetNumber");
+
+                    b.Property<string>("Www");
 
                     b.HasKey("Id");
 
@@ -67,6 +83,8 @@ namespace Paneleo.Data.Migrations
                     b.Property<DateTime>("ModifiedAt");
 
                     b.Property<int?>("ModifiedById");
+
+                    b.Property<string>("Name");
 
                     b.Property<string>("Place");
 
@@ -96,7 +114,7 @@ namespace Paneleo.Data.Migrations
 
                     b.Property<int?>("ModifiedById");
 
-                    b.Property<int?>("OrderId");
+                    b.Property<int>("OrderId");
 
                     b.Property<int>("ProductId");
 
@@ -134,9 +152,9 @@ namespace Paneleo.Data.Migrations
 
                     b.Property<string>("Name");
 
-                    b.Property<double>("PriceOfUnit");
+                    b.Property<double>("PricePerUnit");
 
-                    b.Property<double>("Quantity");
+                    b.Property<double>("ProductQuantity");
 
                     b.Property<string>("UnitOfMeasure");
 
@@ -210,9 +228,10 @@ namespace Paneleo.Data.Migrations
                         .WithMany()
                         .HasForeignKey("ModifiedById");
 
-                    b.HasOne("Paneleo.Models.Model.Order.Order")
+                    b.HasOne("Paneleo.Models.Model.Order.Order", "Order")
                         .WithMany("Products")
-                        .HasForeignKey("OrderId");
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Paneleo.Models.Model.Product.Product", "Product")
                         .WithMany()

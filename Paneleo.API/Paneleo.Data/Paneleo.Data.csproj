@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20190101112642_test.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="UserSeedData.json" />
   </ItemGroup>
 

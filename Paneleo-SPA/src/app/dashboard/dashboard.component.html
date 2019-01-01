@@ -8,8 +8,26 @@
   ></app-stats>
   <div class="row mt-5 d-block text-center"><h2>Ostatnio dodane</h2></div>
   <div class="row">
-    <app-last-added-clients class="col-12 col-md-4"> </app-last-added-clients>
-    <app-last-added-orders class="col-12 col-md-4 "> </app-last-added-orders>
-    <app-last-added-products class="col-12 col-md-4"></app-last-added-products>
+    <app-last-added
+      [array]="statistics.contractors"
+      name="Kontrahenci"
+      link="/contractors"
+      class="col-12 col-md-4"
+    >
+    </app-last-added>
+    <app-last-added
+      [array]="statistics.orders"
+      name="Zamówienia"
+      link="/orders"
+      class="col-12 col-md-4"
+    >
+    </app-last-added>
+    <app-last-added
+      [array]="statistics.products"
+      name="Produkty"
+      link="/products"
+      class="col-12 col-md-4"
+    >
+    </app-last-added>
   </div>
 </div>
