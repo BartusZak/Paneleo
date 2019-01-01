@@ -22,6 +22,7 @@ import { OrderDetailsResolver } from './_resolvers/order/order-details-resolver'
 import { ContractorDetailsComponent } from './contractors/contractor-details/contractor-details.component';
 import { ContractorDetailsResolver } from './_resolvers/contractor/contractor-details-resolver';
 import { ProductDetailsResolver } from './_resolvers/product/product-details-resolver';
+import { DashboardResolver } from './_resolvers/dashboard/dashboard-resolver';
 
 export const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -33,7 +34,8 @@ export const appRoutes: Routes = [
       {
         path: 'dashboard',
         component: DashboardComponent,
-        data: { title: 'Dashboard' }
+        data: { title: 'Dashboard' },
+        resolve: { statistics: DashboardResolver }
       },
       {
         path: 'orders/add',

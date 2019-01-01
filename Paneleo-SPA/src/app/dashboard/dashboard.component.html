@@ -1,6 +1,11 @@
 <div class="container-fluid">
   <div class="row d-block text-center"><h2>Statystyki</h2></div>
-  <app-stats></app-stats>
+  <app-stats
+    contractorsCount="{{ statistics.contractorsCount }}"
+    totalOrdersValue="{{ statistics.totalOrdersValue }}"
+    ordersCount="{{ statistics.ordersCount }}"
+    productsCount="{{ statistics.productsCount }}"
+  ></app-stats>
   <div class="row mt-5 d-block text-center"><h2>Ostatnio dodane</h2></div>
   <div class="row">
     <app-last-added-clients class="col-12 col-md-4"> </app-last-added-clients>

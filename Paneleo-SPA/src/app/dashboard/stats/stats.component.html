@@ -1,22 +1,22 @@
 <div class="row bg-primary p-3">
   <app-box
     class="col-12 col-sm-6 col-md-3"
-    title="Użytkownicy"
-    count="1"
+    title="Wartość zamówień"
+    count="{{ totalOrdersValue }}"
   ></app-box>
   <app-box
     class="col-12 col-sm-6 col-md-3"
     title="Kontrahenci"
-    count="2"
+    count="{{ contractorsCount }}"
   ></app-box>
   <app-box
     class="col-12 col-sm-6 col-md-3"
     title="Zamówienia"
-    count="3"
+    count="{{ ordersCount }}"
   ></app-box>
   <app-box
     class="col-12 col-sm-6 col-md-3"
     title="Produkty"
-    count="4"
+    count="{{ productsCount }}"
   ></app-box>
 </div>

@@ -1,14 +1,14 @@
-import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
-import { HttpClient, HttpParams } from "@angular/common/http";
-import { environment } from "src/environments/environment";
-import { map, catchError } from "rxjs/operators";
-import { PaginatedResult } from "src/app/_models/pagination";
-import { Order } from "src/app/_models/order";
-import { SingleResponse } from "src/app/_models/response";
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
+import { map, catchError } from 'rxjs/operators';
+import { PaginatedResult } from 'src/app/_models/pagination';
+import { Order } from 'src/app/_models/order';
+import { SingleResponse } from 'src/app/_models/response';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class OrderService {
   baseUrl = environment.apiUrl;
@@ -23,12 +23,12 @@ export class OrderService {
     let params = new HttpParams();
 
     if (pageNumber != null && pageLimit != null) {
-      (params = params.append("PageNumber", pageNumber)),
-        (params = params.append("PageLimit", pageLimit));
+      (params = params.append('PageNumber', pageNumber)),
+        (params = params.append('PageLimit', pageLimit));
     }
     return this.http
-      .get<any>(this.baseUrl + "orders", {
-        observe: "response",
+      .get<any>(this.baseUrl + 'orders', {
+        observe: 'response',
         params
       })
       .pipe(
@@ -46,17 +46,17 @@ export class OrderService {
   }
 
   getOrder(id: string): Observable<SingleResponse<Order>> {
-    return this.http.get<SingleResponse<Order>>(this.baseUrl + "orders/" + id);
+    return this.http.get<SingleResponse<Order>>(this.baseUrl + 'orders/' + id);
   }
   getLastOrderDetails(): Observable<Order> {
-    return this.http.get<Order>(this.baseUrl + "orders/LastOrderDetails");
+    return this.http.get<Order>(this.baseUrl + 'orders/LastOrderDetails');
   }
 
   addOrder(order: Order) {
-    return this.http.post(this.baseUrl + "orders/", order);
+    return this.http.post(this.baseUrl + 'orders/', order);
   }
 
   updateOrder(id: number, order: Order) {
-    return this.http.put(this.baseUrl + "orders/" + id, order);
+    return this.http.put(this.baseUrl + 'orders/' + id, order);
   }
 }

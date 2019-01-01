@@ -63,6 +63,8 @@ import { ContractorDetailsComponent } from './contractors/contractor-details/con
 import { OrderDetailsResolver } from './_resolvers/order/order-details-resolver';
 import { ProductDetailsComponent } from './products/product-details/product-details.component';
 import { ProductDetailsResolver } from './_resolvers/product/product-details-resolver';
+import { DashboardService } from './_services/dashboard/dashboard.service';
+import { DashboardResolver } from './_resolvers/dashboard/dashboard-resolver';
 
 registerLocaleData(localePl);
 
@@ -144,6 +146,8 @@ export function tokenGetter() {
     OrderDetailsResolver,
     ContractorDetailsResolver,
     ProductDetailsResolver,
+    DashboardResolver,
+    DashboardService,
     { provide: LOCALE_ID, useValue: 'pl' }
   ],
   bootstrap: [AppComponent],
