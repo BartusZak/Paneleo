@@ -10,7 +10,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./contractor-details.component.css']
 })
 export class ContractorDetailsComponent implements OnInit {
-  private contractor: Contractor;
+  public contractor: Contractor;
   constructor(private route: ActivatedRoute) {}
 
   ngOnInit() {

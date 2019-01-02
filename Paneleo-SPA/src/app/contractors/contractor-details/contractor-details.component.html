@@ -1,6 +1,23 @@
-<h1>{{ contractor.name }}</h1>
-<hr />
-<p>{{ contractor.firstName }}{{ contractor.lastName }}</p>
-<p>{{ contractor.nip }}</p>
-<p>{{ contractor.street }}</p>
-<p>{{ contractor.postCode }} {{ contractor.city }}</p>
+<!-- Page Content -->
+<div class="container">
+  <!-- Portfolio Item Heading -->
+  <h1 class="my-4">
+    {{ contractor.name }}
+    <small>{{ contractor.nip ? contractor.nip : 'Osoba Prywatna' }}</small>
+  </h1>
+
+  <!-- Portfolio Item Row -->
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="my-3">Szczegóły kontrahenta</h3>
+      <ul>
+        <li>Imię: {{ contractor.firstName }}</li>
+        <li>Nazwisko: {{ contractor.lastName }}</li>
+        <li>ulica: {{ contractor.street }}</li>
+        <li>Kod pocztowy: {{ contractor.postCode }} {{ contractor.city }}</li>
+      </ul>
+    </div>
+  </div>
+  <!-- /.row -->
+</div>
+<!-- /.container -->

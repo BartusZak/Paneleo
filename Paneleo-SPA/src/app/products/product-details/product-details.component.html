@@ -1,1 +1,25 @@
-<h1>{{ product.name }}</h1>
+<!-- Page Content -->
+<div class="container">
+  <!-- Portfolio Item Heading -->
+  <h1 class="my-4">
+    {{ product.name }} <small>{{ product.brand }}</small>
+  </h1>
+
+  <!-- Portfolio Item Row -->
+  <div class="row">
+    <div class="col-md-8">
+      <img class="img-fluid" src="http://placehold.it/750x500" alt="" />
+    </div>
+
+    <div class="col-md-4">
+      <h3 class="my-3">Szczegóły produktu</h3>
+      <ul>
+        <li>Ilość: {{ product.quantity }}</li>
+        <li>Jm: {{ product.unitOfMeasure }}</li>
+        <li>Cena za Jm: {{ product.pricePerUnit }}</li>
+      </ul>
+    </div>
+  </div>
+  <!-- /.row -->
+</div>
+<!-- /.container -->
