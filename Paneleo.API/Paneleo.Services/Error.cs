@@ -23,6 +23,7 @@ namespace Paneleo.Services
         public static string OrderRemoveError = "Wystąpil problem, podczas usuwania zamówienia!";
         public static string OrderNotExist = "Takie zmaówienie nie istnieje!";
         public static string AlreadyInList = "znajduję się już na liście!";
+        public static string OrderMustHaveMinOneProduct = "Zamówienie musi składać się z min. 1 produktu!";
 
         public static string NipIsNotValid = "Niepoprawny NIP!";
     }

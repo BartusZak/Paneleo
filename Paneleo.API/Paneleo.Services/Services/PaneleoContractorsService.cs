@@ -50,6 +50,13 @@ namespace Paneleo.Services.Services
                 bindingModel.IsCompany = true;
             }
 
+            bindingModel.Name = bindingModel.Name.Trim();
+            if (bindingModel.Name.Length == 0)
+            {
+                response.AddError(Key.Contractor, Error.OrderAddError);
+                return response;
+            }
+            
             response = await ValidateAddingViewModel(bindingModel);
             if (response.ErrorOccurred)
             {

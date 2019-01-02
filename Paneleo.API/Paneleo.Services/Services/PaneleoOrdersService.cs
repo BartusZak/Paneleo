@@ -66,6 +66,10 @@ namespace Paneleo.Services.Services
             {
                 response.RemoveError(Key.Contractor);
             }
+            else
+            {
+                return response;
+            }
 
             if (bindingModel.Products != null)
             {
@@ -132,6 +136,10 @@ namespace Paneleo.Services.Services
            
             var response  =  bindingModel.Products != null ? CheckProducts(bindingModel.Products) : new Response<object>();
 
+            if (bindingModel.Products == null || bindingModel.Products.Count < 1)
+            {
+                response.AddError(Key.Product, Error.OrderMustHaveMinOneProduct);
+            }
             //response = bindingModel.Products != null
             //    ? await CheckIfProductsExist(bindingModel.Products, response)
             //    : response;

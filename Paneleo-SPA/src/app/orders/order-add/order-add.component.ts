@@ -66,7 +66,6 @@ export class OrderAddComponent implements OnInit {
   }
 
   submit(value: any) {
-    console.log(value);
     this.orderService.addOrder(value).subscribe(
       () => {
         this.alertify.success('Dodano nowe zamówienie!');
