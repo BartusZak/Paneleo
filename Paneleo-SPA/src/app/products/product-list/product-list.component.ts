@@ -1,6 +1,14 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  EventEmitter,
+  Output,
+  TemplateRef,
+  ViewChild
+} from '@angular/core';
 import { ProductService } from 'src/app/_services/Product/product.service';
 import { Router } from '@angular/router';
+import { GenericListComponent } from '../../_utilis/generic-list/generic-list.component';
 
 @Component({
   selector: 'app-product-list',
@@ -8,15 +16,28 @@ import { Router } from '@angular/router';
   styleUrls: ['./product-list.component.css']
 })
 export class ProductListComponent implements OnInit {
-  // @Output() getProducts: EventEmitter<any> = new EventEmitter();
-  productColumns = [
-    { prop: 'id', summaryFunc: () => console.log('test') },
-    { prop: 'name', name: 'Nazwa', summaryFunc: () => null },
-    { prop: 'productQuantity', name: 'Ilość', summaryFunc: () => null }
-  ];
+  @ViewChild(GenericListComponent)
+  genericListComponent: GenericListComponent;
+
+  productColumns: any;
+
   constructor(private productService: ProductService, private router: Router) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.productColumns = [
+      { prop: 'id', summaryFunc: () => null },
+      { prop: 'name', name: 'Nazwa', summaryFunc: () => null },
+      { prop: 'quantity', name: 'Ilość', summaryFunc: () => null },
+      { prop: 'unitOfMeasure', name: 'Jm', summaryFunc: () => null },
+      {
+        prop: 'pricePerUnit',
+        name: 'Cana za jm',
+        cellTemplate: this.genericListComponent.currencyCell,
+        headerTemplate: this.genericListComponent.currencyHeader,
+        summaryFunc: () => null
+      }
+    ];
+  }
 
   getProducts = atrib => {
     return this.productService.getProducts(atrib.limit, ++atrib.offset);

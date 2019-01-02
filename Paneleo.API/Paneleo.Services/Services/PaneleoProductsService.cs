@@ -33,8 +33,8 @@ namespace Paneleo.Services.Services
 
         public async Task<Response<object>> AddAsync(AddProductBindingModel bindingModel, int userId)
         {
-
             var response = await ValidateAddingViewModel(bindingModel);
+
             if (response.ErrorOccurred)
             {
                 return response;

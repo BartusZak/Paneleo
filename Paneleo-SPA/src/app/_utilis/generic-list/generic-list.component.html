@@ -19,3 +19,10 @@
   >
   </ngx-datatable>
 </div>
+
+<ng-template #currencyHeader let-column="column">
+  {{ column.name }}
+</ng-template>
+<ng-template #currencyCell let-row="row" let-value="value">
+  {{ value | currency: 'PLN':'symbol' }}
+</ng-template>

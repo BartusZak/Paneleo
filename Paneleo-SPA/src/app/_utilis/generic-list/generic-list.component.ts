@@ -1,7 +1,12 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  TemplateRef,
+  ViewChild,
+  Output
+} from '@angular/core';
 import { PaginatedResult } from 'src/app/_models/pagination';
-import { Product, ProductForOrder } from 'src/app/_models/product';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-generic-list',
@@ -9,13 +14,18 @@ import { Router } from '@angular/router';
   styleUrls: ['./generic-list.component.css']
 })
 export class GenericListComponent implements OnInit {
+  @ViewChild('currencyCell') currencyCell: TemplateRef<any>;
+  @ViewChild('currencyHeader') currencyHeader: TemplateRef<any>;
+
   @Input() getData: any;
   @Input() name: string;
   @Input() columns: Array<string>;
   @Input() onRowClick: any;
+
   loading = true;
   data: PaginatedResult<any>;
-  constructor(private router: Router) {}
+
+  constructor() {}
 
   ngOnInit() {
     this.setPage({ limit: 10, offset: 0 });
@@ -23,7 +33,7 @@ export class GenericListComponent implements OnInit {
 
   setPage(atrib) {
     this.loading = true;
-    this.getData(atrib).subscribe(pagedData => {
+    this.getData(atrib).subscribe((pagedData: PaginatedResult<any>) => {
       this.data = pagedData;
       this.loading = false;
     });

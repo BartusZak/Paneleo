@@ -37,7 +37,7 @@ export class ProductAddComponent implements OnInit {
       label: 'Ilość',
       inputType: 'number',
       min: '0',
-      name: 'productQuantity',
+      name: 'quantity',
       validations: [
         {
           name: 'required',
