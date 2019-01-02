@@ -16,6 +16,6 @@ namespace Paneleo.Models.ModelDto.Product
         public string UnitOfMeasure { get; set; }
         public double PricePerUnit { get; set; }
         public double TotalCost { get; set; }
-        public int? ProductId { get; set; }
+        public int? Id { get; set; }
     }
 }

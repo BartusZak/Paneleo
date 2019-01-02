@@ -17,7 +17,8 @@ import { Order } from 'src/app/_models/order';
   styleUrls: ['./order-details.component.css']
 })
 export class OrderDetailsComponent implements OnInit {
-  private order: Order;
+  public order: Order;
+  productsColumns: any;
   constructor(
     private alertify: AlertifyService,
     private orderService: OrderService,
@@ -29,5 +30,31 @@ export class OrderDetailsComponent implements OnInit {
       this.order = data['order'].successResult;
       console.log(data);
     });
+
+    this.productsColumns = [
+      { prop: 'name', name: 'Nazwa', summaryFunc: () => null },
+      { prop: 'unitOfMeasure', name: 'Jm', summaryFunc: () => null },
+      { prop: 'quantity', name: 'Ilość', summaryFunc: () => null },
+      {
+        prop: 'pricePerUnitNetto',
+        name: 'Cena netto',
+        summaryFunc: () => null
+      },
+      {
+        prop: 'pricePerUnitBrutto',
+        name: 'Cena brutto',
+        summaryFunc: () => null
+      },
+      {
+        prop: 'totalCostNetto',
+        name: 'Wartość zamówienia netto',
+        summaryFunc: () => null
+      },
+      {
+        prop: 'totalCostBrutto',
+        name: 'Wartość zamówienia brutto',
+        summaryFunc: () => null
+      }
+    ];
   }
 }

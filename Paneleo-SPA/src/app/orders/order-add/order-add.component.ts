@@ -8,7 +8,7 @@ import { DynamicFormComponent } from 'src/app/_utilis/dynamic-form/dynamic-form.
 import { ContractorService } from 'src/app/_services/Contractor/contractor.service';
 import { AlertifyService } from 'src/app/_services/alertify.service';
 import { OrderService } from 'src/app/_services/Order/order.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-order-add',
   templateUrl: './order-add.component.html',
@@ -54,7 +54,8 @@ export class OrderAddComponent implements OnInit {
     private alertify: AlertifyService,
     private orderService: OrderService,
     private contractorService: ContractorService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {
     this.jstoday = formatDate(this.today, '/MM/yyyy', 'pl-PL', '+0530');
   }
@@ -67,7 +68,8 @@ export class OrderAddComponent implements OnInit {
 
   submit(value: any) {
     this.orderService.addOrder(value).subscribe(
-      () => {
+      data => {
+        this.router.navigate(['/orders', data.successResult.id]);
         this.alertify.success('Dodano nowe zamówienie!');
       },
       error => {

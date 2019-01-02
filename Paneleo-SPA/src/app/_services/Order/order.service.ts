@@ -48,12 +48,16 @@ export class OrderService {
   getOrder(id: string): Observable<SingleResponse<Order>> {
     return this.http.get<SingleResponse<Order>>(this.baseUrl + 'orders/' + id);
   }
+
   getLastOrderDetails(): Observable<Order> {
     return this.http.get<Order>(this.baseUrl + 'orders/LastOrderDetails');
   }
 
   addOrder(order: Order) {
-    return this.http.post(this.baseUrl + 'orders/', order);
+    return this.http.post<SingleResponse<Order>>(
+      this.baseUrl + 'orders/',
+      order
+    );
   }
 
   updateOrder(id: number, order: Order) {

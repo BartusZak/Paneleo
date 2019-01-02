@@ -1,17 +1,42 @@
-<h1>Zamówienie nr {{ order.id }}</h1>
+<h1>Zamówienie nr {{ order.name }}</h1>
+
 <hr />
 
-<div>
-  Kontrahent:
-  <a [routerLink]="['/contractors', order.contractor.id]">{{
-    order.contractor.name
-  }}</a>
-</div>
-
-<div>Wystawiono: {{ order.createdAt | date }}</div>
-
-<div>
-  <div *ngFor="let product of order.products">
-    <a [routerLink]="['/products', product.id]">{{ product.name }}</a>
+<div class="row mb-5">
+  <div class="col-sm-12 col-lg-12">
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-6">
+            <div><label class="col-form-label">Kontrahent:</label></div>
+            <div class="form-control-plaintext">
+              <a [routerLink]="['/contractors', order.contractor.id]">{{
+                order.contractor.name
+              }}</a>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="col-form-label ">Wystawiono dnia:</label>
+              <div class="form-control-plaintext">
+                {{ order.createdAt | date }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
+
+<ngx-datatable
+  class="material"
+  [rows]="order.products"
+  [columns]="productsColumns"
+  [columnMode]="'force'"
+  [headerHeight]="50"
+  [footerHeight]="50"
+  [rowHeight]="'auto'"
+  [messages]="{ emptyMessage: 'Brak produktów.', totalMessage: 'wszystkich' }"
+>
+</ngx-datatable>

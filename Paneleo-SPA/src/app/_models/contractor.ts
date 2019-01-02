@@ -1,5 +1,6 @@
-export class Contractor {
-  id: number;
+import { Entity } from './entity';
+
+export class Contractor extends Entity {
   isCompany: boolean;
   nip: string;
   name: string;

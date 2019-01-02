@@ -109,7 +109,7 @@ namespace Paneleo.Services.Services
             foreach (var product in bindingModelProducts)
             {
                 var productId = (await _productRepository.GetByAsync(x => x.Name == product.Name)).Id;
-                product.ProductId = productId;
+                product.Id = productId;
             }
 
             return bindingModelProducts;
@@ -154,7 +154,7 @@ namespace Paneleo.Services.Services
             var productsFromRepo = (await _productRepository.GetAllAsync()).ToList();
             foreach (var product in bindingModelProducts)
             {
-                if (productsFromRepo.All(w => w.Id != product.ProductId))
+                if (productsFromRepo.All(w => w.Id != product.Id))
                 {
                     response.AddError(Key.Product, Error.ProductNotExist);
                 }
