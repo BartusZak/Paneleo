@@ -62,7 +62,10 @@ namespace Paneleo.Services.Services
             }
 
             response = await _contractorService.AddAsync(bindingModel.Contractor, userId);
-            response.RemoveError(Key.Contractor);
+            if (response.SuccessResult != null)
+            {
+                response.RemoveError(Key.Contractor);
+            }
 
             if (bindingModel.Products != null)
             {

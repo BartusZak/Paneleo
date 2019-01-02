@@ -33,7 +33,6 @@ export class ProductListComponent implements OnInit {
         prop: 'pricePerUnit',
         name: 'Cana za jm',
         cellTemplate: this.genericListComponent.currencyCell,
-        headerTemplate: this.genericListComponent.currencyHeader,
         summaryFunc: () => null
       }
     ];

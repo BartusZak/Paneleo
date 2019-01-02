@@ -3,8 +3,7 @@ import {
   OnInit,
   Input,
   TemplateRef,
-  ViewChild,
-  Output
+  ViewChild
 } from '@angular/core';
 import { PaginatedResult } from 'src/app/_models/pagination';
 
@@ -15,7 +14,7 @@ import { PaginatedResult } from 'src/app/_models/pagination';
 })
 export class GenericListComponent implements OnInit {
   @ViewChild('currencyCell') currencyCell: TemplateRef<any>;
-  @ViewChild('currencyHeader') currencyHeader: TemplateRef<any>;
+  @ViewChild('dateCell') dateCell: TemplateRef<any>;
 
   @Input() getData: any;
   @Input() name: string;

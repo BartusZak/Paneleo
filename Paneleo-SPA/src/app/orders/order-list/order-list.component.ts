@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { OrderService } from 'src/app/_services/Order/order.service';
 import { Router } from '@angular/router';
+import { GenericListComponent } from 'src/app/_utilis/generic-list/generic-list.component';
 
 @Component({
   selector: 'app-order-list',
@@ -8,15 +9,29 @@ import { Router } from '@angular/router';
   styleUrls: ['./order-list.component.css']
 })
 export class OrderListComponent implements OnInit {
-  ordersColumns = [
-    { prop: 'id', summaryFunc: () => null },
-    { prop: 'contractor.name', name: 'Kontrahent', summaryFunc: () => null },
-    { prop: 'createdAt', name: 'Wystawiono dnia', summaryFunc: () => null },
-    { prop: 'totalCost', name: 'Suma', summaryFunc: () => null }
-  ];
+  @ViewChild(GenericListComponent)
+  genericListComponent: GenericListComponent;
+  ordersColumns: any;
   constructor(private orderService: OrderService, private router: Router) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.ordersColumns = [
+      { prop: 'name', name: 'Numer', summaryFunc: () => null },
+      { prop: 'contractor.name', name: 'Kontrahent', summaryFunc: () => null },
+      {
+        prop: 'createdAt',
+        name: 'Wystawiono dnia',
+        cellTemplate: this.genericListComponent.dateCell,
+        summaryFunc: () => null
+      },
+      {
+        prop: 'totalCost',
+        name: 'Suma',
+        cellTemplate: this.genericListComponent.currencyCell,
+        summaryFunc: () => null
+      }
+    ];
+  }
 
   getOrders = atrib => {
     return this.orderService.getOrders(atrib.limit, ++atrib.offset);

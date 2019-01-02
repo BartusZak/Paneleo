@@ -5,10 +5,11 @@ using Paneleo.Models.Model;
 using Paneleo.Models.Model.Contractor;
 using Paneleo.Models.ModelDto.Product;
 
-namespace Paneleo.Models.ModelDto
+namespace Paneleo.Models.ModelDto.Order
 {
     public class OrderDetailedDto : Entity
     {
+        public string Name { get; set; }
         public string Place { get; set; }
         public ContractorDto Contractor { get; set; }
         public ICollection<ProductOrderDto> Products { get; set; }

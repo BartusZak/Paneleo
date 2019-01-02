@@ -1,4 +1,4 @@
-namespace Paneleo.Models.ModelDto
+namespace Paneleo.Models.ModelDto.Order
 {
     public class OrderDto
     {

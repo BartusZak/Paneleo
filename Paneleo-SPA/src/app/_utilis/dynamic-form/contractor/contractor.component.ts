@@ -11,6 +11,7 @@ import { Contractor } from 'src/app/_models/contractor';
 })
 export class ContractorComponent implements OnInit {
   @ViewChild(DynamicFormComponent) form: DynamicFormComponent;
+
   field: FieldConfig;
   group: FormGroup;
   contractor: Contractor;
@@ -89,13 +90,9 @@ export class ContractorComponent implements OnInit {
       label: 'Nr tel.',
       inputType: 'text',
       name: 'phone'
-    },
-    {
-      type: 'button',
-      label: 'Dodaj kontrahenta do zamówienia'
     }
   ];
-
+  formattedMessage: string;
   privatePersonFields: FieldConfig[] = [
     {
       type: 'input',
@@ -158,19 +155,17 @@ export class ContractorComponent implements OnInit {
       label: 'Nr tel.',
       inputType: 'text',
       name: 'phone'
-    },
-    {
-      type: 'button',
-      label: 'Dodaj kontrahenta do zamówienia'
     }
   ];
+
   constructor() {}
 
   ngOnInit() {}
 
-  submit(value: any) {
+  updateContractor = (value: any) => {
     this.group.patchValue({ contractor: value });
-  }
+    // tslint:disable-next-line:semicolon
+  };
 
   handleRadioInputChange() {
     this.isCompany = !this.isCompany;

@@ -1,18 +1,5 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  OnChanges,
-  OnInit,
-  Output,
-  ChangeDetectorRef
-} from '@angular/core';
-import {
-  FormGroup,
-  FormBuilder,
-  Validators,
-  FormControl
-} from '@angular/forms';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { FieldConfig } from 'src/app/_models/field.interface';
 
 @Component({
@@ -24,6 +11,7 @@ import { FieldConfig } from 'src/app/_models/field.interface';
 })
 export class DynamicFormComponent implements OnInit {
   @Input() fields: FieldConfig[] = [];
+  @Input() updateContractor: any;
   @Output() submit: EventEmitter<any> = new EventEmitter<any>();
 
   form: FormGroup;
@@ -31,16 +19,27 @@ export class DynamicFormComponent implements OnInit {
   get value() {
     return this.form.value;
   }
+
   constructor(private fb: FormBuilder) {}
 
   ngOnInit() {
     this.form = this.createControl();
+    this.onChanges();
+  }
+
+  onChanges(): void {
+    this.form.valueChanges.subscribe(val => {
+      if (this.updateContractor) {
+        this.updateContractor(this.form.value);
+      }
+    });
   }
 
   onSubmit(event: Event) {
     event.preventDefault();
     event.stopPropagation();
     if (this.form.valid) {
+      console.log(this.form.value);
       this.submit.emit(this.form.value);
     } else {
       this.validateAllFormFields(this.form);

@@ -26,3 +26,7 @@
 <ng-template #currencyCell let-row="row" let-value="value">
   {{ value | currency: 'PLN':'symbol' }}
 </ng-template>
+
+<ng-template #dateCell let-row="row" let-value="value">
+  {{ value | date }}
+</ng-template>

@@ -29,6 +29,7 @@
     *ngIf="isCompany"
     [fields]="companyFields"
     (submit)="submit($event)"
+    [updateContractor]="updateContractor"
   >
   </dynamic-form>
 </div>
@@ -38,6 +39,7 @@
     *ngIf="!isCompany"
     [fields]="privatePersonFields"
     (submit)="submit($event)"
+    [updateContractor]="updateContractor"
   >
   </dynamic-form>
 </div>
