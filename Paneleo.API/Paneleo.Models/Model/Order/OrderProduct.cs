@@ -9,7 +9,8 @@ namespace Paneleo.Models.Model.Order
     public class OrderProduct :Entity
     {
         public double Quantity { get; set; }
-        public double TotalCost { get; set; }
+        public double TotalNettoCost { get; set; }
+        public double TotalBruttoCost { get; set; }
         public int ProductId { get; set; }
         public Product.Product Product { get; set; }
         public int OrderId { get; set; }

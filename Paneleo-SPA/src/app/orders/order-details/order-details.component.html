@@ -35,8 +35,17 @@
   [columns]="productsColumns"
   [columnMode]="'force'"
   [headerHeight]="50"
-  [footerHeight]="50"
+  [footerHeight]="0"
   [rowHeight]="'auto'"
   [messages]="{ emptyMessage: 'Brak produktów.', totalMessage: 'wszystkich' }"
 >
 </ngx-datatable>
+<div id="total">
+  <div id="total-label"><span>Ogółem</span></div>
+  <div id="total-netto">
+    <span>{{ 34.52 }}</span>
+  </div>
+  <div id="total-brutto">
+    <span>{{ 34.2 | currency: 'PLN':'symbol' }}</span>
+  </div>
+</div>
