@@ -14,8 +14,11 @@ namespace Paneleo.Models.ModelDto.Product
         }
         public double Quantity { get; set; }
         public string UnitOfMeasure { get; set; }
-        public double PricePerUnit { get; set; }
-        public double TotalCost { get; set; }
+        public double Vat { get; set; }
+        public double NetPrice { get; set; }
+        public double GrossPrice { get; set; }
+        public double TotalNetPrice { get; set; }
+        public double TotalGrossPrice { get; set; }
         public int? Id { get; set; }
     }
 }

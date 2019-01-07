@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Paneleo.Data.DatabaseContext;
 
 namespace Paneleo.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190107113214_NetGrossPrices")]
+    partial class NetGrossPrices
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -110,19 +112,19 @@ namespace Paneleo.Data.Migrations
 
                     b.Property<int?>("CreatedById");
 
+                    b.Property<double>("GrossPrice");
+
                     b.Property<DateTime>("ModifiedAt");
 
                     b.Property<int?>("ModifiedById");
+
+                    b.Property<double>("NetPrice");
 
                     b.Property<int>("OrderId");
 
                     b.Property<int>("ProductId");
 
                     b.Property<double>("Quantity");
-
-                    b.Property<double>("TotalGrossPrice");
-
-                    b.Property<double>("TotalNetPrice");
 
                     b.HasKey("Id");
 
@@ -162,7 +164,7 @@ namespace Paneleo.Data.Migrations
 
                     b.Property<string>("UnitOfMeasure");
 
-                    b.Property<double>("Vat");
+                    b.Property<string>("Vat");
 
                     b.HasKey("Id");
 

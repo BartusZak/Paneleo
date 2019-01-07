@@ -1,45 +1,67 @@
-import { Component, OnInit } from "@angular/core";
-import { FormGroup } from "@angular/forms";
-import { FieldConfig } from "src/app/_models/field.interface";
+import { Component, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { FieldConfig } from 'src/app/_models/field.interface';
 @Component({
-  selector: "app-products",
-  templateUrl: "./products.component.html",
-  styleUrls: ["./products.component.css"]
+  selector: 'app-products',
+  templateUrl: './products.component.html',
+  styleUrls: ['./products.component.css']
 })
 export class ProductsComponent implements OnInit {
   field: FieldConfig;
   group: FormGroup;
   editing = {};
-  toPay = 0;
+  totalNetPrice = 0.0;
+  totalGrossPrice = 0.0;
   rows = [];
   constructor() {}
   ngOnInit() {}
 
   updateProductsList = () => {
     this.group.value.products = this.rows;
-    this.group.value.totalCost = this.toPay;
+    this.group.value.totalNetPrice = this.totalNetPrice;
+    this.group.value.totalGrossPrice = this.totalGrossPrice;
     // tslint:disable-next-line:semicolon
   };
 
-  updateTotalPrice = () => {
-    this.toPay = 0;
+  updateTotalPrices = () => {
+    let totalNetPriceTemp = 0.0;
+    let totalGrossPriceTemp = 0.0;
+
     this.rows.forEach(item => {
-      this.toPay = Math.round((item.totalCost + this.toPay) * 100) / 100;
+      totalNetPriceTemp += item.totalNetPrice;
+      totalGrossPriceTemp += item.totalGrossPrice;
     });
+
+    this.totalNetPrice = Math.round(totalNetPriceTemp * 100) / 100;
+    this.totalGrossPrice = Math.round(totalGrossPriceTemp * 100) / 100;
+
     this.updateProductsList();
     // tslint:disable-next-line:semicolon
   };
 
   updateValue(event, cell, rowIndex) {
-    this.editing[rowIndex + "-" + cell] = false;
+    this.editing[rowIndex + '-' + cell] = false;
     this.rows[rowIndex][cell] = event.target.value;
     this.rows = [...this.rows];
 
-    if (cell === "pricePerUnit" || cell === "quantity") {
-      this.rows[rowIndex]["totalCost"] =
-        this.rows[rowIndex]["pricePerUnit"] * this.rows[rowIndex]["quantity"];
+    const netPrice = parseFloat(this.rows[rowIndex]['netPrice']);
+
+    if (cell === 'netPrice' || cell === 'vat') {
+      const vatPrice =
+        Math.round(netPrice * (this.rows[rowIndex]['vat'] / 100) * 100) / 100;
+
+      this.rows[rowIndex]['grossPrice'] = netPrice + vatPrice;
     }
-    this.updateTotalPrice();
+
+    if (cell === 'netPrice' || cell === 'quantity' || cell === 'vat') {
+      this.rows[rowIndex]['totalNetPrice'] =
+        netPrice * this.rows[rowIndex]['quantity'];
+
+      this.rows[rowIndex]['totalGrossPrice'] =
+        this.rows[rowIndex]['grossPrice'] * this.rows[rowIndex]['quantity'];
+    }
+
+    this.updateTotalPrices();
   }
 
   onAddProductToOrderClick = () => {
@@ -47,11 +69,14 @@ export class ProductsComponent implements OnInit {
       ...this.rows,
       {
         id: this.rows.length + 1,
-        name: "Nazwa",
+        name: 'Nazwa',
         quantity: 1,
-        unitOfMeasure: "sztuka",
-        pricePerUnit: 0.0,
-        totalCost: 0.0,
+        unitOfMeasure: 'sztuka',
+        vat: 0,
+        netPrice: 0.0,
+        grossPrice: 0.0,
+        totalNetPrice: 0.0,
+        totalGrossPrice: 0.0,
         productId: null
       }
     ];
@@ -68,7 +93,7 @@ export class ProductsComponent implements OnInit {
       }
     });
     this.rows = rows;
-    this.updateTotalPrice();
+    this.updateTotalPrices();
     // tslint:disable-next-line:semicolon
   };
 }

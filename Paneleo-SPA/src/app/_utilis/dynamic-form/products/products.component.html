@@ -126,9 +126,43 @@
       </ng-template>
     </ngx-datatable-column>
 
-    <ngx-datatable-column name="pricePerUnit" [flexGrow]="2">
+    <ngx-datatable-column name="vat" [flexGrow]="2">
       <ng-template ngx-datatable-header-template>
-        <span>Cena za jednostkę</span>
+        <span>Vat</span>
+      </ng-template>
+      <ng-template
+        ngx-datatable-cell-template
+        let-rowIndex="rowIndex"
+        let-row="row"
+        let-value="value"
+      >
+        <span
+          title="Kliknij, aby edytować"
+          (click)="editing[rowIndex + '-vat'] = true"
+          (dblclick)="editing[rowIndex + '-vat'] = true"
+          *ngIf="!editing[rowIndex + '-vat']"
+          class="container-fluid"
+        >
+          {{ value }}
+        </span>
+        <select
+          *ngIf="editing[rowIndex + '-vat']"
+          (blur)="editing[rowIndex + '-vat'] = false"
+          (change)="updateValue($event, 'vat', rowIndex)"
+          [value]="value"
+          class="w-100"
+        >
+          <option [ngValue]="0">0</option>
+          <option [ngValue]="18">18</option>
+          <option [ngValue]="21">21</option>
+          <option [ngValue]="22">22</option>
+        </select>
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="netPrice" [flexGrow]="2">
+      <ng-template ngx-datatable-header-template>
+        <span>Cena netto</span>
       </ng-template>
       <ng-template
         ngx-datatable-cell-template
@@ -138,16 +172,16 @@
       >
         <span
           title="Kliknij, aby edytować"
-          (click)="editing[rowIndex + '-pricePerUnit'] = true"
-          (dblclick)="editing[rowIndex + '-pricePerUnit'] = true"
-          *ngIf="!editing[rowIndex + '-pricePerUnit']"
+          (click)="editing[rowIndex + '-netPrice'] = true"
+          (dblclick)="editing[rowIndex + '-netPrice'] = true"
+          *ngIf="!editing[rowIndex + '-netPrice']"
         >
           {{ value | currency: 'PLN':'symbol' }}
         </span>
         <input
           autofocus
-          (blur)="updateValue($event, 'pricePerUnit', rowIndex)"
-          *ngIf="editing[rowIndex + '-pricePerUnit']"
+          (blur)="updateValue($event, 'netPrice', rowIndex)"
+          *ngIf="editing[rowIndex + '-netPrice']"
           type="number"
           [value]="value"
           class="w-100"
@@ -155,9 +189,47 @@
       </ng-template>
     </ngx-datatable-column>
 
-    <ngx-datatable-column name="totalCost" [flexGrow]="2">
+    <ngx-datatable-column name="grossPrice" [flexGrow]="2">
       <ng-template ngx-datatable-header-template>
-        <span>Łączna cena</span>
+        <span>Cena brutto</span>
+      </ng-template>
+      <ng-template
+        ngx-datatable-cell-template
+        let-rowIndex="rowIndex"
+        let-value="value"
+        let-row="row"
+      >
+        <span
+          title="Kliknij, aby edytować"
+          (click)="editing[rowIndex + '-grossPrice'] = true"
+          (dblclick)="editing[rowIndex + '-grossPrice'] = true"
+          *ngIf="!editing[rowIndex + '-grossPrice']"
+        >
+          {{ value | currency: 'PLN':'symbol' }}
+        </span>
+        <input
+          autofocus
+          (blur)="updateValue($event, 'grossPrice', rowIndex)"
+          *ngIf="editing[rowIndex + '-grossPrice']"
+          type="number"
+          [value]="value"
+          class="w-100"
+        />
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="totalNetPrice" [flexGrow]="2">
+      <ng-template ngx-datatable-header-template>
+        <span>Wartość zamówienia netto</span>
+      </ng-template>
+      <ng-template ngx-datatable-cell-template let-value="value">
+        {{ value | currency: 'PLN':'symbol' }}
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="totalGrossPrice" [flexGrow]="2">
+      <ng-template ngx-datatable-header-template>
+        <span>Wartość zamówienia brutto</span>
       </ng-template>
       <ng-template ngx-datatable-cell-template let-value="value">
         {{ value | currency: 'PLN':'symbol' }}
@@ -173,6 +245,11 @@
 <div>
   <h2>
     Razem do zapłaty:
-    <span class="text-secondary">{{ toPay | currency: 'PLN':'symbol' }}</span>
+    <span class="text-secondary">{{
+      totalNetPrice | currency: 'PLN':'symbol'
+    }}</span>
+    <span class="text-secondary">{{
+      totalGrossPrice | currency: 'PLN':'symbol'
+    }}</span>
   </h2>
 </div>

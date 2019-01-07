@@ -99,7 +99,7 @@ namespace Paneleo.Services.Services
 
             foreach (var orderProduct in orders)
             {
-                totalOrderValue += orderProduct.TotalCost;
+                totalOrderValue += orderProduct.TotalGrossPrice;
             }
 
             return Math.Round(totalOrderValue * 100)/100;

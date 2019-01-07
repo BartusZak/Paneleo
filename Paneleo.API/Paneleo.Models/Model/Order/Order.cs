@@ -11,7 +11,8 @@ namespace Paneleo.Models.Model.Order
         public int ContractorId { get; set; }
         public virtual Contractor.Contractor Contractor { get; set; }
         public virtual ICollection<OrderProduct> Products { get; set; }
-        public double TotalCost { get; set; }
+        public double NetPrice { get; set; }
+        public double GrossPrice { get; set; }
 
     }
 }

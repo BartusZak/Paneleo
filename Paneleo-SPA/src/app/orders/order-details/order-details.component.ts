@@ -27,33 +27,37 @@ export class OrderDetailsComponent implements OnInit {
 
   ngOnInit() {
     this.route.data.subscribe(data => {
-      this.order = data['order'].successResult;
-      console.log(data);
+      const temp = data['order'].successResult;
+      temp.products.map((i, index) => {
+        i.lp = ++index;
+      });
+      this.order = temp;
+      console.log(this.order);
     });
 
     this.productsColumns = [
-      { prop: 'id', name: 'Lp.', summaryFunc: () => null },
+      { prop: 'lp', name: 'Lp.', summaryFunc: () => null },
       { prop: 'name', name: 'Nazwa', summaryFunc: () => null },
       { prop: 'unitOfMeasure', name: 'Jm', summaryFunc: () => null },
       { prop: 'quantity', name: 'Ilość', summaryFunc: () => null },
       { prop: 'vat', name: 'VAT', summaryFunc: () => null },
       {
-        prop: 'pricePerUnitNetto',
+        prop: 'netPrice',
         name: 'Cena netto',
         summaryFunc: () => null
       },
       {
-        prop: 'pricePerUnitBrutto',
+        prop: 'grossPrice',
         name: 'Cena brutto',
         summaryFunc: () => null
       },
       {
-        prop: 'totalCostNetto',
+        prop: 'totalNetPrice',
         name: 'Wartość zamówienia netto',
         summaryFunc: () => null
       },
       {
-        prop: 'totalCostBrutto',
+        prop: 'totalGrossPrice',
         name: 'Wartość zamówienia brutto',
         summaryFunc: () => null
       }
