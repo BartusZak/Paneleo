@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Paneleo.Data.Migrations
 {
-    public partial class init : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -81,9 +81,11 @@ namespace Paneleo.Data.Migrations
                     ModifiedById = table.Column<int>(nullable: true),
                     Name = table.Column<string>(nullable: true),
                     Brand = table.Column<string>(nullable: true),
-                    ProductQuantity = table.Column<double>(nullable: false),
+                    Quantity = table.Column<double>(nullable: false),
                     UnitOfMeasure = table.Column<string>(nullable: true),
-                    PricePerUnit = table.Column<double>(nullable: false)
+                    Vat = table.Column<double>(nullable: false),
+                    NetPrice = table.Column<double>(nullable: false),
+                    GrossPrice = table.Column<double>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -115,7 +117,8 @@ namespace Paneleo.Data.Migrations
                     Name = table.Column<string>(nullable: true),
                     Place = table.Column<string>(nullable: true),
                     ContractorId = table.Column<int>(nullable: false),
-                    TotalCost = table.Column<double>(nullable: false)
+                    NetPrice = table.Column<double>(nullable: false),
+                    GrossPrice = table.Column<double>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -151,7 +154,8 @@ namespace Paneleo.Data.Migrations
                     CreatedById = table.Column<int>(nullable: true),
                     ModifiedById = table.Column<int>(nullable: true),
                     Quantity = table.Column<double>(nullable: false),
-                    TotalCost = table.Column<double>(nullable: false),
+                    TotalNetPrice = table.Column<double>(nullable: false),
+                    TotalGrossPrice = table.Column<double>(nullable: false),
                     ProductId = table.Column<int>(nullable: false),
                     OrderId = table.Column<int>(nullable: false)
                 },

@@ -21,7 +21,8 @@
         ></i>
       </ng-template>
     </ngx-datatable-column>
-    <ngx-datatable-column name="id" [flexGrow]="1">
+
+    <ngx-datatable-column name="lp" [flexGrow]="1">
       <ng-template ngx-datatable-header-template>
         <span>Lp.</span>
       </ng-template>
@@ -64,7 +65,7 @@
       </div>
     </ngx-datatable-column>
 
-    <ngx-datatable-column name="quantity" [flexGrow]="2">
+    <ngx-datatable-column name="orderQuantity" [flexGrow]="2">
       <ng-template ngx-datatable-header-template>
         <span>Ilość</span>
       </ng-template>
@@ -76,17 +77,17 @@
       >
         <span
           title="Kliknij, aby edytować"
-          (click)="editing[rowIndex + '-quantity'] = true"
-          (dblclick)="editing[rowIndex + '-quantity'] = true"
-          *ngIf="!editing[rowIndex + '-quantity']"
+          (click)="editing[rowIndex + '-orderQuantity'] = true"
+          (dblclick)="editing[rowIndex + '-orderQuantity'] = true"
+          *ngIf="!editing[rowIndex + '-orderQuantity']"
           class="container-fluid"
         >
           {{ value }}
         </span>
         <input
           autofocus
-          (blur)="updateValue($event, 'quantity', rowIndex)"
-          *ngIf="editing[rowIndex + '-quantity']"
+          (blur)="updateValue($event, 'orderQuantity', rowIndex)"
+          *ngIf="editing[rowIndex + '-orderQuantity']"
           type="number"
           [value]="value"
           class="w-100"
@@ -246,10 +247,10 @@
   <h2>
     Razem do zapłaty:
     <span class="text-secondary">{{
-      totalNetPrice | currency: 'PLN':'symbol'
+      netPrice | currency: 'PLN':'symbol'
     }}</span>
     <span class="text-secondary">{{
-      totalGrossPrice | currency: 'PLN':'symbol'
+      grossPrice | currency: 'PLN':'symbol'
     }}</span>
   </h2>
 </div>

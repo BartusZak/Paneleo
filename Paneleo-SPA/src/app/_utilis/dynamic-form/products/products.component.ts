@@ -10,16 +10,16 @@ export class ProductsComponent implements OnInit {
   field: FieldConfig;
   group: FormGroup;
   editing = {};
-  totalNetPrice = 0.0;
-  totalGrossPrice = 0.0;
+  netPrice = 0.0;
+  grossPrice = 0.0;
   rows = [];
   constructor() {}
   ngOnInit() {}
 
   updateProductsList = () => {
     this.group.value.products = this.rows;
-    this.group.value.totalNetPrice = this.totalNetPrice;
-    this.group.value.totalGrossPrice = this.totalGrossPrice;
+    this.group.value.netPrice = this.netPrice;
+    this.group.value.grossPrice = this.grossPrice;
     // tslint:disable-next-line:semicolon
   };
 
@@ -32,8 +32,8 @@ export class ProductsComponent implements OnInit {
       totalGrossPriceTemp += item.totalGrossPrice;
     });
 
-    this.totalNetPrice = Math.round(totalNetPriceTemp * 100) / 100;
-    this.totalGrossPrice = Math.round(totalGrossPriceTemp * 100) / 100;
+    this.netPrice = Math.round(totalNetPriceTemp * 100) / 100;
+    this.grossPrice = Math.round(totalGrossPriceTemp * 100) / 100;
 
     this.updateProductsList();
     // tslint:disable-next-line:semicolon
@@ -53,12 +53,13 @@ export class ProductsComponent implements OnInit {
       this.rows[rowIndex]['grossPrice'] = netPrice + vatPrice;
     }
 
-    if (cell === 'netPrice' || cell === 'quantity' || cell === 'vat') {
+    if (cell === 'netPrice' || cell === 'orderQuantity' || cell === 'vat') {
       this.rows[rowIndex]['totalNetPrice'] =
-        netPrice * this.rows[rowIndex]['quantity'];
+        netPrice * this.rows[rowIndex]['orderQuantity'];
 
       this.rows[rowIndex]['totalGrossPrice'] =
-        this.rows[rowIndex]['grossPrice'] * this.rows[rowIndex]['quantity'];
+        this.rows[rowIndex]['grossPrice'] *
+        this.rows[rowIndex]['orderQuantity'];
     }
 
     this.updateTotalPrices();
@@ -68,16 +69,16 @@ export class ProductsComponent implements OnInit {
     this.rows = [
       ...this.rows,
       {
-        id: this.rows.length + 1,
+        lp: this.rows.length + 1,
         name: 'Nazwa',
-        quantity: 1,
+        orderQuantity: 1,
         unitOfMeasure: 'sztuka',
         vat: 0,
         netPrice: 0.0,
         grossPrice: 0.0,
         totalNetPrice: 0.0,
-        totalGrossPrice: 0.0,
-        productId: null
+        totalGrossPrice: 0.0
+        // id: null
       }
     ];
     this.updateProductsList();

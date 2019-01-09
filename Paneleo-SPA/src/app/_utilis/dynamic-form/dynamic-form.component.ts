@@ -57,7 +57,8 @@ export class DynamicFormComponent implements OnInit {
       );
       group.addControl(field.name, control);
       if (field.name === 'products') {
-        group.addControl('totalCost', control);
+        group.addControl('netCost', control);
+        group.addControl('grossCost', control);
       }
     });
     if (group.controls['orderDate']) {

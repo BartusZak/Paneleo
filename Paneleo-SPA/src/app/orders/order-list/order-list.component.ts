@@ -25,7 +25,7 @@ export class OrderListComponent implements OnInit {
         summaryFunc: () => null
       },
       {
-        prop: 'totalCost',
+        prop: 'grossPrice',
         name: 'Suma',
         cellTemplate: this.genericListComponent.currencyCell,
         summaryFunc: () => null

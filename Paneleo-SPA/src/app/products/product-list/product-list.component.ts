@@ -30,7 +30,7 @@ export class ProductListComponent implements OnInit {
       { prop: 'quantity', name: 'Ilość', summaryFunc: () => null },
       { prop: 'unitOfMeasure', name: 'Jm', summaryFunc: () => null },
       {
-        prop: 'pricePerUnit',
+        prop: 'grossPrice',
         name: 'Cana za jm',
         cellTemplate: this.genericListComponent.currencyCell,
         summaryFunc: () => null

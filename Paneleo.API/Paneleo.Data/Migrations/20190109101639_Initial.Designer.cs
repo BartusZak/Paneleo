@@ -9,8 +9,8 @@ using Paneleo.Data.DatabaseContext;
 namespace Paneleo.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190102052721_ProductModelChange")]
-    partial class ProductModelChange
+    [Migration("20190109101639_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -80,15 +80,17 @@ namespace Paneleo.Data.Migrations
 
                     b.Property<int?>("CreatedById");
 
+                    b.Property<double>("GrossPrice");
+
                     b.Property<DateTime>("ModifiedAt");
 
                     b.Property<int?>("ModifiedById");
 
                     b.Property<string>("Name");
 
-                    b.Property<string>("Place");
+                    b.Property<double>("NetPrice");
 
-                    b.Property<double>("TotalCost");
+                    b.Property<string>("Place");
 
                     b.HasKey("Id");
 
@@ -120,7 +122,9 @@ namespace Paneleo.Data.Migrations
 
                     b.Property<double>("Quantity");
 
-                    b.Property<double>("TotalCost");
+                    b.Property<double>("TotalGrossPrice");
+
+                    b.Property<double>("TotalNetPrice");
 
                     b.HasKey("Id");
 
@@ -146,17 +150,21 @@ namespace Paneleo.Data.Migrations
 
                     b.Property<int?>("CreatedById");
 
+                    b.Property<double>("GrossPrice");
+
                     b.Property<DateTime>("ModifiedAt");
 
                     b.Property<int?>("ModifiedById");
 
                     b.Property<string>("Name");
 
-                    b.Property<double>("PricePerUnit");
+                    b.Property<double>("NetPrice");
 
                     b.Property<double>("Quantity");
 
                     b.Property<string>("UnitOfMeasure");
+
+                    b.Property<double>("Vat");
 
                     b.HasKey("Id");
 

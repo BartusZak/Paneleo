@@ -39,13 +39,122 @@
   [rowHeight]="'auto'"
   [messages]="{ emptyMessage: 'Brak produktów.', totalMessage: 'wszystkich' }"
 >
+  <ngx-datatable-column name="lp" [flexGrow]="1">
+    <ng-template ngx-datatable-header-template> <span>Lp.</span> </ng-template>
+    <ng-template ngx-datatable-cell-template let-value="value">
+      {{ value }}
+    </ng-template>
+  </ngx-datatable-column>
+
+  <ngx-datatable-column name="name" [flexGrow]="3">
+    <ng-template ngx-datatable-header-template>
+      <span>Nazwa</span>
+    </ng-template>
+    <div>
+      <ng-template
+        ngx-datatable-cell-template
+        let-rowIndex="rowIndex"
+        let-value="value"
+        let-row="row"
+        let-style="position: relative"
+        let-id="test"
+      >
+        {{ value }}
+      </ng-template>
+    </div>
+  </ngx-datatable-column>
+
+  <ngx-datatable-column name="orderQuantity" [flexGrow]="2">
+    <ng-template ngx-datatable-header-template>
+      <span>Ilość</span>
+    </ng-template>
+    <ng-template
+      ngx-datatable-cell-template
+      let-rowIndex="rowIndex"
+      let-value="value"
+      let-row="row"
+    >
+      {{ value }}
+    </ng-template>
+  </ngx-datatable-column>
+
+  <ngx-datatable-column name="unitOfMeasure" [flexGrow]="2">
+    <ng-template ngx-datatable-header-template> <span>Jm</span> </ng-template>
+    <ng-template
+      ngx-datatable-cell-template
+      let-rowIndex="rowIndex"
+      let-row="row"
+      let-value="value"
+    >
+      {{ value }}
+    </ng-template>
+  </ngx-datatable-column>
+
+  <ngx-datatable-column name="vat" [flexGrow]="2">
+    <ng-template ngx-datatable-header-template> <span>Vat</span> </ng-template>
+    <ng-template
+      ngx-datatable-cell-template
+      let-rowIndex="rowIndex"
+      let-row="row"
+      let-value="value"
+    >
+      {{ value }}%
+    </ng-template>
+  </ngx-datatable-column>
+
+  <ngx-datatable-column name="netPrice" [flexGrow]="2">
+    <ng-template ngx-datatable-header-template>
+      <span>Cena netto</span>
+    </ng-template>
+    <ng-template
+      ngx-datatable-cell-template
+      let-rowIndex="rowIndex"
+      let-value="value"
+      let-row="row"
+    >
+      {{ value | currency: 'PLN':'symbol' }}
+    </ng-template>
+  </ngx-datatable-column>
+
+  <ngx-datatable-column name="grossPrice" [flexGrow]="2">
+    <ng-template ngx-datatable-header-template>
+      <span>Cena brutto</span>
+    </ng-template>
+    <ng-template
+      ngx-datatable-cell-template
+      let-rowIndex="rowIndex"
+      let-value="value"
+      let-row="row"
+    >
+      {{ value | currency: 'PLN':'symbol' }}
+    </ng-template>
+  </ngx-datatable-column>
+
+  <ngx-datatable-column name="totalNetPrice" [flexGrow]="2">
+    <ng-template ngx-datatable-header-template>
+      <span>Wartość zamówienia netto</span>
+    </ng-template>
+    <ng-template ngx-datatable-cell-template let-value="value">
+      {{ value | currency: 'PLN':'symbol' }}
+    </ng-template>
+  </ngx-datatable-column>
+
+  <ngx-datatable-column name="totalGrossPrice" [flexGrow]="2">
+    <ng-template ngx-datatable-header-template>
+      <span>Wartość zamówienia brutto</span>
+    </ng-template>
+    <ng-template ngx-datatable-cell-template let-value="value">
+      {{ value | currency: 'PLN':'symbol' }}
+    </ng-template>
+  </ngx-datatable-column>
 </ngx-datatable>
+
 <div id="total">
   <div id="total-label"><span>Ogółem</span></div>
   <div id="total-netto">
-    <span>{{ 34.52 }}</span>
+    <span>{{ order.netPrice | currency: 'PLN':'symbol' }}</span>
   </div>
   <div id="total-brutto">
-    <span>{{ 34.2 | currency: 'PLN':'symbol' }}</span>
+    <span>{{ order.grossPrice | currency: 'PLN':'symbol' }}</span>
   </div>
 </div>

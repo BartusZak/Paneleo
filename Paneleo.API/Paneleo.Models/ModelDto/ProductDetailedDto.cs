@@ -8,6 +8,7 @@ namespace Paneleo.Models.ModelDto
         public string Brand { get; set; }
         public double Quantity { get; set; }
         public string UnitOfMeasure { get; set; }
-        public double PricePerUnit { get; set; }
+        public double NetPrice { get; set; }
+        public double GrossPrice { get; set; }
     }
 }

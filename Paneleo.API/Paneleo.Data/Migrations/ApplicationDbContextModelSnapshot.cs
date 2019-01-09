@@ -116,9 +116,9 @@ namespace Paneleo.Data.Migrations
 
                     b.Property<int>("OrderId");
 
-                    b.Property<int>("ProductId");
+                    b.Property<double>("OrderQuantity");
 
-                    b.Property<double>("Quantity");
+                    b.Property<int>("ProductId");
 
                     b.Property<double>("TotalGrossPrice");
 

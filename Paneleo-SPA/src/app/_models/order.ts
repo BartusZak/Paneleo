@@ -7,5 +7,6 @@ export class Order extends Entity {
   place: string;
   contractor: Contractor;
   products: Array<Product>;
-  totalCost: number;
+  netPrice: number;
+  grossPrice: number;
 }

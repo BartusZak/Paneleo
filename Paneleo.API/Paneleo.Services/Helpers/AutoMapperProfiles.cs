@@ -3,6 +3,7 @@ using Paneleo.Models;
 using Paneleo.Models.BindingModel;
 using Paneleo.Models.BindingModel.Contractor;
 using Paneleo.Models.BindingModel.Order;
+using Paneleo.Models.BindingModel.Product;
 using Paneleo.Models.Dtos;
 using Paneleo.Models.Model;
 using Paneleo.Models.Model.Contractor;
@@ -29,14 +30,15 @@ namespace Paneleo.Services.Helpers
             CreateMap<UpdateContractorBindingModel, Contractor>();
             CreateMap<Contractor, ContractorDto>();
 
-            CreateMap<Product,ProductOrderDto>().ReverseMap();
+            CreateMap<Product,AddProductOrderBindingModel>().ReverseMap();
+            CreateMap<Product,DetailsProductOrderDto >();
 
             CreateMap<AddOrderBindingModel, Order>();
+
                 //.ForMember(x => x.ContractorId, x => x.MapFrom(y=>y.ContractorId))
                 //.ForMember(x => x.Products, x=>x.MapFrom(y => y.Products));
 
-            CreateMap<ProductOrderDto, OrderProduct>();
-            //.ForMember(x => x.ProductId, x => x.MapFrom(y => y.ProductId));
+            CreateMap<AddProductOrderBindingModel, OrderProduct>();
 
             //CreateMap<AddOrderBindingModel, Order>().AfterMap((x,y)=>y.OrderProducts = x.Products);
             //CreateMap<AddOrderBindingModel, Order>().ForMember(dest => dest.Products, opt => opt.MapFrom(src=>src.Products));

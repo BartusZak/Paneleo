@@ -39,7 +39,7 @@ export class OrderDetailsComponent implements OnInit {
       { prop: 'lp', name: 'Lp.', summaryFunc: () => null },
       { prop: 'name', name: 'Nazwa', summaryFunc: () => null },
       { prop: 'unitOfMeasure', name: 'Jm', summaryFunc: () => null },
-      { prop: 'quantity', name: 'Ilość', summaryFunc: () => null },
+      { prop: 'orderQuantity', name: 'Ilość', summaryFunc: () => null },
       { prop: 'vat', name: 'VAT', summaryFunc: () => null },
       {
         prop: 'netPrice',

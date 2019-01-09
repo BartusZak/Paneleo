@@ -73,7 +73,12 @@ namespace Paneleo.Services.Services
 
             if (bindingModel.Products != null)
             {
-                await AddNotExistingProductsToDatabaseAsync(bindingModel.Products, user);
+                var productsAddSuccess = await AddNotExistingProductsToDatabaseAsync(bindingModel.Products, user);
+                if (!productsAddSuccess)
+                {
+                    response.AddError(Key.Product, Error.ProductAddError);
+                    return response;
+                }
                 bindingModel.Products = await AssignProductIdToProducts(bindingModel.Products);
             }
 
@@ -104,20 +109,21 @@ namespace Paneleo.Services.Services
             return response;
         }
 
-        private async Task<ICollection<ProductOrderDto>> AssignProductIdToProducts(ICollection<ProductOrderDto> bindingModelProducts)
+        private async Task<ICollection<AddProductOrderBindingModel>> AssignProductIdToProducts(ICollection<AddProductOrderBindingModel> bindingModelProducts)
         {
             foreach (var product in bindingModelProducts)
             {
                 var productId = (await _productRepository.GetByAsync(x => x.Name == product.Name)).Id;
-                product.Id = productId;
+                product.ProductId = productId;
             }
 
             return bindingModelProducts;
         }
 
-        private async Task AddNotExistingProductsToDatabaseAsync(ICollection<ProductOrderDto> bindingModelProducts,
+        private async Task<bool> AddNotExistingProductsToDatabaseAsync(ICollection<AddProductOrderBindingModel> bindingModelProducts,
             User user)
         {
+
             foreach (var product in bindingModelProducts)
             {
                 var productsExists = await _productRepository.ExistAsync(x => x.Name == product.Name);
@@ -126,9 +132,15 @@ namespace Paneleo.Services.Services
                 {
                     var newProduct = _mapper.Map<Product>(product);
                     newProduct.CreatedBy = user;
-                    await _productRepository.AddAsync(newProduct);
+                    var productAddSuccess = await _productRepository.AddAsync(newProduct);
+                    if (!productAddSuccess)
+                    {
+                        return false;
+                    }
                 }
             }
+
+            return true;
         }
 
         private async Task<Response<object>> ValidateBindingModelAsync(AddOrderBindingModel bindingModel)
@@ -149,12 +161,12 @@ namespace Paneleo.Services.Services
             return response;
         }
 
-        private async Task<Response<object>> CheckIfProductsExist(ICollection<ProductOrderDto> bindingModelProducts, Response<object> response)
+        private async Task<Response<object>> CheckIfProductsExist(ICollection<AddProductOrderBindingModel> bindingModelProducts, Response<object> response)
         {
             var productsFromRepo = (await _productRepository.GetAllAsync()).ToList();
             foreach (var product in bindingModelProducts)
             {
-                if (productsFromRepo.All(w => w.Id != product.Id))
+                if (productsFromRepo.All(w => w.Id != product.ProductId))
                 {
                     response.AddError(Key.Product, Error.ProductNotExist);
                 }
@@ -175,9 +187,9 @@ namespace Paneleo.Services.Services
             return response;
         }
 
-        private Response<object> CheckProducts(ICollection<ProductOrderDto> bindingModelProducts)
+        private Response<object> CheckProducts(ICollection<AddProductOrderBindingModel> bindingModelProducts)
         {
-            var productsList = new List<ProductOrderDto>();
+            var productsList = new List<AddProductOrderBindingModel>();
             var response = new Response<object>();
 
             foreach (var product in bindingModelProducts)
@@ -359,9 +371,13 @@ namespace Paneleo.Services.Services
 
             foreach (var product in productIds)
             {
-                var productDto =
-                    _mapper.Map<ProductOrderDto>(await _productRepository.GetByAsync(x => x.Id == product.ProductId));
-                orderDto.Products.Add(productDto);
+                var productTmp = await _productRepository.GetByAsync(x => x.Id == product.ProductId);
+                var productDto = _mapper.Map<DetailsProductOrderDto>(productTmp);
+                productDto.TotalGrossPrice = product.TotalGrossPrice;
+                productDto.TotalNetPrice = product.TotalNetPrice;
+                productDto.OrderQuantity = product.OrderQuantity;
+                
+                orderDto.Products.Add(_mapper.Map<DetailsProductOrderDto>(productDto));
             }
 
             response.SuccessResult = orderDto;

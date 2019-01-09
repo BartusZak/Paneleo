@@ -37,7 +37,7 @@ export class ProductAddComponent implements OnInit {
       label: 'Ilość',
       inputType: 'number',
       min: '0',
-      name: 'quantity',
+      name: 'orderQuantity',
       validations: [
         {
           name: 'required',
@@ -71,7 +71,7 @@ export class ProductAddComponent implements OnInit {
       label: 'Cena za jednostkę',
       inputType: 'number',
       min: '0',
-      name: 'PricePerUnit',
+      name: 'grossPrice',
       validations: [
         {
           name: 'required',

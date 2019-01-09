@@ -4,10 +4,12 @@ export class Product {
   brand: string;
   quantity: number;
   unitOfMeasure: string;
-  pricePerUnit: number;
+  netPrice: number;
+  grossPrice: number;
 }
 
 export class ProductForOrder extends Product {
-  productsQuantity: number;
-  totalCost: number;
+  productQuantity: number;
+  totalNetPrice: number;
+  totalGrossPrice: number;
 }

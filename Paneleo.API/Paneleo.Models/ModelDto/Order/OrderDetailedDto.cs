@@ -12,7 +12,7 @@ namespace Paneleo.Models.ModelDto.Order
         public string Name { get; set; }
         public string Place { get; set; }
         public ContractorDto Contractor { get; set; }
-        public ICollection<ProductOrderDto> Products { get; set; }
+        public ICollection<DetailsProductOrderDto> Products { get; set; }
         public double NetPrice { get; set; }
         public double GrossPrice { get; set; }
     }

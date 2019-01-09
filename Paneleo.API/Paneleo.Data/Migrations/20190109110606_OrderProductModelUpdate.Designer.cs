@@ -9,8 +9,8 @@ using Paneleo.Data.DatabaseContext;
 namespace Paneleo.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190107113214_NetGrossPrices")]
-    partial class NetGrossPrices
+    [Migration("20190109110606_OrderProductModelUpdate")]
+    partial class OrderProductModelUpdate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -112,19 +112,19 @@ namespace Paneleo.Data.Migrations
 
                     b.Property<int?>("CreatedById");
 
-                    b.Property<double>("GrossPrice");
-
                     b.Property<DateTime>("ModifiedAt");
 
                     b.Property<int?>("ModifiedById");
 
-                    b.Property<double>("NetPrice");
-
                     b.Property<int>("OrderId");
+
+                    b.Property<double>("OrderQuantity");
 
                     b.Property<int>("ProductId");
 
-                    b.Property<double>("Quantity");
+                    b.Property<double>("TotalGrossPrice");
+
+                    b.Property<double>("TotalNetPrice");
 
                     b.HasKey("Id");
 
@@ -164,7 +164,7 @@ namespace Paneleo.Data.Migrations
 
                     b.Property<string>("UnitOfMeasure");
 
-                    b.Property<string>("Vat");
+                    b.Property<double>("Vat");
 
                     b.HasKey("Id");
 
