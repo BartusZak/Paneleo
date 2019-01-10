@@ -1,9 +1,12 @@
+using System.IO;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using DinkToPdf.Contracts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Paneleo.Models.BindingModel;
 using Paneleo.Models.BindingModel.Order;
+using Paneleo.Models.Utility;
 using Paneleo.Services.Helpers;
 using Paneleo.Services.Interfaces;
 
@@ -16,12 +19,14 @@ namespace Paneleo.API.Controllers
     public class OrdersController : ControllerBase
     {
         private readonly IPaneleoOrdersService _orderService;
+        private readonly IConverter _converter;
 
-        public OrdersController(IPaneleoOrdersService orderService)
+        public OrdersController(IPaneleoOrdersService orderService, IConverter converter)
         {
             this._orderService = orderService;
+            _converter = converter;
         }
-
+        
         [HttpGet("{orderId}")]
         public async Task<IActionResult> Get(int orderId)
         {
@@ -88,6 +93,20 @@ namespace Paneleo.API.Controllers
                 return BadRequest(result);
             }
             return Ok(result);
+        }
+        [HttpGet("pdf/{orderId}")]
+        public async Task<IActionResult> CreatePdf(int orderId)
+        {
+            var result = await _orderService.CreatePdf(orderId);
+
+            if (result.ErrorOccurred)
+            {
+                return BadRequest(result);
+            }
+
+            var file = _converter.Convert(result.SuccessResult);
+
+            return File(file, "application/pdf", "Zamowienie_"+ orderId + ".pdf");
         }
 
     }

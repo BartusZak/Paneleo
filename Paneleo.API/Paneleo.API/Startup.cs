@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -22,6 +23,8 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using AutoMapper;
+using DinkToPdf;
+using DinkToPdf.Contracts;
 using Paneleo.Data;
 using Paneleo.Data.DatabaseContext;
 using Paneleo.Data.Repository;
@@ -51,6 +54,7 @@ namespace Paneleo.API
                 {
                     opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
                 });
+            services.AddSingleton(typeof(IConverter), new SynchronizedConverter(new PdfTools()));
             services.AddCors();
             services.AddAutoMapper();
             services.AddTransient<Seed>();
@@ -82,6 +86,7 @@ namespace Paneleo.API
                 {
                     opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
                 });
+            services.AddSingleton(typeof(IConverter), new SynchronizedConverter(new PdfTools()));
             services.AddCors();
             services.AddAutoMapper();
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
@@ -120,6 +125,8 @@ namespace Paneleo.API
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, Seed seeder)
         {
+            CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("pl-PL");
+
             if (env.IsDevelopment())
             {
                 app.UseSwagger();

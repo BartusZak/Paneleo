@@ -4,9 +4,13 @@
     <UserSecretsId>b804ce5c-3a5e-4b01-8d5b-566ef8ee93ca</UserSecretsId>
   </PropertyGroup>
   <ItemGroup>
-    <Folder Include="wwwroot\" />
+    <Content Remove="wwwroot\styles.css" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="wwwroot\styles.css" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="DinkToPdf" Version="1.0.8" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="2.1.4" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="5.0.1" />

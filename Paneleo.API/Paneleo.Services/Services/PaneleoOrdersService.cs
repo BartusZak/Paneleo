@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
@@ -19,7 +20,10 @@ using Paneleo.Models.Model.Product;
 using Paneleo.Models.ModelDto;
 using Paneleo.Models.ModelDto.Order;
 using Paneleo.Models.ModelDto.Product;
+using Paneleo.Models.Utility;
 using Paneleo.Services.Interfaces;
+using DinkToPdf;
+using DinkToPdf.Contracts;
 
 namespace Paneleo.Services.Services
 {
@@ -33,11 +37,12 @@ namespace Paneleo.Services.Services
         private readonly IPaneleoRepository _paneleoRepository;
 
         private readonly IMapper _mapper;
+        private readonly IConverter _converter;
 
         private readonly IPaneleoContractorsService _contractorService;
         private readonly IPaneleoProductsService _productsService;
 
-        public PaneleoOrdersService(IRepository<Order> orderRepository, IRepository<OrderProduct> orderProductRepository, IRepository<Contractor> contractorRepository, IRepository<Product> productRepository, IPaneleoContractorsService contractorService, IPaneleoProductsService productsService, IPaneleoRepository paneleoRepository, IMapper mapper)
+        public PaneleoOrdersService(IRepository<Order> orderRepository, IRepository<OrderProduct> orderProductRepository, IRepository<Contractor> contractorRepository, IRepository<Product> productRepository, IPaneleoContractorsService contractorService, IPaneleoProductsService productsService, IPaneleoRepository paneleoRepository, IMapper mapper, IConverter converter)
         {
             _paneleoRepository = paneleoRepository;
             _orderRepository = orderRepository;
@@ -49,6 +54,7 @@ namespace Paneleo.Services.Services
             _productsService = productsService;
 
             _mapper = mapper;
+            _converter = converter;
         }
 
         public async Task<Response<object>> AddAsync(AddOrderBindingModel bindingModel, int userId)
@@ -247,6 +253,88 @@ namespace Paneleo.Services.Services
             }
             return response;
         }
+        public async Task<Response<OrderDetailedDto>> GetAsync(int orderId)
+        {
+            var response = new Response<OrderDetailedDto>();
+
+            if (orderId == 0)
+            {
+                response.AddError(Key.Contractor, Error.ContractorNotExist);
+                return response;
+            }
+
+            var order = (await _orderRepository.GetByAsync(x => x.Id == orderId));
+
+            if (order == null)
+            {
+                response.AddError(Key.Order, Error.OrderNotExist);
+                return response;
+            }
+
+            var orderDto = _mapper.Map<OrderDetailedDto>(order);
+
+            var contractor = await _contractorRepository.GetByAsync(x => x.Id == order.ContractorId);
+
+            orderDto.Contractor = _mapper.Map<ContractorDto>(contractor);
+
+            var productIds = await _orderProductRepository.GetAllByAsync(x => x.OrderId == orderId);
+
+            foreach (var product in productIds)
+            {
+                var productTmp = await _productRepository.GetByAsync(x => x.Id == product.ProductId);
+                var productDto = _mapper.Map<DetailsProductOrderDto>(productTmp);
+                productDto.TotalGrossPrice = product.TotalGrossPrice;
+                productDto.TotalNetPrice = product.TotalNetPrice;
+                productDto.OrderQuantity = product.OrderQuantity;
+
+                orderDto.Products.Add(_mapper.Map<DetailsProductOrderDto>(productDto));
+            }
+
+            response.SuccessResult = orderDto;
+
+            return response;
+        }
+        public async Task<Response<IDocument>> CreatePdf(int orderId)
+        {
+            var response = new Response<IDocument>();
+
+            var getOrderResponse = await GetAsync(orderId);
+
+            if (getOrderResponse.ErrorOccurred)
+            {
+                response.Errors = getOrderResponse.Errors;
+                return response;
+            }
+
+            var order = getOrderResponse.SuccessResult;
+
+            var globalSettings = new GlobalSettings
+            {
+                ColorMode = ColorMode.Color,
+                Orientation = Orientation.Portrait,
+                PaperSize = PaperKind.A4,
+                Margins = new MarginSettings { Top = 10 },
+                DocumentTitle = "Zamowienie_" + order.Name
+            };
+            var objectSettings = new ObjectSettings
+            {
+                PagesCount = true,
+                HtmlContent = TemplateGenerator.GetHTMLString(order),
+                WebSettings = { DefaultEncoding = "utf-8", UserStyleSheet = Path.Combine(Directory.GetCurrentDirectory(), "assets", "orderStyles.css") },
+                //HeaderSettings = { FontName = "Arial", FontSize = 9, Right = "Strona [page] z [toPage]", Line = true },
+                //FooterSettings = { FontName = "Arial", FontSize = 9, Line = true, Center = "Report Footer" }
+            };
+
+            var pdf = new HtmlToPdfDocument()
+            {
+                GlobalSettings = globalSettings,
+                Objects = { objectSettings }
+            };
+
+            response.SuccessResult = pdf;
+
+            return response;
+        }
 
         public async Task<Response<SearchResults<OrderDetailedDto>>> GetAllAsync(SearchParamsBindingModel searchParams)
         {
@@ -343,47 +431,7 @@ namespace Paneleo.Services.Services
             return response;
         }
 
-        public async Task<Response<OrderDetailedDto>> GetAsync(int orderId)
-        {
-            var response = new Response<OrderDetailedDto>();
-
-            if (orderId == 0)
-            {
-                response.AddError(Key.Contractor, Error.ContractorNotExist);
-                return response;
-            }
-
-            var order = (await _orderRepository.GetByAsync(x => x.Id == orderId));
-
-            if (order == null)
-            {
-                response.AddError(Key.Contractor, Error.ContractorNotExist);
-                return response;
-            }
-
-            var orderDto = _mapper.Map<OrderDetailedDto>(order);
-
-            var contractor = await _contractorRepository.GetByAsync(x => x.Id == order.ContractorId);
-
-            orderDto.Contractor = _mapper.Map<ContractorDto>(contractor);
-
-            var productIds = await _orderProductRepository.GetAllByAsync(x => x.OrderId == orderId);
-
-            foreach (var product in productIds)
-            {
-                var productTmp = await _productRepository.GetByAsync(x => x.Id == product.ProductId);
-                var productDto = _mapper.Map<DetailsProductOrderDto>(productTmp);
-                productDto.TotalGrossPrice = product.TotalGrossPrice;
-                productDto.TotalNetPrice = product.TotalNetPrice;
-                productDto.OrderQuantity = product.OrderQuantity;
-                
-                orderDto.Products.Add(_mapper.Map<DetailsProductOrderDto>(productDto));
-            }
-
-            response.SuccessResult = orderDto;
-
-            return response;
-        }
+        
     }
 
 }

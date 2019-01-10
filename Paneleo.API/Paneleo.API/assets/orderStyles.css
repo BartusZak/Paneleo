@@ -1,0 +1,99 @@
+﻿#top {
+    width: 100%;
+    display: inline-block;
+}
+
+#top span {
+    display: inline-block;
+    width: 100%;
+}
+
+#contractor-details {
+    width: 30%;
+    float: left;
+}
+
+#date-top {
+    width: 30%;
+    text-align: right;
+    float: right;
+}
+
+.header {
+    text-align: center;
+    padding-bottom: 25px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.display-contents {
+    display: contents;
+}
+
+.main-table {
+    width: 100%;
+    margin: auto;
+    height: 60%;
+}
+
+.width-24 {
+    width: 24%;
+}
+
+.padding-0 {
+    padding: 0;
+}
+
+.inner-table-cell {
+    min-height: 88px;
+}
+
+.inner-table-cell-border-right {
+    border-right: none;
+    border-top: none;
+    border-bottom: none;
+    width: 50%;
+}
+
+.border-none {
+    border: none;
+    width: 50%;
+}
+
+.overall {
+    text-align: right;
+    border: none;
+    margin-right: 10px;
+}
+
+td,
+th {
+    border: 1px solid gray;
+    padding: 15px;
+    font-size: 22px;
+    text-align: center;
+}
+
+#signatures {
+    width: 100%;
+    margin: auto;
+}
+
+#signatures span {
+    display: inline-block;
+    text-align: center;
+    margin: 10px;
+    font-size: x-large;
+    width: 100%;
+}
+
+.retrieving-order {
+    float: left;
+}
+
+.contractor {
+    float: right;
+}
