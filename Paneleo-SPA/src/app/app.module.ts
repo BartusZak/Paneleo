@@ -63,6 +63,7 @@ import { ProductDetailsComponent } from './products/product-details/product-deta
 import { ProductDetailsResolver } from './_resolvers/product/product-details-resolver';
 import { DashboardService } from './_services/dashboard/dashboard.service';
 import { DashboardResolver } from './_resolvers/dashboard/dashboard-resolver';
+import { OrderOptionComponent } from './orders/order-details/order-option/order-option.component';
 
 registerLocaleData(localePl);
 
@@ -104,7 +105,8 @@ export function tokenGetter() {
     OrderDetailsComponent,
     ContractorDetailsComponent,
     ProductDetailsComponent,
-    LastAddedComponent
+    LastAddedComponent,
+    OrderOptionComponent
   ],
   imports: [
     NgxDatatableModule,

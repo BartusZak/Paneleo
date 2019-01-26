@@ -63,4 +63,8 @@ export class OrderService {
   updateOrder(id: number, order: Order) {
     return this.http.put(this.baseUrl + 'orders/' + id, order);
   }
+
+  printPdf(id: number) {
+    return this.http.get(this.baseUrl + 'orders/pdf/' + id);
+  }
 }

@@ -63,4 +63,16 @@ export class OrderDetailsComponent implements OnInit {
       }
     ];
   }
+
+  onPrintOrderClick = () => {
+    console.log('Siema');
+    // this.orderService.printPdf(this.order.id).subscribe(
+    //   data => {
+    //     console.log(data);
+    //   },
+    //   error => {
+    //     console.log(error);
+    //   }
+    // );
+  };
 }

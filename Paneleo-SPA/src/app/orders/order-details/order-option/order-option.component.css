@@ -1,0 +1,29 @@
+.order-option {
+  border-right: 1px black solid;
+  width: 100px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.order-option span {
+  width: 100%;
+  text-align: center;
+  font-size: smaller;
+  margin-top: -15px;
+}
+
+.order-option:hover {
+  background-color: #0088ff8c;
+  cursor: pointer;
+}
+
+.order-option:hover i {
+  color: white;
+}
+
+.order-option:hover:first {
+  border-radius: 1px 0 0 1px;
+}

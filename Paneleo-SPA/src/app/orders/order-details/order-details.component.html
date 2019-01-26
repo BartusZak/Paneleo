@@ -5,6 +5,22 @@
 <div class="row mb-5">
   <div class="col-sm-12 col-lg-12">
     <div class="card">
+      <div class="card-body" style="padding: 0px;height:50px; display: flex">
+        <!-- <app-order-option (Click)="" [icon]="" [label]=""></app-order-option> -->
+        <app-order-option
+          (click)="onPrintOrderClick()"
+          icon="print"
+          label="Drukuj"
+        ></app-order-option>
+        <app-order-option icon="trash" label="Usuń"></app-order-option>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row mb-5">
+  <div class="col-sm-12 col-lg-12">
+    <div class="card">
       <div class="card-body">
         <div class="row">
           <div class="col-md-6">
