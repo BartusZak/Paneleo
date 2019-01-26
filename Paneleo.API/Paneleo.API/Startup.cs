@@ -48,10 +48,7 @@ namespace Paneleo.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("MSSQLConnection")));
-
-            //services.AddDbContext<ApplicationDbContext>(x => x.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<ApplicationDbContext>(x => x.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
                 .AddJsonOptions(opt =>
                 {
@@ -60,7 +57,7 @@ namespace Paneleo.API
             services.AddSingleton(typeof(IConverter), new SynchronizedConverter(new PdfTools()));
             services.AddCors();
             services.AddAutoMapper();
-            //services.AddTransient<Seed>();
+            services.AddTransient<Seed>();
             services.AddScoped<IAuthRepository, AuthRepository>();
             services.AddScoped<IPaneleoRepository, PaneleoRepository>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -81,11 +78,9 @@ namespace Paneleo.API
 
         public void ConfigureDevelopmentServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("MSSQLConnection")));
             // services.AddDbContext<ApplicationDbContext>(x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("./Data")));
             //services.AddDbContext<ApplicationDbContext>(x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
-            //services.AddDbContext<ApplicationDbContext>(x => x.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<ApplicationDbContext>(x => x.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
                 .AddJsonOptions(opt =>
                 {
@@ -101,7 +96,7 @@ namespace Paneleo.API
             services.AddTransient<IPaneleoContractorsService, PaneleoContractorsService>();
             services.AddTransient<IPaneleoOrdersService, PaneleoOrdersService>();
             services.AddTransient<IPaneleoDashboardService, PaneleoDashboardService>();
-            //services.AddTransient<Seed>();
+            services.AddTransient<Seed>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options =>
             {
@@ -128,7 +123,7 @@ namespace Paneleo.API
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, Seed seeder)
         {
             CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("pl-PL");
 
@@ -160,6 +155,7 @@ namespace Paneleo.API
                 // app.UseHsts();
             }
             // app.UseHttpsRedirection();
+            seeder.SeedUsers();
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             app.UseAuthentication();
             app.UseDefaultFiles();
